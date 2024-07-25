@@ -1,9 +1,9 @@
-import useBind from "../Hooks/Binding.tsx";
+import useWork from "../Hooks/useWork.tsx";
 import { action, initCountState, countReducer } from "./CountWorkFlow.tsx";
 import store from "../Store.tsx";
 
 const Counter = () => {
-  const state = useBind(initCountState, countReducer);
+  const state = useWork(initCountState, countReducer);
 
   function temp1() {
     store.dispatch(action.countUp());
