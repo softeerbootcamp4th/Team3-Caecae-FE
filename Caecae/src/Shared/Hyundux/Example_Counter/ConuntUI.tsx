@@ -1,5 +1,5 @@
 import useWork from "../Hooks/useWork.tsx";
-import { action, initCountState, countReducer } from "./CountWorkFlow.tsx";
+import { action, initCountState, countReducer } from "./CountWork.tsx";
 import store from "../Store.tsx";
 
 const Counter = () => {
