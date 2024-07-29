@@ -1,7 +1,7 @@
 import { createState } from "../State";
 import { makePayLoad } from "../Util/StoreUtil";
 import Reducer from "../Reducer";
-import Action from "../Actions";
+import { Action } from "../Actions";
 
 const WORKFLOW_NAME = "Count";
 
