@@ -9,7 +9,12 @@ interface Position {
 
 const useComponentPosition = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState<Position | null>(null);
+  const [position, setPosition] = useState<Position>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
 
   const handleResize = useCallback(() => {
     if (ref.current) {
@@ -24,14 +29,15 @@ const useComponentPosition = () => {
   }, []);
 
   useEffect(() => {
-    handleResize();
+    handleResize(); // 초기 위치 설정
+
     const observer = new ResizeObserver(() => {
       handleResize();
     });
     if (ref.current) {
       observer.observe(ref.current);
     }
-    window.addEventListener("scroll", handleResize);
+    window.addEventListener("scroll", handleResize); // 스크롤 위치 변경 감지
 
     return () => {
       observer.disconnect();
@@ -39,7 +45,7 @@ const useComponentPosition = () => {
     };
   }, [handleResize]);
 
-  return [ref, position];
+  return [ref, position] as const;
 };
 
 export default useComponentPosition;
