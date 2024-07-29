@@ -2,7 +2,13 @@
 export default {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        navigation: '#1C1A1B',
+        navigationUnderline: '#444444',
+        navigationText: '#888888'
+      }
+    },
   },
   plugins: [],
 }
