@@ -1,8 +1,8 @@
 # 난 대학시절 현대차를 전공했단사실 팀 Front-end
 현대 소프티어 프로젝트 ( 신차 이벤트 프로젝트 )
 # 📁 정리문서
-- [notion](https://www.notion.so/bside/a9af53f019da43c5bd0e0db378d1ab8a?v=392b2231f6c540c7af9981df0ab85d61&pvs=4)
-- [jira](https://pccommen.atlassian.net/jira/software/projects/CC/boards/1)
+- [개발문서 정리](https://www.notion.so/bside/a9af53f019da43c5bd0e0db378d1ab8a?v=392b2231f6c540c7af9981df0ab85d61&pvs=4)
+- [스프린트 관리](https://pccommen.atlassian.net/jira/software/projects/CC/boards/1)
 # 👨‍💻 협업방식
 1. 모든 에픽, 스토리, 테스크, 작업, 브랜치는 jira를 통해 관리한다.
 2. 정기 스크럼을 통해 개발현황을 보고한다.
