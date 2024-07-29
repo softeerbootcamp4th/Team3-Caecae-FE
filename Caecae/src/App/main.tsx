@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./main.css";
-import { Router } from "../Shared/Router/Router.tsx";
-import Routes from "../Shared/Router/Routes.tsx";
-import Route from "../Shared/Router/Route.tsx";
+import { Router } from "../Shared/Hyunouter/Router.tsx";
+import Routes from "../Shared/Hyunouter/Routes.tsx";
+import Route from "../Shared/Hyunouter/Route.tsx";
 import Navigation from '../Widget/Component/Navigation/Navigation.tsx'
 
 // 임시 React component
@@ -15,13 +15,16 @@ const App = () => {
         <Routes>
           <Route 
             path="/mainpage" 
-            element={<div>시작페이지</div>} />
+            element={<div>시작페이지</div>}
+            isFullScreen={false} />
           <Route 
             path="/findcasper" 
-            element={<div>캐스퍼찾기게임</div>} />
+            element={<div>캐스퍼찾기게임</div>}
+            isFullScreen={false} />
           <Route 
             path="/racecasper" 
-            element={<div>315게임</div>} />
+            element={<div>315게임</div>}
+            isFullScreen={false} />
         </Routes>
       </Router>
     </div>
