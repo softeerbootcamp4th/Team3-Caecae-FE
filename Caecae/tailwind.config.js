@@ -9,7 +9,7 @@ export default {
       colors: {
         navigation: '#1C1A1B',
         navigationUnderline: '#444444',
-        navigationText: '#888888'
+        navigationText: '#888888',
         footer: '#1C1A1B',
         footerText: '#888888',
         footerVerticalLine: '#444444',

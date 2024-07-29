@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { RouterContext } from "../../../Shared/Router/Router";
-import Link from "../../../Shared/Router/Link";
+import { RouterContext } from "../../../Shared/Hyunouter/Router";
+import Link from "../../../Shared/Hyunouter/Link";
 
 const Navigation: React.FC = () => {
   const { path } = useContext(RouterContext);
@@ -25,17 +25,19 @@ const Navigation: React.FC = () => {
             }
           `}
         >
-          <Link to="/mainpage" className="h-full flex items-center">
-            <span
-              className={`font-bold ${
-                isActive("/mainpage")
-                  ? "text-white"
-                  : "text-navigationText hover:text-white transition-colors duration-300"
-              }`}
-            >
-              이벤트 소개
-            </span>
-          </Link>
+          <div className="h-full flex items-center">
+            <Link to="/mainpage">
+              <span
+                className={`font-bold ${
+                  isActive("/mainpage")
+                    ? "text-white"
+                    : "text-navigationText hover:text-white transition-colors duration-300"
+                }`}
+              >
+                이벤트 소개
+              </span>
+            </Link>
+          </div>
         </li>
         <li
           className={`h-full flex justify-center items-center px-5 relative
@@ -48,17 +50,19 @@ const Navigation: React.FC = () => {
             }
           `}
         >
-          <Link to="/findcasper" className="h-full flex items-center">
-            <span
-              className={`font-bold ${
-                isActive("/findcasper")
-                  ? "text-white"
-                  : "text-navigationText hover:text-white transition-colors duration-300"
-              }`}
-            >
-              나를 찾아봐
-            </span>
-          </Link>
+          <div className="h-full flex items-center">
+            <Link to="/findcasper">
+              <span
+                className={`font-bold ${
+                  isActive("/findcasper")
+                    ? "text-white"
+                    : "text-navigationText hover:text-white transition-colors duration-300"
+                }`}
+              >
+                나를 찾아봐
+              </span>
+            </Link>
+          </div>
         </li>
         <li
           className={`h-full flex justify-center items-center px-5 relative
@@ -71,17 +75,19 @@ const Navigation: React.FC = () => {
             }
           `}
         >
-          <Link to="/racecasper" className="h-full flex items-center">
-            <span
-              className={`font-bold ${
-                isActive("/racecasper")
-                  ? "text-white"
-                  : "text-navigationText hover:text-white transition-colors duration-300"
-              }`}
-            >
-              전력으로 315Km
-            </span>
-          </Link>
+          <div className="h-full flex items-center">
+            <Link to="/racecasper">
+              <span
+                className={`font-bold ${
+                  isActive("/racecasper")
+                    ? "text-white"
+                    : "text-navigationText hover:text-white transition-colors duration-300"
+                }`}
+              >
+                전력으로 315Km
+              </span>
+            </Link>
+          </div>
         </li>
       </ul>
     </nav>
