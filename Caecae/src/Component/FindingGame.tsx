@@ -7,10 +7,12 @@ import {
 import useWork from "../Shared/Hyundux/Hooks/useWork.tsx";
 import store from "../Shared/Hyundux/Store.tsx";
 import { useEffect } from "react";
+import LottieContainer from "../Widget/LottieContainer/LottieContainter.tsx";
+import correctLottie from "../Shared/assets/animationCorrect.json";
+//import wrongLottie from "../Shared/assets/animationIncorrect.json";
 
 const FindingGame = () => {
   const state = useWork(initFindingGameState, findingGameReducer);
-  //const [elements, setElements] = useState<ReactElement[]>([]);
 
   useEffect(() => {
     store.dispatch(action.init());
@@ -20,30 +22,42 @@ const FindingGame = () => {
     "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202109/01/b57fdda5-3996-430f-8bf2-65052b1d12b2.jpg";
 
   const onClickAction = (y: number, x: number) => {
-    console.log(y, x);
     store.dispatch(action.click(y, x));
   };
 
-  const showingElements = state.showingAnswers.map((answer) => {
+  const showingCorrectElements = state.showingAnswers.map((answer) => {
     return (
-      <p
+      <LottieContainer
         key={answer.id}
-        style={{
-          left: `${answer.x}px`,
-          top: `${answer.y}px`,
-          position: "absolute",
-        }}
-      >
-        asdasdads
-      </p>
+        x={answer.x}
+        y={answer.y}
+        width={200}
+        height={200}
+        jsonFile={correctLottie}
+      />
     );
   });
-  console.log(state.showingAnswers);
+
+  // 틀린 X 들을 가지고 있는 배열
+  // const showingWorngElement = state.showingAnswers.map((y, x) => {
+  //   return (
+  //     <LottieContainer
+  //       key={Math.random()}
+  //       x={x}
+  //       y={y}
+  //       width={200}
+  //       height={200}
+  //       jsonFile={correctLottie}
+  //       onAnimationEnd={forceRerendering}
+  //     />
+  //   );
+  // });
+
   return (
     <div>
       <PictureGameBoard
         imageURL={imgURL}
-        showingElements={showingElements}
+        showingElements={showingCorrectElements}
         onClickAction={onClickAction}
       />
     </div>
@@ -51,16 +65,3 @@ const FindingGame = () => {
 };
 
 export default FindingGame;
-
-// setElements((prev) => {
-//   const newElement: ReactElement = (
-//     <p
-//       key={prev.length}
-//       style={{ left: `${x}px`, top: `${y}px`, position: "absolute" }}
-//     >
-//       asdasdads
-//     </p>
-//   );
-//   const newElements = [...prev, newElement];
-//   return newElements;
-// });
