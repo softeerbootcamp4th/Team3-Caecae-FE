@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { RouterContext } from "../../../Shared/Router/Router";
-import Link from "../../../Shared/Router/Link";
+import { RouterContext } from "../../../Shared/Hyunouter/Router";
+import Link from "../../../Shared/Hyunouter/Link";
 
 const Navigation: React.FC = () => {
   const { path } = useContext(RouterContext);
