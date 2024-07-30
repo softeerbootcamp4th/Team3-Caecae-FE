@@ -9,7 +9,7 @@ import store from "../Shared/Hyundux/Store.tsx";
 import { useEffect } from "react";
 import LottieContainer from "../Widget/LottieContainer/LottieContainter.tsx";
 import correctLottie from "../Shared/assets/animationCorrect.json";
-//import wrongLottie from "../Shared/assets/animationIncorrect.json";
+import wrongLottie from "../Shared/assets/animationIncorrect.json";
 
 const FindingGame = () => {
   const state = useWork(initFindingGameState, findingGameReducer);
@@ -21,7 +21,12 @@ const FindingGame = () => {
   const imgURL =
     "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202109/01/b57fdda5-3996-430f-8bf2-65052b1d12b2.jpg";
 
-  const onClickAction = (y: number, x: number) => {
+  const onClickAction = (
+    width: number,
+    heigjht: number,
+    y: number,
+    x: number
+  ) => {
     store.dispatch(action.click(y, x));
   };
 
@@ -38,26 +43,27 @@ const FindingGame = () => {
     );
   });
 
-  // 틀린 X 들을 가지고 있는 배열
-  // const showingWorngElement = state.showingAnswers.map((y, x) => {
-  //   return (
-  //     <LottieContainer
-  //       key={Math.random()}
-  //       x={x}
-  //       y={y}
-  //       width={200}
-  //       height={200}
-  //       jsonFile={correctLottie}
-  //       onAnimationEnd={forceRerendering}
-  //     />
-  //   );
-  // });
+  const showingWrongElement = state.wrongAnswers.map((wrongAnswer) => {
+    return (
+      <LottieContainer
+        key={wrongAnswer.id}
+        x={wrongAnswer.x}
+        y={wrongAnswer.y}
+        width={200}
+        height={200}
+        jsonFile={wrongLottie}
+        onAnimationEnd={() => {
+          store.dispatch(action.removeWrongAnswer(wrongAnswer.id));
+        }}
+      />
+    );
+  });
 
   return (
     <div>
       <PictureGameBoard
         imageURL={imgURL}
-        showingElements={showingCorrectElements}
+        showingElements={[...showingCorrectElements, ...showingWrongElement]}
         onClickAction={onClickAction}
       />
     </div>
