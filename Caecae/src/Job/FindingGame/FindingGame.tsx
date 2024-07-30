@@ -29,6 +29,7 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
         //  실제로는 여기서 비동기로 answer fetch해야함
         const fetchedAnswers: FindingGameAnswer[] = [
           { id: Math.random(), y: 100, x: 100, imageURL: null, info: null },
+          { id: Math.random(), y: 500, x: 500, imageURL: null, info: null },
         ];
         return makePayLoad(state, { answers: fetchedAnswers });
       }
@@ -46,7 +47,7 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
           ) {
             isCorrect = true;
             showingAnswers.push({
-              id: Math.random(),
+              id: answer.id,
               y: answer.y,
               x: answer.x,
               imageURL: null,

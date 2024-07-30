@@ -13,7 +13,10 @@ export default {
         footer: '#1C1A1B',
         footerText: '#888888',
         footerVerticalLine: '#444444',
-      }
+      },
+      fontFamily: {
+        galmuri: ['Galmuri', 'sans-serif'],
+      },
     },
   },
   plugins: [],
