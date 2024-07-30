@@ -12,6 +12,8 @@ const LottieGame315: React.FC = () => {
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
+
   // 애니메이션 제어를 위한 framer-motion 훅
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
@@ -49,7 +51,7 @@ const LottieGame315: React.FC = () => {
     } 
   };
 
-  // isPaused state에 따른 작동 로직 구현
+  // isPaused state에 따른 작동 로직
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.code === 'Space') {
       event.preventDefault();
@@ -61,7 +63,13 @@ const LottieGame315: React.FC = () => {
     }
   };
 
-  // 2개의 백그라운드 이미지의 width 구하는 로직
+  // 게임 시작 버튼 클릭 시 작동 로직
+  const handleButtonClick = () => {
+    setIsButtonVisible(false);
+    handlePlay();
+  }
+
+  // 2개의 백그라운드 이미지의 width를 구하는 useEffect
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -76,20 +84,13 @@ const LottieGame315: React.FC = () => {
     }
   }, []);
 
-  //
+  // keydown 이벤트 리스너 등록
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isPaused]);
-
-  // 처음 마운트 될 때 게임 플레이
-  useEffect(() => {
-    if (!isPaused) {
-      handlePlay();
-    }
-  }, []);
 
   return (
     <div style={{ position:'relative', width: 1700, height: 500, overflow: 'hidden', border: '1px solid black' }}>
@@ -125,11 +126,11 @@ const LottieGame315: React.FC = () => {
         lottieRef={lottieRef}
         animationData={animationGame315}
         loop={true}
-        autoplay={true}
+        autoplay={false}
         style={{
           position: 'absolute',
           top: 320,
-          left: 100,
+          left: 200,
           width: 300,
           height: "auto",
           zIndex: 3
@@ -145,6 +146,18 @@ const LottieGame315: React.FC = () => {
         }}>
         Press spacebar to {isPaused ? 'play' : 'pause'}
       </p>
+      {/* 임시 게임시작버튼 */}
+      {isButtonVisible && (
+        <button 
+          className='rounded-full absolute z-40 bg-gray-500 p-4 text-white'
+          style={{
+              left: 800,
+              top: 100
+          }} 
+          onClick={handleButtonClick} >
+          Game Start!
+        </button>
+      )}
     </div>
   );
 };
