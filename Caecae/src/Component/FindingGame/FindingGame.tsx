@@ -1,19 +1,17 @@
-import PictureGameBoard from "../Widget/PictureGameBoard/PictureGameBoard";
+import PictureGameBoard from "../../Widget/PictureGameBoard/PictureGameBoard";
 import {
   action,
   initFindingGameState,
-  findingGameReducer,
-} from "../Job/FindingGame/FindingGame.tsx";
-import useWork from "../Shared/Hyundux/Hooks/useWork.tsx";
-import store from "../Shared/Hyundux/Store.tsx";
+} from "../../Job/FindingGame/FindingGame.tsx";
+import store from "../../Shared/Hyundux/Store.tsx";
 import { useEffect } from "react";
-import LottieContainer from "../Widget/LottieContainer/LottieContainter.tsx";
-import correctLottie from "../Shared/assets/animationCorrect.json";
-import wrongLottie from "../Shared/assets/animationIncorrect.json";
+import LottieContainer from "../../Widget/LottieContainer/LottieContainter.tsx";
+import correctLottie from "../../Shared/assets/animationCorrect.json";
+import wrongLottie from "../../Shared/assets/animationIncorrect.json";
+import useExistState from "../../Shared/Hyundux/Hooks/useExistState.tsx";
 
 const FindingGame = () => {
-  const state = useWork(initFindingGameState, findingGameReducer);
-
+  const state = useExistState(initFindingGameState);
   useEffect(() => {
     store.dispatch(action.init());
   }, []);
@@ -30,14 +28,17 @@ const FindingGame = () => {
     store.dispatch(action.click(y, x));
   };
 
+  const lottieWidth = 120;
+  const lottieHeight = 120;
+
   const showingCorrectElements = state.showingAnswers.map((answer) => {
     return (
       <LottieContainer
         key={answer.id}
         x={answer.x}
         y={answer.y}
-        width={200}
-        height={200}
+        width={lottieWidth}
+        height={lottieHeight}
         jsonFile={correctLottie}
       />
     );
@@ -49,8 +50,8 @@ const FindingGame = () => {
         key={wrongAnswer.id}
         x={wrongAnswer.x}
         y={wrongAnswer.y}
-        width={200}
-        height={200}
+        width={lottieWidth}
+        height={lottieHeight}
         jsonFile={wrongLottie}
         onAnimationEnd={() => {
           store.dispatch(action.removeWrongAnswer(wrongAnswer.id));
