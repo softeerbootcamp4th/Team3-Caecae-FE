@@ -4,7 +4,7 @@ import useComponentPosition from "../../Shared/Hooks/useComponentRect";
 interface PictureGameBoardProps {
   imageURL: string;
   showingElements: ReactElement[];
-  onClickAction: (y: number, x: number) => void;
+  onClickAction: (width: number, height: number, y: number, x: number) => void;
 }
 
 const PictureGameBoard = ({
@@ -19,7 +19,7 @@ const PictureGameBoard = ({
       y: event.clientY - position.y,
       x: event.clientX - position.x,
     };
-    onClickAction(y, x);
+    onClickAction(position.width, position.height, y, x);
   };
 
   return (
