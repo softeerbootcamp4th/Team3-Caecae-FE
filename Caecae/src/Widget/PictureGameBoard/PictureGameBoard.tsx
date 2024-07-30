@@ -24,8 +24,16 @@ const PictureGameBoard = ({
 
   return (
     <div ref={ref} onClick={handleClick} className="relative">
-      <div className="z-10 w-full h-full">{showingElements}</div>
-      <img src={imageURL} alt="Finding Picture" className="w-full h-full" />
+      <div className="absolute inset-0 z-20 w-full h-full">
+        {showingElements}
+      </div>
+      <div className="relative w-full h-screen">
+        <img
+          src={imageURL}
+          alt="Finding Picture"
+          className="absolute inset-0 w-full h-full object-cover z-10"
+        />
+      </div>
     </div>
   );
 };
