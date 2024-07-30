@@ -10,11 +10,13 @@ const WORKFLOW_NAME = "FindingGame";
 interface FindingGamePayLoad {
   answers: FindingGameAnswer[];
   showingAnswers: FindingGameAnswer[];
+  wrongAnswers: { id: number; y: number; x: number }[];
 }
 
 const initFindingGameState = createState<FindingGamePayLoad>(WORKFLOW_NAME, {
   answers: [],
   showingAnswers: [],
+  wrongAnswers: [],
 });
 
 // define reducer
@@ -32,14 +34,17 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
       }
       case "click": {
         const actionPayLoad = (action.payload || {}) as {
+          id: number;
           y: number;
           x: number;
         };
         const showingAnswers: FindingGameAnswer[] = [...payLoad.showingAnswers];
+        let isCorrect = false;
         payLoad.answers.forEach((answer) => {
           if (
             calculateRange(answer.y, answer.x, actionPayLoad.y, actionPayLoad.x)
           ) {
+            isCorrect = true;
             showingAnswers.push({
               id: Math.random(),
               y: answer.y,
@@ -49,7 +54,24 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
             });
           }
         });
-        return makePayLoad(state, { showingAnswers: showingAnswers });
+        if (isCorrect) {
+          return makePayLoad(state, { showingAnswers: showingAnswers });
+        } else {
+          const _wrongAnswers: { id: number; y: number; x: number }[] = [
+            ...payLoad.wrongAnswers,
+          ];
+          _wrongAnswers.push(actionPayLoad);
+          return makePayLoad(state, { wrongAnswers: _wrongAnswers });
+        }
+      }
+      case "removeWrongAnswer": {
+        const actionPayLoad = (action.payload || {}) as {
+          id: number;
+        };
+        const _wrongAnswers = payLoad.wrongAnswers.filter(
+          (answer) => answer.id !== actionPayLoad.id
+        );
+        return makePayLoad(state, { wrongAnswers: _wrongAnswers });
       }
       default:
         return state;
@@ -70,8 +92,18 @@ const action = {
       type: WORKFLOW_NAME,
       actionName: "click",
       payload: {
+        id: Math.random(),
         y: y,
         x: x,
+      },
+    };
+  },
+  removeWrongAnswer: (id: number): Action => {
+    return {
+      type: WORKFLOW_NAME,
+      actionName: "removeWrongAnswer",
+      payload: {
+        id: id,
       },
     };
   },
