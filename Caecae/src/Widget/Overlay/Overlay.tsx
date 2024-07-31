@@ -4,16 +4,17 @@ import {
   overlayReducer,
   action,
 } from "../../Job/Overlay/OverlayWork";
-import store from "../../Shared/Hyundux/Store";
 import findChildrenElement from "../../Shared/Util/FindChildrenElement";
 import useWork from "../../Shared/Hyundux/Hooks/useWork";
+import store from "../../Shared/Hyundux/Store";
 
 interface OverLayProps {
   children: ReactNode;
 }
 
 const OverLay: React.FC<OverLayProps> = ({ children }) => {
-  const state = useWork(initOverlayState, overlayReducer);
+  const [state, dispatch] = useWork(initOverlayState, overlayReducer);
+  dispatch;
   const content = findChildrenElement(
     children,
     (element) =>
@@ -32,6 +33,7 @@ const OverLay: React.FC<OverLayProps> = ({ children }) => {
             src="/src/Shared/assets/xButton.svg"
             className="absolute right-10 top-10"
             onClick={() => {
+              // Todo: store 지우기
               store.dispatch(action.toggleOverlay());
             }}
           />

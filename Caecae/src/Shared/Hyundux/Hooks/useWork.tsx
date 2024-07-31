@@ -6,13 +6,12 @@ import Reducer from "../Reducer";
 function useWork<PayLoad>(
   initialState: HState<PayLoad>,
   reducer: Reducer<PayLoad>
-): PayLoad {
+) {
   const [state, setState] = useState<HState<PayLoad>>(initialState);
   store.subscribe(state, reducer, (newState) => {
     setState(newState);
   });
-
-  return state.payload;
+  return [state.payload, store.dispatch] as const;
 }
 
 export default useWork;

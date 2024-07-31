@@ -13,10 +13,15 @@ import EnterContent from "./Enter/EnterContent";
 import store from "../../Shared/Hyundux/Store";
 
 const FindingGamePage = () => {
-  const gameState = useWork(initFindingGameState, findingGameReducer);
+  const [gameState, dispatch] = useWork(
+    initFindingGameState,
+    findingGameReducer
+  );
+  dispatch;
 
   useEffect(() => {
     if (gameState.showingAnswers.length === 2) {
+      // Todo: store 지우기
       store.dispatch(overlayAction.toggleOverlay());
     }
   }, [gameState.showingAnswers.length]);
