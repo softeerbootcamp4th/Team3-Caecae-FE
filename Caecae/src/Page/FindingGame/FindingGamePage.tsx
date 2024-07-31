@@ -11,6 +11,9 @@ import OverLay from "../../Widget/Overlay/Overlay";
 import OverLayContent from "../../Widget/Overlay/OverlayContent";
 import EnterContent from "./Enter/EnterContent";
 import store from "../../Shared/Hyundux/Store";
+import FailContent from "./Enter/FailContent";
+import PhoneNumberOverlay from "../../Component/PhoneNumberOverlay/PhoneNumberOverlay";
+import SuccessEnterContent from "./Enter/SuccessEnterContent";
 
 const FindingGamePage = () => {
   const [gameState, dispatch] = useWork(
@@ -29,18 +32,10 @@ const FindingGamePage = () => {
   return (
     <div className="flex flex-row h-full relative">
       <OverLay>
-        <OverLayContent
-          index={0}
-          element={
-            <EnterContent
-              title="축하합니다."
-              content="캐스퍼 찾기 이벤트에 당첨되셨습니다. 전화번호를 입력하고 쿠폰을 받아가세요"
-              badgeType={1}
-              isWaringTextShowing={true}
-              buttonText="전화번호 입력하러가기"
-            />
-          }
-        />
+        <OverLayContent index={0} element={<EnterContent />} />
+        <OverLayContent index={1} element={<PhoneNumberOverlay />} />
+        <OverLayContent index={2} element={<SuccessEnterContent />} />
+        <OverLayContent index={3} element={<FailContent />} />
       </OverLay>
       <div className="w-[66%] h-full">
         <FindingGame />
