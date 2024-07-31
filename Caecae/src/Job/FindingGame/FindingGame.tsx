@@ -4,7 +4,7 @@ import Reducer from "../../Shared/Hyundux/Reducer";
 import { Action } from "../../Shared/Hyundux/Actions";
 import FindingGameAnswer from "../../Shared/Types/FindingGameAnswer";
 
-const WORKFLOW_NAME = "FindingGame";
+const WORK_NAME = "FindingGame";
 
 // state type
 interface FindingGamePayLoad {
@@ -13,7 +13,7 @@ interface FindingGamePayLoad {
   wrongAnswers: { id: number; y: number; x: number }[];
 }
 
-const initFindingGameState = createState<FindingGamePayLoad>(WORKFLOW_NAME, {
+const initFindingGameState = createState<FindingGamePayLoad>(WORK_NAME, {
   answers: [],
   showingAnswers: [],
   wrongAnswers: [],
@@ -21,7 +21,7 @@ const initFindingGameState = createState<FindingGamePayLoad>(WORKFLOW_NAME, {
 
 // define reducer
 const findingGameReducer: Reducer<FindingGamePayLoad> = {
-  type: WORKFLOW_NAME,
+  type: WORK_NAME,
   reducer: async function reducer(state, action) {
     const payLoad = state.payload;
     switch (action.actionName) {
@@ -84,13 +84,13 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
 const action = {
   init: (): Action => {
     return {
-      type: WORKFLOW_NAME,
+      type: WORK_NAME,
       actionName: "init",
     };
   },
   click: (y: number, x: number): Action => {
     return {
-      type: WORKFLOW_NAME,
+      type: WORK_NAME,
       actionName: "click",
       payload: {
         id: Math.random(),
@@ -101,7 +101,7 @@ const action = {
   },
   removeWrongAnswer: (id: number): Action => {
     return {
-      type: WORKFLOW_NAME,
+      type: WORK_NAME,
       actionName: "removeWrongAnswer",
       payload: {
         id: id,
