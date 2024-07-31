@@ -12,15 +12,15 @@ const SmileBadge = ({
   badgeType,
 }: SmileBadgeProps) => {
   const badgeTypeList = [
-    "blue",
-    "orange",
-    "yellow",
-    "yellow_wink",
-    "white",
-    "blue_line",
-    "orange_line",
-    "yellow_line",
-    "orange_sad",
+    "blue", // 0
+    "orange", // 1
+    "yellow", // 2
+    "yellow_wink", // 3
+    "white", // 4
+    "blue_line", // 5
+    "orange_line", // 6
+    "yellow_line", // 7
+    "orange_sad", // 8
   ];
   const getImageSrc =
     "/src/Shared/assets/" + badgeTypeList[badgeType] + "Badge.svg";
