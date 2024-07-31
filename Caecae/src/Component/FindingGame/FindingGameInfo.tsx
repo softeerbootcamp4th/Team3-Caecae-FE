@@ -111,6 +111,11 @@ const FindingGameInfo = () => {
             {badges}
           </div>
         </div>
+        {state.showingHint.length != 0 ? (
+          <div className="flex justify-center items-center">
+            <img src="/src/Shared/assets/hintTalk.svg" alt="hintTalk" />
+          </div>
+        ) : null}
       </div>
     </>
   );
