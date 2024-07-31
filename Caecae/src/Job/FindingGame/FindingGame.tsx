@@ -4,24 +4,28 @@ import Reducer from "../../Shared/Hyundux/Reducer";
 import { Action } from "../../Shared/Hyundux/Actions";
 import FindingGameAnswer from "../../Shared/Types/FindingGameAnswer";
 
-const WORKFLOW_NAME = "FindingGame";
+const WORK_NAME = "FindingGame";
 
 // state type
 interface FindingGamePayLoad {
+  hintIntervalId: NodeJS.Timeout | null;
   answers: FindingGameAnswer[];
   showingAnswers: FindingGameAnswer[];
   wrongAnswers: { id: number; y: number; x: number }[];
+  showingHint: FindingGameAnswer[];
 }
 
-const initFindingGameState = createState<FindingGamePayLoad>(WORKFLOW_NAME, {
+const initFindingGameState = createState<FindingGamePayLoad>(WORK_NAME, {
+  hintIntervalId: null,
   answers: [],
   showingAnswers: [],
   wrongAnswers: [],
+  showingHint: [],
 });
 
 // define reducer
 const findingGameReducer: Reducer<FindingGamePayLoad> = {
-  type: WORKFLOW_NAME,
+  type: WORK_NAME,
   reducer: async function reducer(state, action) {
     const payLoad = state.payload;
     switch (action.actionName) {
@@ -31,6 +35,7 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
           { id: Math.random(), y: 100, x: 100, imageURL: null, info: null },
           { id: Math.random(), y: 500, x: 500, imageURL: null, info: null },
         ];
+
         return makePayLoad(state, { answers: fetchedAnswers });
       }
       case "click": {
@@ -56,7 +61,10 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
           }
         });
         if (isCorrect) {
-          return makePayLoad(state, { showingAnswers: showingAnswers });
+          return makePayLoad(state, {
+            showingAnswers: showingAnswers,
+            showingHint: [],
+          });
         } else {
           const _wrongAnswers: { id: number; y: number; x: number }[] = [
             ...payLoad.wrongAnswers,
@@ -74,6 +82,19 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
         );
         return makePayLoad(state, { wrongAnswers: _wrongAnswers });
       }
+      case "showHint": {
+        if (state.payload.showingAnswers.length < 2) {
+          const idsInAnswers = new Set(
+            state.payload.showingAnswers.map((item) => item.id)
+          );
+          const newHints = state.payload.answers.filter(
+            (item) => !idsInAnswers.has(item.id)
+          );
+          const newShowingHints = [newHints[0]];
+          return makePayLoad(state, { showingHint: newShowingHints });
+        }
+        return state;
+      }
       default:
         return state;
     }
@@ -84,13 +105,13 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
 const action = {
   init: (): Action => {
     return {
-      type: WORKFLOW_NAME,
+      type: WORK_NAME,
       actionName: "init",
     };
   },
   click: (y: number, x: number): Action => {
     return {
-      type: WORKFLOW_NAME,
+      type: WORK_NAME,
       actionName: "click",
       payload: {
         id: Math.random(),
@@ -101,11 +122,17 @@ const action = {
   },
   removeWrongAnswer: (id: number): Action => {
     return {
-      type: WORKFLOW_NAME,
+      type: WORK_NAME,
       actionName: "removeWrongAnswer",
       payload: {
         id: id,
       },
+    };
+  },
+  showHint: (): Action => {
+    return {
+      type: WORK_NAME,
+      actionName: "showHint",
     };
   },
 };
