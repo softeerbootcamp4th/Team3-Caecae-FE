@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
 
 interface EnterContentProps {
