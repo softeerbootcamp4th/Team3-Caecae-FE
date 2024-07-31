@@ -5,11 +5,7 @@ import {
   findingGameReducer,
   initFindingGameState,
 } from "../../Job/FindingGame/FindingGame";
-import {
-  initOverlayState,
-  overlayReducer,
-  action as overlayAction,
-} from "../../Job/Overlay/OverlayWork";
+import { action as overlayAction } from "../../Job/Overlay/OverlayWork";
 import useWork from "../../Shared/Hyundux/Hooks/useWork";
 import OverLay from "../../Widget/Overlay/Overlay";
 import OverLayContent from "../../Widget/Overlay/OverlayContent";
@@ -18,9 +14,6 @@ import store from "../../Shared/Hyundux/Store";
 
 const FindingGamePage = () => {
   const gameState = useWork(initFindingGameState, findingGameReducer);
-  const overlayState = useWork(initOverlayState, overlayReducer);
-  gameState;
-  overlayState;
 
   useEffect(() => {
     if (gameState.showingAnswers.length === 2) {

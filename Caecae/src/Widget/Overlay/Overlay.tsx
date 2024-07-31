@@ -1,15 +1,19 @@
 import React, { ReactNode } from "react";
-import { initOverlayState, action } from "../../Job/Overlay/OverlayWork";
+import {
+  initOverlayState,
+  overlayReducer,
+  action,
+} from "../../Job/Overlay/OverlayWork";
 import store from "../../Shared/Hyundux/Store";
 import findChildrenElement from "../../Shared/Util/FindChildrenElement";
-import useExistState from "../../Shared/Hyundux/Hooks/useExistState";
+import useWork from "../../Shared/Hyundux/Hooks/useWork";
 
 interface OverLayProps {
   children: ReactNode;
 }
 
 const OverLay: React.FC<OverLayProps> = ({ children }) => {
-  const state = useExistState(initOverlayState);
+  const state = useWork(initOverlayState, overlayReducer);
   const content = findChildrenElement(
     children,
     (element) =>
