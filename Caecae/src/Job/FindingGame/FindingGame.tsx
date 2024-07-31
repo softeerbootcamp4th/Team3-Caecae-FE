@@ -8,15 +8,19 @@ const WORK_NAME = "FindingGame";
 
 // state type
 interface FindingGamePayLoad {
+  hintIntervalId: NodeJS.Timeout | null;
   answers: FindingGameAnswer[];
   showingAnswers: FindingGameAnswer[];
   wrongAnswers: { id: number; y: number; x: number }[];
+  showingHint: FindingGameAnswer[];
 }
 
 const initFindingGameState = createState<FindingGamePayLoad>(WORK_NAME, {
+  hintIntervalId: null,
   answers: [],
   showingAnswers: [],
   wrongAnswers: [],
+  showingHint: [],
 });
 
 // define reducer
@@ -31,6 +35,7 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
           { id: Math.random(), y: 100, x: 100, imageURL: null, info: null },
           { id: Math.random(), y: 500, x: 500, imageURL: null, info: null },
         ];
+
         return makePayLoad(state, { answers: fetchedAnswers });
       }
       case "click": {
@@ -56,7 +61,10 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
           }
         });
         if (isCorrect) {
-          return makePayLoad(state, { showingAnswers: showingAnswers });
+          return makePayLoad(state, {
+            showingAnswers: showingAnswers,
+            showingHint: [],
+          });
         } else {
           const _wrongAnswers: { id: number; y: number; x: number }[] = [
             ...payLoad.wrongAnswers,
@@ -73,6 +81,19 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
           (answer) => answer.id !== actionPayLoad.id
         );
         return makePayLoad(state, { wrongAnswers: _wrongAnswers });
+      }
+      case "showHint": {
+        if (state.payload.showingAnswers.length < 2) {
+          const idsInAnswers = new Set(
+            state.payload.showingAnswers.map((item) => item.id)
+          );
+          const newHints = state.payload.answers.filter(
+            (item) => !idsInAnswers.has(item.id)
+          );
+          const newShowingHints = [newHints[0]];
+          return makePayLoad(state, { showingHint: newShowingHints });
+        }
+        return state;
       }
       default:
         return state;
@@ -106,6 +127,12 @@ const action = {
       payload: {
         id: id,
       },
+    };
+  },
+  showHint: (): Action => {
+    return {
+      type: WORK_NAME,
+      actionName: "showHint",
     };
   },
 };
