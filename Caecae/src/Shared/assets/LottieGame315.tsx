@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
-import Lottie from 'lottie-react';
-import { motion, useAnimation } from 'framer-motion';
-import animationGame315 from './animationGame315.json';
-import frontBackground from './frontBackground.svg';
-import rearBackground from './rearBackground.svg';
+import React, { useRef, useState, useEffect } from "react";
+import Lottie from "lottie-react";
+import { motion, useAnimation } from "framer-motion";
+import animationGame315 from "./animationGame315.json";
+import frontBackground from "./frontBackground.svg";
+import rearBackground from "./rearBackground.svg";
 
 const LottieGame315: React.FC = () => {
   const lottieRef = useRef(null);
@@ -30,12 +30,12 @@ const LottieGame315: React.FC = () => {
       // 부드럽게 멈추는 로직
       frontAnimationControls.start({
         x: currentFrontX - 500, // 현재 위치에서 보이는 부분만큼 이동
-        transition: { duration: 1, ease: 'easeOut' }, // 1초 동안 부드럽게 멈춤
+        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
       });
 
       rearAnimationControls.start({
         x: currentRearX - 500, // 현재 위치에서 보이는 부분만큼 이동
-        transition: { duration: 1, ease: 'easeOut' }, // 1초 동안 부드럽게 멈춤
+        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
       });
     }
   };
@@ -53,7 +53,7 @@ const LottieGame315: React.FC = () => {
 
   // isPaused state에 따른 작동 로직
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.code === 'Space') {
+    if (event.code === "Space") {
       event.preventDefault();
       if (isPaused) {
         handlePlay();
@@ -67,7 +67,7 @@ const LottieGame315: React.FC = () => {
   const handleButtonClick = () => {
     setIsButtonVisible(false);
     handlePlay();
-  }
+  };
 
   // 2개의 백그라운드 이미지의 width를 구하는 useEffect
   useEffect(() => {
@@ -86,24 +86,24 @@ const LottieGame315: React.FC = () => {
 
   // keydown 이벤트 리스너 등록
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isPaused]);
 
   return (
-    <div style={{ position:'relative', width: 1700, height: 500, overflow: 'hidden', border: '1px solid black' }}>
+    <div style={{ position:"relative", width: 1700, height: 500, overflow: "hidden", border: "1px solid black", marginTop: 50 }}>
       <motion.div
         ref={rearRef}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
           width: `${rearBackgroundWidth}px`,
-          height: '500px',
+          height: "500px",
           backgroundImage: `url(${rearBackground})`,
-          backgroundSize: 'auto 100%',
+          backgroundSize: "auto 100%",
           zIndex: 1
         }}
         animate={rearAnimationControls}
@@ -111,13 +111,13 @@ const LottieGame315: React.FC = () => {
       <motion.div
         ref={frontRef}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
           width: `${frontBackgroundWidth}px`,
-          height: '500px',
+          height: "500px",
           backgroundImage: `url(${frontBackground})`,
-          backgroundSize: 'auto 100%',
+          backgroundSize: "auto 100%",
           zIndex: 2
         }}
         animate={frontAnimationControls}
@@ -128,7 +128,7 @@ const LottieGame315: React.FC = () => {
         loop={true}
         autoplay={false}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 320,
           left: 200,
           width: 300,
@@ -138,48 +138,48 @@ const LottieGame315: React.FC = () => {
       />
       <p
         style={{
-          position: 'absolute',
+          position: "absolute",
           bottom: 0,
           left: 10,
-          color: '#000000',
+          color: "#000000",
           zIndex: 4
         }}>
-        Press spacebar to {isPaused ? 'play' : 'pause'}
+        Press spacebar to {isPaused ? "play" : "pause"}
       </p>
       {isButtonVisible ? (
         <div 
-          className='absolute z-40 flex flex-col items-center justify-center'
+          className="absolute z-40 flex flex-col items-center justify-center"
           style={{
             left: 700,
             top: 70
           }}>
-          <div className='font-bold text-xl mb-2'>CASPER ELECTRIC</div>
-          <div className='font-bold text-xl mb-2'>전력으로...!</div>
-          <div className='mt-2'>
+          <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
+          <div className="font-bold text-xl mb-2">전력으로...!</div>
+          <div className="mt-2">
             <button 
               style={{
                   width: 300,
                   height: 55
               }} 
               onClick={handleButtonClick} >
-                <img src='src/Shared/assets/gameStartBtn.svg' alt='gameStartBtn'/>
+                <img src="src/Shared/assets/gameStartBtn.svg" alt="gameStartBtn"/>
             </button>
           </div>
         </div>
         
       ) : (
         <div 
-          className='absolute z-40 flex flex-col items-center justify-center'
+          className="absolute z-40 flex flex-col items-center justify-center"
           style={{
-            left: 60,
+            left: 650,
             top: 70
           }}>
-          <div className='font-bold text-xl mb-2'>Game Score</div>
-          <div className='font-bold text-xl mb-2'>199.911 KM</div>
-          <div className='mt-2 flex flex-row items-center justify-center'>
-            <div className='font-bold text-xl mr-2'>stop :</div>
-            <div className='ml-2'>
-              <img src='src/Shared/assets/spacebarBtn.svg' alt='spacebarBtn' />
+          <div className="font-bold text-xl mb-2">Game Score</div>
+          <div className="font-bold text-xl mb-2">199.911 KM</div>
+          <div className="mt-2 flex flex-row items-center justify-center">
+            <div className="font-bold text-xl mr-2">stop :</div>
+            <div className="ml-2">
+              <img src="src/Shared/assets/spacebarBtn.svg" alt="spacebarBtn" />
             </div>
           </div>
         </div>
