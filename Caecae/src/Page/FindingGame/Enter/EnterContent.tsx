@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
+import store from "../../../Shared/Hyundux/Store";
+import { action } from "../../../Job/Overlay/OverlayWork.tsx";
 
 interface EnterContentProps {
   title: string;
@@ -49,6 +51,7 @@ const EnterContent = ({
       const intervalId = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
+            store.dispatch(action.toggleOverlay());
             clearInterval(intervalId);
             return 0;
           }
