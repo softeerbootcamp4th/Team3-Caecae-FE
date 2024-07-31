@@ -146,17 +146,43 @@ const LottieGame315: React.FC = () => {
         }}>
         Press spacebar to {isPaused ? 'play' : 'pause'}
       </p>
-      {/* 임시 게임시작버튼 */}
-      {isButtonVisible && (
-        <button 
-          className='rounded-full absolute z-40 bg-gray-500 p-4 text-white'
+      {isButtonVisible ? (
+        <div 
+          className='absolute z-40 flex flex-col items-center justify-center'
           style={{
-              left: 800,
-              top: 100
-          }} 
-          onClick={handleButtonClick} >
-          Game Start!
-        </button>
+            left: 700,
+            top: 70
+          }}>
+          <div className='font-bold text-xl mb-2'>CASPER ELECTRIC</div>
+          <div className='font-bold text-xl mb-2'>전력으로...!</div>
+          <div className='mt-2'>
+            <button 
+              style={{
+                  width: 300,
+                  height: 55
+              }} 
+              onClick={handleButtonClick} >
+                <img src='src/Shared/assets/gameStartBtn.svg' alt='gameStartBtn'/>
+            </button>
+          </div>
+        </div>
+        
+      ) : (
+        <div 
+          className='absolute z-40 flex flex-col items-center justify-center'
+          style={{
+            left: 60,
+            top: 70
+          }}>
+          <div className='font-bold text-xl mb-2'>Game Score</div>
+          <div className='font-bold text-xl mb-2'>199.911 KM</div>
+          <div className='mt-2 flex flex-row items-center justify-center'>
+            <div className='font-bold text-xl mr-2'>stop :</div>
+            <div className='ml-2'>
+              <img src='src/Shared/assets/spacebarBtn.svg' alt='spacebarBtn' />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
