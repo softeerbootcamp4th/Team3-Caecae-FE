@@ -7,12 +7,12 @@ import rearBackground from "./rearBackground.svg";
 
 const LottieGame315: React.FC = () => {
   const lottieRef = useRef(null);
-  const [isPaused, setIsPaused] = useState(false);
-  const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
-  const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
-  const [isButtonVisible, setIsButtonVisible] = useState(true);
+  const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
+  const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
+  const [gameStatus, setGameStatus] = useState<string>("previous");
+  const [paused, setPaused] = useState(false);
   const [distance, setDistance] = useState<number>(0);
 
   // 모션 값을 사용하여 frontBackground의 x 위치 추적
@@ -22,7 +22,7 @@ const LottieGame315: React.FC = () => {
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
  
-  // 게임 기록을 위한 단위 변환
+  // 게임 기록을 위한 단위 변환(315km 지점까지 애니메이션 이동거리가 8500)
   const conversionUnit = 8500 / 315;
 
   // 이동한 km를 구하는 함수
@@ -36,51 +36,58 @@ const LottieGame315: React.FC = () => {
   const handlePause = () => {
     if (lottieRef.current) {
       (lottieRef.current as any).pause();
-      setIsPaused(true);
+      setPaused(true);
+
       // 현재 위치 가져오기 (getBoundingClientRect 사용)
       const currentFrontX = frontRef.current?.getBoundingClientRect().x || 0;
       const currentRearX = rearRef.current?.getBoundingClientRect().x || 0;
 
       // 부드럽게 멈추는 로직
       frontAnimationControls.start({
-        x: currentFrontX - 500, // 현재 위치에서 보이는 부분만큼 이동
-        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
+        x: currentFrontX - 500, // 현재 위치에서 500 만큼 더 이동
+        transition: { duration: 1, ease: "easeOut" } // 1초 동안 부드럽게 멈춤
       });
 
+      // 부드럽게 멈추는 로직
       rearAnimationControls.start({
-        x: currentRearX - 500, // 현재 위치에서 보이는 부분만큼 이동
-        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
+        x: currentRearX - 500, // 현재 위치에서 500 만큼 더 이동
+        transition: { duration: 1, ease: "easeOut" } // 1초 동안 부드럽게 멈춤
       });
     }
   };
 
-  // 게임 시작 로직
-  const handlePlay = () => {
-    if (lottieRef.current) {
-      (lottieRef.current as any).play();
-      setIsPaused(false);
- 
-      frontAnimationControls.start({ x: [0,  -10000], transition: { duration: 7, repeat: 0 } });
-      rearAnimationControls.start({ x: [0, -5000], transition: { duration: 7, repeat: 0 } });
-    } 
-  };
-
-  // isPaused state에 따른 작동 로직
+  // 스페이스 바를 눌렀을 때 작동 로직
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.code === "Space") {
+    if(event.code === "Space") {
       event.preventDefault();
-      if (isPaused) {
-        handlePlay();
-      } else {
+      if(!paused) {
         handlePause();
+        setGameStatus("end");
       }
     }
   };
 
-  // 게임 시작 버튼 클릭 시 작동 로직
-  const handleButtonClick = () => {
-    setIsButtonVisible(false);
-    handlePlay();
+  // 게임 시작 시 작동 로직
+  const handlePlayGame = () => {
+    setGameStatus("playing");
+
+    if (lottieRef.current) {
+      (lottieRef.current as any).play();
+      setPaused(false);
+ 
+      frontAnimationControls.start({
+        x: [0,  -10000],
+        transition: { duration: 7, repeat: 0 }
+      }).then(() => {
+        setGameStatus("end");
+        setPaused(true);
+      });
+
+      rearAnimationControls.start({
+        x: [0, -5000],
+        transition: { duration: 7, repeat: 0 }
+      });
+    }
   };
 
   // 2개의 백그라운드 이미지의 width를 구하는 useEffect
@@ -104,7 +111,7 @@ const LottieGame315: React.FC = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isPaused]);
+  }, [paused]);
 
   // 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산하는 useEffect
   useEffect(() => {
@@ -114,6 +121,62 @@ const LottieGame315: React.FC = () => {
 
     return () => unsubscribeFrontX();
   }, [frontX]);
+
+  const gameContent = () => {
+    switch(gameStatus) {
+      case "previous":
+        return (
+          <div className="absolute left-[700px] top-[70px] z-40 flex flex-col items-center justify-center">
+            <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
+            <div className="font-bold text-xl mb-2">전력으로...!</div>
+            <div className="mt-2">
+              <button 
+                className=""
+                onClick={handlePlayGame} >
+                  <img className="w-[300px] h-[55px]" src="src/Shared/assets/gameStartBtn.svg" alt="gameStartBtn" />
+              </button>
+            </div>
+          </div>
+        );
+      case "playing":
+        return (
+          <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
+            <div className="font-bold text-xl mb-2">Game Score</div>
+            <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+            <div className="flex flex-row items-center justify-center mt-2">
+              <div className="font-bold text-xl mr-2">stop :</div>
+              <div className="ml-2">
+                <img src="src/Shared/assets/spacebarBtn.svg" alt="spacebarBtn" />
+              </div>
+            </div>
+          </div>
+        );
+      case "end":
+        return (
+          <div className="absolute left-[630px] top-[70px] z-40 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
+              <div className="font-bold text-xl mb-2">Game Score</div>
+              <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+            </div>
+            <div className="flex flex-row items-center justify-center mt-2 space-x-4">
+              <button
+                className=""
+                // onClick={}
+                >
+                <img className="h-[50px]" src="src/Shared/assets/enterEventBtn.svg" alt="enterEventBtn" />
+              </button>
+              <button
+                className=""
+                onClick={handlePlayGame} >
+                <img className="h-[50px]" src="src/Shared/assets/retryBtn.svg" alt="retryBtn" />
+              </button>
+            </div>
+          </div>
+        )
+      default:
+        return null;
+    }
+  }
 
   return (
     <div className="relative w-[1700px] h-[500px] overflow-hidden border border-black mt-[50px]">
@@ -143,31 +206,7 @@ const LottieGame315: React.FC = () => {
         autoplay={false}
         className="absolute top-[320px] left-[200px] w-[300px] h-auto z-[3]"
       />
-      {isButtonVisible ? (
-        <div className="absolute left-[700px] top-[70px] z-40 flex flex-col items-center justify-center">
-          <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
-          <div className="font-bold text-xl mb-2">전력으로...!</div>
-          <div className="mt-2">
-            <button 
-              className="w-[300px] h-[55px]"
-              onClick={handleButtonClick} >
-                <img src="src/Shared/assets/gameStartBtn.svg" alt="gameStartBtn"/>
-            </button>
-          </div>
-        </div>
-        
-      ) : (
-        <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
-          <div className="font-bold text-xl mb-2">Game Score</div>
-          <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
-          <div className="mt-2 flex flex-row items-center justify-center">
-            <div className="font-bold text-xl mr-2">stop :</div>
-            <div className="ml-2">
-              <img src="src/Shared/assets/spacebarBtn.svg" alt="spacebarBtn" />
-            </div>
-          </div>
-        </div>
-      )}
+      {gameContent()}
     </div>
   );
 };
