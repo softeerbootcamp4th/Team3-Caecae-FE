@@ -113,32 +113,22 @@ const LottieGame315: React.FC = () => {
   }, [frontBackgroundWidth, frontX]);
 
   return (
-    <div style={{ position:"relative", width: 1700, height: 500, overflow: "hidden", border: "1px solid black", marginTop: 50 }}>
+    <div className="relative w-[1700px] h-[500px] overflow-hidden border border-black mt-[50px]">
       <motion.div
         ref={rearRef}
+        className="absolute top-0 left-0 h-[500px] bg-[auto_100%] z-[1]"
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
           width: `${rearBackgroundWidth}px`,
-          height: "500px",
-          backgroundImage: `url(${rearBackground})`,
-          backgroundSize: "auto 100%",
-          zIndex: 1
+          backgroundImage: `url(${rearBackground})`
         }}
         animate={rearAnimationControls}
       />
       <motion.div
         ref={frontRef}
+        className="absolute top-0 left-0 h-[500px] bg-[auto_100%] z-[2]"
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
           width: `${frontBackgroundWidth}px`,
-          height: "500px",
           backgroundImage: `url(${frontBackground})`,
-          backgroundSize: "auto 100%",
-          zIndex: 2,
           x: frontX
         }}
         animate={frontAnimationControls}
@@ -148,40 +138,19 @@ const LottieGame315: React.FC = () => {
         animationData={animationGame315}
         loop={true}
         autoplay={false}
-        style={{
-          position: "absolute",
-          top: 320,
-          left: 200,
-          width: 300,
-          height: "auto",
-          zIndex: 3
-        }}
+        className="absolute top-[320px] left-[200px] w-[300px] h-auto z-[3]"
       />
       <p
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 10,
-          color: "#000000",
-          zIndex: 4
-        }}>
+        className="absolute bottom-0 left-[10px] text-black z-[4]">
         Press spacebar to {isPaused ? "play" : "pause"}
       </p>
       {isButtonVisible ? (
-        <div 
-          className="absolute z-40 flex flex-col items-center justify-center"
-          style={{
-            left: 700,
-            top: 70
-          }}>
+        <div className="absolute left-[700px] top-[70px] z-40 flex flex-col items-center justify-center">
           <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
           <div className="font-bold text-xl mb-2">전력으로...!</div>
           <div className="mt-2">
             <button 
-              style={{
-                  width: 300,
-                  height: 55
-              }} 
+              className="w-[300px] h-[55px]"
               onClick={handleButtonClick} >
                 <img src="src/Shared/assets/gameStartBtn.svg" alt="gameStartBtn"/>
             </button>
@@ -189,12 +158,7 @@ const LottieGame315: React.FC = () => {
         </div>
         
       ) : (
-        <div 
-          className="absolute z-40 flex flex-col items-center justify-center"
-          style={{
-            left: 650,
-            top: 70
-          }}>
+        <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
           <div className="font-bold text-xl mb-2">Game Score</div>
           <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
           <div className="mt-2 flex flex-row items-center justify-center">
