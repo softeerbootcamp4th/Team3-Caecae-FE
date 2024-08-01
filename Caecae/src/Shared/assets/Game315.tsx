@@ -5,7 +5,7 @@ import animationGame315 from "./animationGame315.json";
 import frontBackground from "./frontBackground.svg";
 import rearBackground from "./rearBackground.svg";
 
-const LottieGame315: React.FC = () => {
+const Game315: React.FC = () => {
   const lottieRef = useRef(null);
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
@@ -211,4 +211,4 @@ const LottieGame315: React.FC = () => {
   );
 };
 
-export default LottieGame315;
+export default Game315;
