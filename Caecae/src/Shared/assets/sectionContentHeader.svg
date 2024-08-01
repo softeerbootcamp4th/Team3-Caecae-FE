@@ -1,0 +1,22 @@
+<svg width="1438" height="92" viewBox="0 0 1438 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="6" width="1426" height="6" fill="white"/>
+<rect y="6" width="12" height="6" fill="white"/>
+<rect width="12" height="6" transform="matrix(-1 0 0 1 1438 6)" fill="white"/>
+<path d="M84 18H140V74H84V18Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M1354 74H1298V18H1354V74Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M18 18H74V74H18V18Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M1420 74H1364V18H1420V74Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M150 18H206V74H150V18Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M1288 74H1232V18H1288V74Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M216 18H272V74H216V18Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M1222 74H1166V18H1222V74Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M282 18H338V74H282V18Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M1156 74H1100V18H1156V74Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M348 18H395.104L373.9 74H348V18Z" fill="white" stroke="white" stroke-width="4"/>
+<path d="M1090 74H1042.9L1064.1 18H1090V74Z" fill="white" stroke="white" stroke-width="4"/>
+<rect x="6" y="86" width="1426" height="6" fill="white"/>
+<rect y="80" width="12" height="12" fill="white"/>
+<rect width="12" height="12" transform="matrix(-1 0 0 1 1438 80)" fill="white"/>
+<rect x="6" y="6" width="80" height="6" transform="rotate(90 6 6)" fill="white"/>
+<rect x="1438" y="6" width="80" height="6" transform="rotate(90 1438 6)" fill="white"/>
+</svg>
