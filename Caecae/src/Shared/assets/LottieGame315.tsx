@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Lottie from "lottie-react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useMotionValue } from "framer-motion";
 import animationGame315 from "./animationGame315.json";
 import frontBackground from "./frontBackground.svg";
 import rearBackground from "./rearBackground.svg";
@@ -13,10 +13,22 @@ const LottieGame315: React.FC = () => {
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
   const [isButtonVisible, setIsButtonVisible] = useState(true);
+  const [distance, setDistance] = useState<number>(0);
+
+  // 모션 값을 사용하여 frontBackground의 x 위치 추적
+  const frontX = useMotionValue(0);
 
   // 애니메이션 제어를 위한 framer-motion 훅
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
+ 
+  const conversionUnit = 8500 / 315;
+
+  const calculateDistance = (x: number) => {
+    const totalDistance = Math.abs(x);
+    const distanceInKM =  totalDistance / conversionUnit;
+    setDistance(distanceInKM);
+  };
 
   // 스페이스바 눌렀을 때 멈추는 로직
   const handlePause = () => {
@@ -46,8 +58,8 @@ const LottieGame315: React.FC = () => {
       (lottieRef.current as any).play();
       setIsPaused(false);
  
-      frontAnimationControls.start({ x: [0, -10100], transition: { duration: 7, repeat: 0 } });
-      rearAnimationControls.start({ x: [0, -5000], transition: { duration: 7 , repeat: 0 } });
+      frontAnimationControls.start({ x: [0,  -10000], transition: { duration: 7, repeat: 0 } });
+      rearAnimationControls.start({ x: [0, -5000], transition: { duration: 7, repeat: 0 } });
     } 
   };
 
@@ -92,6 +104,14 @@ const LottieGame315: React.FC = () => {
     };
   }, [isPaused]);
 
+  useEffect(() => {
+    const unsubscribeFrontX = frontX.onChange((latest) => {
+      calculateDistance(latest);
+    });
+
+    return () => unsubscribeFrontX();
+  }, [frontBackgroundWidth, frontX]);
+
   return (
     <div style={{ position:"relative", width: 1700, height: 500, overflow: "hidden", border: "1px solid black", marginTop: 50 }}>
       <motion.div
@@ -118,7 +138,8 @@ const LottieGame315: React.FC = () => {
           height: "500px",
           backgroundImage: `url(${frontBackground})`,
           backgroundSize: "auto 100%",
-          zIndex: 2
+          zIndex: 2,
+          x: frontX
         }}
         animate={frontAnimationControls}
       />
@@ -175,7 +196,7 @@ const LottieGame315: React.FC = () => {
             top: 70
           }}>
           <div className="font-bold text-xl mb-2">Game Score</div>
-          <div className="font-bold text-xl mb-2">199.911 KM</div>
+          <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
           <div className="mt-2 flex flex-row items-center justify-center">
             <div className="font-bold text-xl mr-2">stop :</div>
             <div className="ml-2">
