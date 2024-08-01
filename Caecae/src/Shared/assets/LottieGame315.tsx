@@ -110,7 +110,7 @@ const LottieGame315: React.FC = () => {
     });
 
     return () => unsubscribeFrontX();
-  }, [frontBackgroundWidth, frontX]);
+  }, [frontX]);
 
   return (
     <div className="relative w-[1700px] h-[500px] overflow-hidden border border-black mt-[50px]">
@@ -140,10 +140,6 @@ const LottieGame315: React.FC = () => {
         autoplay={false}
         className="absolute top-[320px] left-[200px] w-[300px] h-auto z-[3]"
       />
-      <p
-        className="absolute bottom-0 left-[10px] text-black z-[4]">
-        Press spacebar to {isPaused ? "play" : "pause"}
-      </p>
       {isButtonVisible ? (
         <div className="absolute left-[700px] top-[70px] z-40 flex flex-col items-center justify-center">
           <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
