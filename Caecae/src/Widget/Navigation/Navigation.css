@@ -1,26 +1,9 @@
 .header {
-  display: flex;
-  align-items: center;
-  padding-left: 2rem;
   z-index: 1000;
   /* 다른 요소들 위에 오도록 z-index 설정 */
   position: fixed;
   transition: transform 0.3s ease;
   /* transform 속성에 대한 전환 효과 */
-}
-
-.logo {
-  width: 12rem;
-}
-
-.icon1 {
-  width: 3rem;
-  height: 1.5rem;
-}
-
-.icon2 {
-  width: 2rem;
-  height: 1.1rem;
 }
 
 .navbar {
@@ -31,7 +14,6 @@
 }
 
 .navbarMenu {
-  margin: 5rem;
   text-decoration: none;
   color: rgb(0, 0, 0);
   transition: color 0.3s ease;

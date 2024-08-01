@@ -55,7 +55,7 @@ const Navigation: React.FC = () => {
             }
           `}
         >
-          <div className="h-full flex items-center ">
+          <div className="h-full flex items-center">
             <Link to="/mainpage">
               <span
                 className={`font-bold ${
