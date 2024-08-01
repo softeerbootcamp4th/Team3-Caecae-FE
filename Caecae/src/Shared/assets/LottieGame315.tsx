@@ -22,8 +22,10 @@ const LottieGame315: React.FC = () => {
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
  
+  // 게임 기록을 위한 단위 변환
   const conversionUnit = 8500 / 315;
 
+  // 이동한 km를 구하는 함수
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
     const distanceInKM =  totalDistance / conversionUnit;
@@ -104,6 +106,7 @@ const LottieGame315: React.FC = () => {
     };
   }, [isPaused]);
 
+  // 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산하는 useEffect
   useEffect(() => {
     const unsubscribeFrontX = frontX.onChange((latest) => {
       calculateDistance(latest);
