@@ -15,40 +15,40 @@ const Game315: React.FC = () => {
   const [paused, setPaused] = useState(false);
   const [distance, setDistance] = useState<number>(0);
 
-  // 모션 값을 사용하여 frontBackground의 x 위치 추적
+  /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */ 
   const frontX = useMotionValue(0);
 
-  // 애니메이션 제어를 위한 framer-motion 훅
+  /** 애니메이션 제어를 위한 framer-motion 훅 */
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
  
-  // 게임 기록을 위한 단위 변환(315km 지점까지 애니메이션 이동거리가 8500)
+  /** 게임 기록을 위한 단위 변환(315km 지점까지 애니메이션 이동거리가 8500) */
   const conversionUnit = 8500 / 315;
 
-  // 이동한 km를 구하는 함수
+  /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
-    const distanceInKM =  totalDistance / conversionUnit;
+    const distanceInKM = totalDistance / conversionUnit;
     setDistance(distanceInKM);
   };
 
-  // 스페이스바 눌렀을 때 멈추는 로직
+  /** 스페이스바 눌렀을 때 멈추는 로직 */
   const handlePause = () => {
     if (lottieRef.current) {
       (lottieRef.current as any).pause();
       setPaused(true);
 
-      // 현재 위치 가져오기 (getBoundingClientRect 사용)
+      /** 현재 위치 가져오기 (getBoundingClientRect 사용) */
       const currentFrontX = frontRef.current?.getBoundingClientRect().x || 0;
       const currentRearX = rearRef.current?.getBoundingClientRect().x || 0;
 
-      // 부드럽게 멈추는 로직
+      /** 부드럽게 멈추는 로직 */
       frontAnimationControls.start({
         x: currentFrontX - 500, // 현재 위치에서 500 만큼 더 이동
         transition: { duration: 1, ease: "easeOut" } // 1초 동안 부드럽게 멈춤
       });
 
-      // 부드럽게 멈추는 로직
+      /** 부드럽게 멈추는 로직 */
       rearAnimationControls.start({
         x: currentRearX - 500, // 현재 위치에서 500 만큼 더 이동
         transition: { duration: 1, ease: "easeOut" } // 1초 동안 부드럽게 멈춤
@@ -56,7 +56,7 @@ const Game315: React.FC = () => {
     }
   };
 
-  // 스페이스 바를 눌렀을 때 작동 로직
+  /** 스페이스 바를 눌렀을 때 작동 로직 */
   const handleKeyDown = (event: KeyboardEvent) => {
     if(event.code === "Space") {
       event.preventDefault();
@@ -67,7 +67,7 @@ const Game315: React.FC = () => {
     }
   };
 
-  // 게임 시작 시 작동 로직
+  /** 게임 시작 시 작동 로직 */
   const handlePlayGame = () => {
     setGameStatus("playing");
 
@@ -90,7 +90,7 @@ const Game315: React.FC = () => {
     }
   };
 
-  // 2개의 백그라운드 이미지의 width를 구하는 useEffect
+  /** 2개의 백그라운드 이미지의 width를 구하는 useEffect */
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -105,7 +105,7 @@ const Game315: React.FC = () => {
     }
   }, []);
 
-  // keydown 이벤트 리스너 등록
+  /** keydown 이벤트 리스너 등록 */
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -113,7 +113,7 @@ const Game315: React.FC = () => {
     };
   }, [paused]);
 
-  // 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산하는 useEffect
+  /** 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산하는 useEffect */
   useEffect(() => {
     const unsubscribeFrontX = frontX.onChange((latest) => {
       calculateDistance(latest);
