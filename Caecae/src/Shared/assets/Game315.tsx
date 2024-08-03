@@ -4,6 +4,9 @@ import { motion, useAnimation, useMotionValue } from "framer-motion";
 import animationGame315 from "./animationGame315.json";
 import frontBackground from "./frontBackground.svg";
 import rearBackground from "./rearBackground.svg";
+import { action, initGameStatusState, game315Reducer} from "../../Job/RacingGame/RacingGame"
+import useWork from "../Hyundux/Hooks/useWork.tsx";
+import store from "../Hyundux/Store.tsx";
 
 const Game315: React.FC = () => {
   const lottieRef = useRef(null);
@@ -11,8 +14,9 @@ const Game315: React.FC = () => {
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
-  const [gameStatus, setGameStatus] = useState<string>("previous");
   const [distance, setDistance] = useState<number>(0);
+  // const [gameStatus, setGameStatus] = useState<string>("previous");
+  const state = useWork(initGameStatusState, game315Reducer);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */ 
   const frontX = useMotionValue(0);
@@ -60,13 +64,15 @@ const Game315: React.FC = () => {
       event.preventDefault();
 
       handleSmoothlyStop();
-      setGameStatus("end");
+      // setGameStatus("end");
+      store.dispatch(action.gameEnd());
     }
   };
 
   /** 게임 시작 시 작동 로직 */
   const handlePlayGame = () => {
-    setGameStatus("playing");
+    // setGameStatus("playing");
+    store.dispatch(action.gameStart());
 
     if (lottieRef.current) {
       (lottieRef.current as any).play();
@@ -76,7 +82,8 @@ const Game315: React.FC = () => {
         transition: { duration: 7, repeat: 0 }
       }).then(() => {
         (lottieRef.current as any).pause();
-        setGameStatus("end");
+        // setGameStatus("end");
+        store.dispatch(action.gameEnd());
       });
 
       rearAnimationControls.start({
@@ -103,7 +110,7 @@ const Game315: React.FC = () => {
 
   /** keydown 이벤트 리스너 등록 */
   useEffect(() => {
-    if (gameStatus === "playing") {
+    if (state.gameStatus === "playing") {
       document.addEventListener("keydown", handleSpacebar);
     } else {
       document.removeEventListener("keydown", handleSpacebar);
@@ -111,7 +118,7 @@ const Game315: React.FC = () => {
     return () => {
       document.removeEventListener("keydown", handleSpacebar);
     };
-  }, [gameStatus]);
+  }, [state.gameStatus]);
 
   /** 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산 */
   useEffect(() => {
@@ -124,7 +131,7 @@ const Game315: React.FC = () => {
 
   /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
   const gameContent = () => {
-    switch(gameStatus) {
+    switch(state.gameStatus) {
       case "previous":
         return (
           <div className="absolute left-[700px] top-[70px] z-40 flex flex-col items-center justify-center">
@@ -183,7 +190,7 @@ const Game315: React.FC = () => {
   }
 
   const gameMenu = () => {
-    switch(gameStatus) {
+    switch(state.gameStatus) {
       case "previous":
         return (
           <div className="absolute right-[50px] top-[30px] z-40">
