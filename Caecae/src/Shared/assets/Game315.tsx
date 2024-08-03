@@ -157,7 +157,10 @@ const Game315: React.FC = () => {
           <div className="absolute left-[630px] top-[70px] z-40 flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center">
               <div className="font-bold text-xl mb-2">Game Score</div>
-              <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+              <div className="flex flex-row space-x-2">
+                <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+                <div className="font-bold text-xl">상위 1%</div>
+              </div>
             </div>
             <div className="flex flex-row items-center justify-center mt-2 space-x-4">
               <button
