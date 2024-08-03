@@ -12,7 +12,6 @@ const Game315: React.FC = () => {
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const [gameStatus, setGameStatus] = useState<string>("previous");
-  const [paused, setPaused] = useState(false);
   const [distance, setDistance] = useState<number>(0);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */ 
@@ -36,7 +35,6 @@ const Game315: React.FC = () => {
   const handlePause = () => {
     if (lottieRef.current) {
       (lottieRef.current as any).pause();
-      setPaused(true);
 
       /** 현재 위치 가져오기 (getBoundingClientRect 사용) */
       const currentFrontX = frontRef.current?.getBoundingClientRect().x || 0;
@@ -60,10 +58,9 @@ const Game315: React.FC = () => {
   const handleKeyDown = (event: KeyboardEvent) => {
     if(event.code === "Space") {
       event.preventDefault();
-      if(!paused) {
-        handlePause();
-        setGameStatus("end");
-      }
+
+      handlePause();
+      setGameStatus("end");
     }
   };
 
@@ -73,14 +70,12 @@ const Game315: React.FC = () => {
 
     if (lottieRef.current) {
       (lottieRef.current as any).play();
-      setPaused(false);
  
       frontAnimationControls.start({
         x: [0,  -10000],
         transition: { duration: 7, repeat: 0 }
       }).then(() => {
         setGameStatus("end");
-        setPaused(true);
       });
 
       rearAnimationControls.start({
@@ -107,11 +102,15 @@ const Game315: React.FC = () => {
 
   /** keydown 이벤트 리스너 등록 */
   useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
+    if (gameStatus === "playing") {
+      document.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.removeEventListener("keydown", handleKeyDown);
+    }
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [paused]);
+  }, [gameStatus]);
 
   /** 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산하는 useEffect */
   useEffect(() => {
