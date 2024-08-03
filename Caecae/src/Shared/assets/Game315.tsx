@@ -31,7 +31,7 @@ const Game315: React.FC = () => {
     setDistance(distanceInKM);
   };
 
-  /** 스페이스바 눌렀을 때 멈추는 로직 */
+  /** 스페이스바를 눌렀을 때 멈추는 로직 */
   const handleSmoothlyStop = () => {
     if (lottieRef.current) {
       (lottieRef.current as any).pause();
@@ -85,7 +85,7 @@ const Game315: React.FC = () => {
     }
   };
 
-  /** 2개의 백그라운드 이미지의 width를 구하는 useEffect */
+  /** 2개의 백그라운드 이미지의 width를 구하는 로직 */
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -112,7 +112,7 @@ const Game315: React.FC = () => {
     };
   }, [gameStatus]);
 
-  /** 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산하는 useEffect */
+  /** 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산 */
   useEffect(() => {
     const unsubscribeFrontX = frontX.onChange((latest) => {
       calculateDistance(latest);
@@ -121,6 +121,7 @@ const Game315: React.FC = () => {
     return () => unsubscribeFrontX();
   }, [frontX]);
 
+  /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
   const gameContent = () => {
     switch(gameStatus) {
       case "previous":
