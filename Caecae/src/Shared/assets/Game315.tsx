@@ -32,7 +32,7 @@ const Game315: React.FC = () => {
   };
 
   /** 스페이스바 눌렀을 때 멈추는 로직 */
-  const handlePause = () => {
+  const handleSmoothlyStop = () => {
     if (lottieRef.current) {
       (lottieRef.current as any).pause();
 
@@ -55,11 +55,11 @@ const Game315: React.FC = () => {
   };
 
   /** 스페이스 바를 눌렀을 때 작동 로직 */
-  const handleKeyDown = (event: KeyboardEvent) => {
+  const handleSpacebar = (event: KeyboardEvent) => {
     if(event.code === "Space") {
       event.preventDefault();
 
-      handlePause();
+      handleSmoothlyStop();
       setGameStatus("end");
     }
   };
@@ -103,12 +103,12 @@ const Game315: React.FC = () => {
   /** keydown 이벤트 리스너 등록 */
   useEffect(() => {
     if (gameStatus === "playing") {
-      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("keydown", handleSpacebar);
     } else {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleSpacebar);
     }
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleSpacebar);
     };
   }, [gameStatus]);
 
