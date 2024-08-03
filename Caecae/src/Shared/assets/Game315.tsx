@@ -21,8 +21,8 @@ const Game315: React.FC = () => {
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
  
-  /** 게임 기록을 위한 단위 변환(315km 지점까지 애니메이션 이동거리가 8500) */
-  const conversionUnit = 8500 / 315;
+  /** 게임 기록을 위한 단위 변환(315km 지점까지 애니메이션 이동거리가 11990) */
+  const conversionUnit = 11990 / 315;
 
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
@@ -72,7 +72,7 @@ const Game315: React.FC = () => {
       (lottieRef.current as any).play();
  
       frontAnimationControls.start({
-        x: [0,  -10000],
+        x: [0,  -14000],
         transition: { duration: 7, repeat: 0 }
       }).then(() => {
         (lottieRef.current as any).pause();
@@ -80,7 +80,7 @@ const Game315: React.FC = () => {
       });
 
       rearAnimationControls.start({
-        x: [0, -5000],
+        x: [0, -7000],
         transition: { duration: 7, repeat: 0 }
       });
     }
@@ -180,10 +180,10 @@ const Game315: React.FC = () => {
   }
 
   return (
-    <div className="relative w-[1700px] h-[500px] overflow-hidden border border-black mt-[50px]">
+    <div className="relative w-[1600px] h-[700px] overflow-hidden border border-black mt-[50px]">
       <motion.div
         ref={rearRef}
-        className="absolute top-0 left-0 h-[500px] bg-[auto_100%] z-[1]"
+        className="absolute top-0 left-0 h-[700px] bg-[auto_100%] z-[1]"
         style={{
           width: `${rearBackgroundWidth}px`,
           backgroundImage: `url(${rearBackground})`
@@ -192,7 +192,7 @@ const Game315: React.FC = () => {
       />
       <motion.div
         ref={frontRef}
-        className="absolute top-0 left-0 h-[500px] bg-[auto_100%] z-[2]"
+        className="absolute top-0 left-0 h-[700px] bg-[auto_100%] z-[2]"
         style={{
           width: `${frontBackgroundWidth}px`,
           backgroundImage: `url(${frontBackground})`,
@@ -205,7 +205,7 @@ const Game315: React.FC = () => {
         animationData={animationGame315}
         loop={true}
         autoplay={false}
-        className="absolute top-[320px] left-[200px] w-[300px] h-auto z-[3]"
+        className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
       {gameContent()}
     </div>
