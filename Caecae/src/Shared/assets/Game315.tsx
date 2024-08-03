@@ -179,6 +179,32 @@ const Game315: React.FC = () => {
     }
   }
 
+  const gameMenu = () => {
+    switch(gameStatus) {
+      case "previous":
+        return (
+          <div className="absolute right-[50px] top-[30px] z-40">
+            <button>게임 종료</button>
+          </div>
+        );
+      case "playing":
+        return (
+         <div className="absolute right-[50px] top-[30px] z-40">
+          <button>게임 종료</button>
+         </div> 
+        );
+      case "end":
+        return (
+          <div className="absolute right-[50px] top-[30px] z-40 space-x-4">
+            <button>기록 자랑하기</button>
+            <button>게임 종료</button>
+          </div>
+        );
+      default:
+        return null;
+    }
+  }
+
   return (
     <div className="relative w-[1600px] h-[700px] overflow-hidden border border-black mt-[50px]">
       <motion.div
@@ -208,6 +234,7 @@ const Game315: React.FC = () => {
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
       {gameContent()}
+      {gameMenu()}
     </div>
   );
 };
