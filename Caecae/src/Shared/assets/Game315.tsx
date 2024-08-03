@@ -75,6 +75,7 @@ const Game315: React.FC = () => {
         x: [0,  -10000],
         transition: { duration: 7, repeat: 0 }
       }).then(() => {
+        (lottieRef.current as any).pause();
         setGameStatus("end");
       });
 
