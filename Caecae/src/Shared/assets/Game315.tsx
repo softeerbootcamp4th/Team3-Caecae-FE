@@ -4,7 +4,7 @@ import { motion, useAnimation, useMotionValue } from "framer-motion";
 import animationGame315 from "./animationGame315.json";
 import frontBackground from "./frontBackground.svg";
 import rearBackground from "./rearBackground.svg";
-import { action, initGameStatusState, game315Reducer} from "../../Job/RacingGame/RacingGame"
+import { action, initGame315State, game315Reducer} from "../../Job/RacingGame/RacingGame"
 import useWork from "../Hyundux/Hooks/useWork.tsx";
 import store from "../Hyundux/Store.tsx";
 
@@ -14,9 +14,7 @@ const Game315: React.FC = () => {
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
-  const [distance, setDistance] = useState<number>(0);
-  // const [gameStatus, setGameStatus] = useState<string>("previous");
-  const state = useWork(initGameStatusState, game315Reducer);
+  const state = useWork(initGame315State, game315Reducer);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */ 
   const frontX = useMotionValue(0);
@@ -24,15 +22,11 @@ const Game315: React.FC = () => {
   /** 애니메이션 제어를 위한 framer-motion 훅 */
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
- 
-  /** 게임 기록을 위한 단위 변환(315km 지점까지 애니메이션 이동거리가 11990) */
-  const conversionUnit = 11990 / 315;
 
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
-    const distanceInKM = totalDistance / conversionUnit;
-    setDistance(distanceInKM);
+    store.dispatch(action.updateDistance(totalDistance));
   };
 
   /** 스페이스바를 눌렀을 때 멈추는 로직 */
@@ -64,14 +58,12 @@ const Game315: React.FC = () => {
       event.preventDefault();
 
       handleSmoothlyStop();
-      // setGameStatus("end");
       store.dispatch(action.gameEnd());
     }
   };
 
   /** 게임 시작 시 작동 로직 */
   const handlePlayGame = () => {
-    // setGameStatus("playing");
     store.dispatch(action.gameStart());
 
     if (lottieRef.current) {
@@ -82,7 +74,6 @@ const Game315: React.FC = () => {
         transition: { duration: 7, repeat: 0 }
       }).then(() => {
         (lottieRef.current as any).pause();
-        // setGameStatus("end");
         store.dispatch(action.gameEnd());
       });
 
@@ -98,13 +89,13 @@ const Game315: React.FC = () => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
     frontBackgroundImg.onload = () => {
-        setFrontImageWidth(frontBackgroundImg.width);
+      setFrontImageWidth(frontBackgroundImg.width);
     }
 
     const rearBackgroundImg = new Image();
     rearBackgroundImg.src = rearBackground;
     rearBackgroundImg.onload = () => {
-        setRearBackgroundWidth(rearBackgroundImg.width);
+      setRearBackgroundWidth(rearBackgroundImg.width);
     }
   }, []);
 
@@ -150,7 +141,7 @@ const Game315: React.FC = () => {
         return (
           <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
             <div className="font-bold text-xl mb-2">Game Score</div>
-            <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+            <div className="font-bold text-xl mb-2">{state.distance.toFixed(3)} KM</div>
             <div className="flex flex-row items-center justify-center mt-2">
               <div className="font-bold text-xl mr-2">stop :</div>
               <div className="ml-2">
@@ -165,7 +156,7 @@ const Game315: React.FC = () => {
             <div className="flex flex-col items-center justify-center">
               <div className="font-bold text-xl mb-2">Game Score</div>
               <div className="flex flex-row space-x-2">
-                <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+                <div className="font-bold text-xl mb-2">{state.distance.toFixed(3)} KM</div>
                 <div className="font-bold text-xl">상위 1%</div>
               </div>
             </div>

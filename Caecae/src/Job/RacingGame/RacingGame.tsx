@@ -3,34 +3,33 @@ import { makePayLoad } from "../../Shared/Hyundux/Util/StoreUtil";
 import Reducer from "../../Shared/Hyundux/Reducer"; 
 import { Action } from "../../Shared/Hyundux/Actions";
 
-const WORKFLOW_NAME = "315Game";
+const WORKFLOW_NAME = "Game315";
 
 // state type
-interface CountPayLoad {
+interface game315PayLoad {
   gameStatus: String; // "previous", "playing", "end"
-  score: number;
+  distance: number;
 }
 
-const initGameStatusState = createState<CountPayLoad>(WORKFLOW_NAME, {
+const initGame315State = createState<game315PayLoad>(WORKFLOW_NAME, {
     gameStatus: "previous",
-    score: 0,
+    distance: 0,
 });
 
 // define reducer
-const game315Reducer: Reducer<CountPayLoad> = {
+const game315Reducer: Reducer<game315PayLoad> = {
   type: WORKFLOW_NAME,
   reducer: async function reducer(state, action) {
-    const payLoad = state.payload;
     switch (action.actionName) {
       case "gameStart":
         return makePayLoad(state, { gameStatus: "playing" });
       case "gameEnd":
         return makePayLoad(state, { gameStatus: "end" });
-      // case "updateScore": {
-      //   if(score)
-      //   const actionPayLoad = (action.payload || {}) as { text: string };
-      //   return makePayLoad(state, { score: payLoad.score + 1 });
-      // }
+      case "updateDistance": {
+        const actionPayLoad = (action.payload) as { distance: number };
+        // frontBackground 이미지가 애니메이션을 통해 이동한 거리를 실제 Km 단위로 변환해서 계산
+        return makePayLoad(state, { distance: actionPayLoad.distance / 11990 * 315 });
+      }
       default:
         return state;
     }
@@ -51,15 +50,15 @@ const action = {
       actionName: "gameEnd",
     };
   },
-  // getText: (text: string): Action => {
-  //   return {
-  //     type: WORKFLOW_NAME,
-  //     actionName: "getText",
-  //     payload: {
-  //       text: text,
-  //     },
-  //   };
-  // },
+  updateDistance: (distance: number): Action => {
+    return {
+      type: WORKFLOW_NAME,
+      actionName: "updateDistance",
+      payload: {
+        distance: distance,
+      }
+    };
+  },
 };
 
-export { action, initGameStatusState, game315Reducer };
+export { action, initGame315State, game315Reducer };
