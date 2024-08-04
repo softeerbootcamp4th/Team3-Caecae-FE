@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import Lottie from "lottie-react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
-import animationGame315 from "./animationGame315.json";
-import frontBackground from "./frontBackground.svg";
-import rearBackground from "./rearBackground.svg";
-import { action, initGame315State, game315Reducer} from "../../Job/RacingGame/RacingGame"
-import useWork from "../Hyundux/Hooks/useWork.tsx";
-import store from "../Hyundux/Store.tsx";
+import animationGame315 from "../../../Shared/assets/animationGame315.json";
+import frontBackground from "../../../Shared/assets/frontBackground.svg";
+import rearBackground from "../../../Shared/assets/rearBackground.svg";
+import { action, initGame315State, game315Reducer} from "../../../Job/Game315/Game315Work.tsx"
+import useWork from "../../../Shared/Hyundux/Hooks/useWork.tsx";
+import store from "../../../Shared/Hyundux/Store.tsx";
 
 const Game315: React.FC = () => {
   const lottieRef = useRef(null);
