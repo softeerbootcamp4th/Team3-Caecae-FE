@@ -125,7 +125,7 @@ const Game315: React.FC = () => {
     switch(state.gameStatus) {
       case "previous":
         return (
-          <div className="absolute left-[700px] top-[70px] z-40 flex flex-col items-center justify-center">
+          <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
             <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
             <div className="font-bold text-xl mb-2">전력으로...!</div>
             <div className="mt-2">
@@ -139,7 +139,7 @@ const Game315: React.FC = () => {
         );
       case "playing":
         return (
-          <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
+          <div className="absolute left-[600px] top-[70px] z-40 flex flex-col items-center justify-center">
             <div className="font-bold text-xl mb-2">Game Score</div>
             <div className="font-bold text-xl mb-2">{state.distance.toFixed(3)} KM</div>
             <div className="flex flex-row items-center justify-center mt-2">
@@ -152,7 +152,7 @@ const Game315: React.FC = () => {
         );
       case "end":
         return (
-          <div className="absolute left-[630px] top-[70px] z-40 flex flex-col items-center justify-center">
+          <div className="absolute left-[580px] top-[70px] z-40 flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center">
               <div className="font-bold text-xl mb-2">Game Score</div>
               <div className="flex flex-row space-x-2">
