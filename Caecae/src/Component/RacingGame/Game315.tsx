@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
-import animationGame315 from "../../../Shared/assets/animationGame315.json";
+import animationGame315 from "../../Shared/assets/animationGame315.json";
 import frontBackground from "../../../Shared/assets/frontBackground.svg";
 import rearBackground from "../../../Shared/assets/rearBackground.svg";
-import { action, initGame315State, game315Reducer} from "../../../Job/Game315/Game315Work.tsx"
-import useWork from "../../../Shared/Hyundux/Hooks/useWork.tsx";
-import store from "../../../Shared/Hyundux/Store.tsx";
+import { action, initGame315State, game315Reducer} from "../../Job/Game315/Game315Work.tsx"
+import useWork from "../../Shared/Hyundux/Hooks/useWork.tsx";
+import store from "../../Shared/Hyundux/Store.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (gameStatus: String, distance: number, handlePlayGame: () => void) => {
