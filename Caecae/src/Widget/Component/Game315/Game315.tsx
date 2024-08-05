@@ -8,6 +8,93 @@ import { action, initGame315State, game315Reducer} from "../../../Job/Game315/Ga
 import useWork from "../../../Shared/Hyundux/Hooks/useWork.tsx";
 import store from "../../../Shared/Hyundux/Store.tsx";
 
+/** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
+const gameContent = (gameStatus: String, distance: number, handlePlayGame: () => void) => {
+  switch(gameStatus) {
+    case "previous":
+      return (
+        <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
+          <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
+          <div className="font-bold text-xl mb-2">전력으로...!</div>
+          <div className="mt-2">
+            <button 
+              className=""
+              onClick={handlePlayGame} >
+                <img className="w-[300px] h-[55px]" src="src/Shared/assets/gameStartBtn.svg" alt="gameStartBtn" />
+            </button>
+          </div>
+        </div>
+      );
+    case "playing":
+      return (
+        <div className="absolute left-[600px] top-[70px] z-40 flex flex-col items-center justify-center">
+          <div className="font-bold text-xl mb-2">Game Score</div>
+          <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+          <div className="flex flex-row items-center justify-center mt-2">
+            <div className="font-bold text-xl mr-2">stop :</div>
+            <div className="ml-2">
+              <img src="src/Shared/assets/spacebarBtn.svg" alt="spacebarBtn" />
+            </div>
+          </div>
+        </div>
+      );
+    case "end":
+      return (
+        <div className="absolute left-[580px] top-[70px] z-40 flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center">
+            <div className="font-bold text-xl mb-2">Game Score</div>
+            <div className="flex flex-row space-x-2">
+              <div className="font-bold text-xl mb-2">{distance.toFixed(3)} KM</div>
+              <div className="font-bold text-xl">상위 1%</div>
+            </div>
+          </div>
+          <div className="flex flex-row items-center justify-center mt-2 space-x-4">
+            <button
+              className=""
+              // onClick={}
+              >
+              <img className="h-[50px]" src="src/Shared/assets/enterEventBtn.svg" alt="enterEventBtn" />
+            </button>
+            <button
+              className=""
+              onClick={handlePlayGame} >
+              <img className="h-[50px]" src="src/Shared/assets/retryBtn.svg" alt="retryBtn" />
+            </button>
+          </div>
+        </div>
+      )
+    default:
+      return null;
+  }
+}
+
+/** 게임 상태에 따라 다르게 보여지는 우측 상단 메뉴 */
+const gameMenu = (gameStatus: String) => {
+  switch(gameStatus) {
+    case "previous":
+      return (
+        <div className="absolute right-[50px] top-[30px] z-40">
+          <button>게임 종료</button>
+        </div>
+      );
+    case "playing":
+      return (
+        <div className="absolute right-[50px] top-[30px] z-40">
+        <button>게임 종료</button>
+        </div> 
+      );
+    case "end":
+      return (
+        <div className="absolute right-[50px] top-[30px] z-40 space-x-4">
+          <button>기록 자랑하기</button>
+          <button>게임 종료</button>
+        </div>
+      );
+    default:
+      return null;
+  }
+}
+
 const Game315: React.FC = () => {
   const lottieRef = useRef(null);
   const frontRef = useRef<HTMLDivElement>(null);
@@ -120,92 +207,6 @@ const Game315: React.FC = () => {
     return () => unsubscribeFrontX();
   }, [frontX]);
 
-  /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
-  const gameContent = () => {
-    switch(state.gameStatus) {
-      case "previous":
-        return (
-          <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
-            <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
-            <div className="font-bold text-xl mb-2">전력으로...!</div>
-            <div className="mt-2">
-              <button 
-                className=""
-                onClick={handlePlayGame} >
-                  <img className="w-[300px] h-[55px]" src="src/Shared/assets/gameStartBtn.svg" alt="gameStartBtn" />
-              </button>
-            </div>
-          </div>
-        );
-      case "playing":
-        return (
-          <div className="absolute left-[600px] top-[70px] z-40 flex flex-col items-center justify-center">
-            <div className="font-bold text-xl mb-2">Game Score</div>
-            <div className="font-bold text-xl mb-2">{state.distance.toFixed(3)} KM</div>
-            <div className="flex flex-row items-center justify-center mt-2">
-              <div className="font-bold text-xl mr-2">stop :</div>
-              <div className="ml-2">
-                <img src="src/Shared/assets/spacebarBtn.svg" alt="spacebarBtn" />
-              </div>
-            </div>
-          </div>
-        );
-      case "end":
-        return (
-          <div className="absolute left-[580px] top-[70px] z-40 flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center justify-center">
-              <div className="font-bold text-xl mb-2">Game Score</div>
-              <div className="flex flex-row space-x-2">
-                <div className="font-bold text-xl mb-2">{state.distance.toFixed(3)} KM</div>
-                <div className="font-bold text-xl">상위 1%</div>
-              </div>
-            </div>
-            <div className="flex flex-row items-center justify-center mt-2 space-x-4">
-              <button
-                className=""
-                // onClick={}
-                >
-                <img className="h-[50px]" src="src/Shared/assets/enterEventBtn.svg" alt="enterEventBtn" />
-              </button>
-              <button
-                className=""
-                onClick={handlePlayGame} >
-                <img className="h-[50px]" src="src/Shared/assets/retryBtn.svg" alt="retryBtn" />
-              </button>
-            </div>
-          </div>
-        )
-      default:
-        return null;
-    }
-  }
-
-  const gameMenu = () => {
-    switch(state.gameStatus) {
-      case "previous":
-        return (
-          <div className="absolute right-[50px] top-[30px] z-40">
-            <button>게임 종료</button>
-          </div>
-        );
-      case "playing":
-        return (
-         <div className="absolute right-[50px] top-[30px] z-40">
-          <button>게임 종료</button>
-         </div> 
-        );
-      case "end":
-        return (
-          <div className="absolute right-[50px] top-[30px] z-40 space-x-4">
-            <button>기록 자랑하기</button>
-            <button>게임 종료</button>
-          </div>
-        );
-      default:
-        return null;
-    }
-  }
-
   return (
     <div className="relative w-[1600px] h-[700px] overflow-hidden border border-black mt-[50px]">
       <motion.div
@@ -234,8 +235,8 @@ const Game315: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent()}
-      {gameMenu()}
+      {gameContent(state.gameStatus, state.distance, handlePlayGame)}
+      {gameMenu(state.gameStatus)}
     </div>
   );
 };
