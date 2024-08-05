@@ -101,7 +101,7 @@ const Game315: React.FC = () => {
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
-  const state = useWork(initGame315State, game315Reducer);
+  const [state, dispatch] = useWork(initGame315State, game315Reducer);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */ 
   const frontX = useMotionValue(0);
