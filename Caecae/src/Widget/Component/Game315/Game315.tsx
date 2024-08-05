@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import Lottie from "lottie-react";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 import animationGame315 from "../../../Shared/assets/animationGame315.json";
 import frontBackground from "../../../Shared/assets/frontBackground.svg";
@@ -96,7 +96,7 @@ const gameMenu = (gameStatus: String) => {
 }
 
 const Game315: React.FC = () => {
-  const lottieRef = useRef(null);
+  const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
@@ -119,7 +119,7 @@ const Game315: React.FC = () => {
   /** 스페이스바를 눌렀을 때 멈추는 로직 */
   const handleSmoothlyStop = () => {
     if (lottieRef.current) {
-      (lottieRef.current as any).pause();
+      lottieRef.current?.pause();
 
       /** 현재 위치 가져오기 (getBoundingClientRect 사용) */
       const currentFrontX = frontRef.current?.getBoundingClientRect().x || 0;
@@ -154,13 +154,13 @@ const Game315: React.FC = () => {
     store.dispatch(action.gameStart());
 
     if (lottieRef.current) {
-      (lottieRef.current as any).play();
+      lottieRef.current?.play();
  
       frontAnimationControls.start({
         x: [0,  -14000],
         transition: { duration: 7, repeat: 0 }
       }).then(() => {
-        (lottieRef.current as any).pause();
+        lottieRef.current?.pause();
         store.dispatch(action.gameEnd());
       });
 
