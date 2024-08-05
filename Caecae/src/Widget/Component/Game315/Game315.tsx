@@ -208,7 +208,7 @@ const Game315: React.FC = () => {
   }, [frontX]);
 
   return (
-    <div className="relative w-[1600px] h-[700px] overflow-hidden border border-black mt-[50px]">
+    <div className="relative w-screen h-screen overflow-hidden">
       <motion.div
         ref={rearRef}
         className="absolute top-0 left-0 h-[700px] bg-[auto_100%] z-[1]"
