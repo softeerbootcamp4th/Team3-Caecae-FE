@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "framer-motion": "^11.3.19",
     "lottie-react": "^2.4.0",
+    "postcss": "^8.4.40",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.7"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
