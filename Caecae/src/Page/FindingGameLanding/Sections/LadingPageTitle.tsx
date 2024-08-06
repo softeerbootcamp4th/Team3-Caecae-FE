@@ -1,4 +1,7 @@
-const LadingPageTitle = () => {
+interface LadingPageTitleProps {
+  onClick: () => void;
+}
+const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
   return (
     <>
       <div className="flex w-full h-screen justify-center items-center relative">
@@ -35,7 +38,10 @@ const LadingPageTitle = () => {
               />
               <p className="text-[white] text-[22px] ml-[10px]">공유하기</p>
             </div>
-            <div className="bg-[white] flex items-center justify-center gap-[15px] w-[300px] h-[80px]">
+            <div
+              className="bg-[white] flex items-center justify-center gap-[15px] w-[300px] h-[80px]"
+              onClick={() => onClick()}
+            >
               <p className="text-[22px]">바로 캐스퍼 찾으러가기</p>
               <img
                 src="/src/Shared/assets/rightShevron.svg"
