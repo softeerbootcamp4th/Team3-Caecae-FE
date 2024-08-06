@@ -4,7 +4,7 @@ interface LadingPageTitleProps {
 const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
   return (
     <>
-      <div className="flex w-full h-screen justify-center items-center relative">
+      <div className="flex w-full h-[115vh] justify-center items-center relative">
         <div className="absolute z-20 flex flex-col items-center">
           <p className="text-[#CCCCCC] text-[20px] mt-[100px]">
             <span className="font-bold text-[white]">CASPER Electric</span> 신차
@@ -54,7 +54,7 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
           <img
             src="/src/Shared/assets/findGameTitleBackground.svg"
             alt="findGameLeftBlocks"
-            className="absolute top-0 left-0 w-full h-screen object-cover bg-[black] object-bottom-center"
+            className="absolute top-0 left-0 w-full h-[115vh] object-cover bg-[black] object-bottom-center"
           />
           <img
             src="/src/Shared/assets/findGameLeftBlocks.svg"
