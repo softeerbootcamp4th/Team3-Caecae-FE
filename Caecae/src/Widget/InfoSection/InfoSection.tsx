@@ -6,20 +6,20 @@ interface InfoSectionProps {
   children: ReactNode;
 }
 
-const InfoSection = ({ width = 1200, title, children }: InfoSectionProps) => {
+const InfoSection = ({ title, children }: InfoSectionProps) => {
   return (
-    <>
+    <div className="flex justify-center items-center flex-col">
       <div className="flex justify-center items-center">
         <img
           src="/src/Shared/assets/sectionContentHeader.svg"
           alt="howToEventLeft"
-          className={"w-[" + width + "px]"}
+          className="w-3/4"
         />
         <p className="absolute text-[white] font-galmuri text-[28px]">
           {title}
         </p>
       </div>
-      <div className=" border-l-4 border-r-4 border-white relative">
+      <div className=" border-l-4 border-r-4 border-white relative w-3/4">
         {children}
         <img
           src="/src/Shared/assets/infoSectionPoint.svg"
@@ -45,9 +45,9 @@ const InfoSection = ({ width = 1200, title, children }: InfoSectionProps) => {
       <img
         src="/src/Shared/assets/bottomLine.svg"
         alt="howToEventRight"
-        className={"w-[" + width + "px]"}
+        className="w-3/4"
       />
-    </>
+    </div>
   );
 };
 export default InfoSection;
