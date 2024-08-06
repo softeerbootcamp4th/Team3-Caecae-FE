@@ -3,7 +3,7 @@ import InfoSection from "../../../Widget/InfoSection/InfoSection";
 const EventPeriod = () => {
     return (
         <>
-            <div className="h-[1000px] bg-black">
+            <div className="h-[1100px] bg-black">
                 <div className="absolute z-10 flex flex-col items-center w-full h-screen">
                     <h1 className="text-white font-[900] text-[40px] mt-16">
                         이벤트 기간
