@@ -1,0 +1,64 @@
+.header {
+  z-index: 1000;
+  /* 다른 요소들 위에 오도록 z-index 설정 */
+  position: fixed;
+  transition: transform 0.3s ease;
+  /* transform 속성에 대한 전환 효과 */
+}
+
+.navbar {
+  justify-content: center;
+  width: 100vw;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.navbarMenu {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  transition: color 0.3s ease;
+  /* 색상 변화에 애니메이션 효과를 추가합니다 */
+  position: relative;
+  /* 가상 요소의 기준점 설정 */
+  overflow: hidden;
+  /* 밑줄이 링크 영역 바깥으로 나가지 않도록 설정 */
+}
+
+.navbarMenu:hover {
+  color: #3ca50f;
+  /* 마우스 오버 시 글자 색상을 변경합니다 */
+}
+
+.navbarMenu::after {
+  content: '';
+  /* 가상 요소의 내용은 비워둡니다 */
+  position: absolute;
+  left: 0%;
+  /* 왼쪽에서 50%의 위치에서 시작 */
+  bottom: -0.5rem;
+  /* 링크 바닥으로부터 -0.5rem 위에 위치 */
+  width: 0;
+  /* 초기 너비는 0으로 설정하여 보이지 않게 합니다 */
+  height: 0.13rem;
+  /* 밑줄의 두께 */
+  background: rgba(0, 0, 0, 0.279);
+  /* 밑줄의 색상 */
+  transition: width 0.5s ease, left 0.5s ease;
+  /* 너비와 위치에 대한 전환 효과 설정 */
+}
+
+.navbarMenu:hover::after,
+.navbarMenu:focus::after {
+  width: 100%;
+  /* 마우스를 올리거나 포커스 시 밑줄의 너비를 100%로 변경 */
+  left: 0;
+  /* 위치를 왼쪽 끝으로 변경 */
+}
+
+/* Nav.module.css */
+.hideNav {
+  transform: translateY(-100%);
+  /* 네비게이션 바를 위로 숨깁니다 */
+  transition: transform 0.3s ease;
+  /* 부드러운 전환 효과 */
+}
