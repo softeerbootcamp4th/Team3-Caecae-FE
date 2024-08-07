@@ -4,6 +4,7 @@ import Navigation from "../../Widget/Navigation/Navigation";
 import EventPeriod from "./Sections/EventPeriod";
 import HowToEvent from "./Sections/HowToEvent";
 import LadingPageTitle from "./Sections/LadingPageTitle";
+
 import OpenEvent from "./Sections/OpenEvent";
 import SelectionMethod from "./Sections/SelectionMethod";
 
