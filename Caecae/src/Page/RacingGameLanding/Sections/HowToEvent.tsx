@@ -3,8 +3,8 @@ import InfoSection from "../../../Widget/InfoSection/InfoSection";
 const HowToEvent = () => {
     return (
         <>
-            <div className="h-[2200px] bg-black">
-                <div className="absolute z-10 flex flex-col items-center w-full h-screen">
+            <div className="relative h-[2200px] bg-black">
+                <div className="absolute inset-0 z-10 flex flex-col items-center w-full bg-[#00113F] bg-opacity-40">
                     <h1 className="text-white font-[900] text-[40px] mt-16">
                         이벤트 참여 방법
                     </h1>
@@ -82,6 +82,18 @@ const HowToEvent = () => {
                             </div>
                         </InfoSection>
                     </div>
+                </div>
+                <div>
+                    <img
+                        src="/src/Shared/assets/leftEffect2.svg"
+                        alt="leftEffect2"
+                        className="opacity-[70%] left-4 top-[-50px] absolute"
+                    />
+                    <img
+                        src="/src/Shared/assets/rightEffect2.svg"
+                        alt="rightEffect2"
+                        className="opacity-[70%] w-[400px] right-0 top-[1050px] absolute"
+                    />
                 </div>
             </div>
         </>

@@ -3,8 +3,8 @@ import InfoSection from "../../../Widget/InfoSection/InfoSection";
 const GiftInfo = () => {
     return (
         <>
-            <div className="h-[1400px] bg-black">
-                <div className="absolute z-10 flex flex-col items-center w-full h-screen">
+            <div className="relative h-[1400px] bg-black">
+                <div className="absolute inset-0 z-10 flex flex-col items-center w-full bg-[#00113F] bg-opacity-40">
                     <h1 className="text-white font-[900] text-[40px] mt-16">
                         참여 혜택
                     </h1>
@@ -64,6 +64,13 @@ const GiftInfo = () => {
                             </div>
                         </InfoSection>
                     </div>
+                </div>
+                <div>
+                    <img
+                        src="/src/Shared/assets/leftEffect3.svg"
+                        alt="leftEffect3"
+                        className="opacity-[70%] w-[400px] left-10 top-[-180px] absolute"
+                    />
                 </div>
             </div>
         </>
