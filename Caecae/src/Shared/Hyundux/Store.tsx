@@ -5,7 +5,7 @@ import removeFirst from "./Util/RemoveFirst";
 import replaceFirst from "./Util/ReplaceFirst";
 import areEqual from "../Util/areEqual";
 
-const store: {
+interface Store {
   states: State<unknown>[];
   reducers: Reducer<unknown>[];
   subscribe: <PayLoad>(
@@ -16,7 +16,9 @@ const store: {
   dispatch: <T>(action: Action | DoAction<T>) => void;
   publish: <PayLoad>(oldState: State<PayLoad>, state: State<PayLoad>) => void;
   subscribeList: Map<string, <PayLoad>(state: State<PayLoad>) => void>;
-} = {
+}
+
+const store: Store = {
   states: [],
   reducers: [],
   subscribeList: new Map(),
@@ -78,4 +80,5 @@ function isDoAction<T>(action: unknown): action is DoAction<T> {
   return (action as DoAction<T>).doing !== undefined;
 }
 
+export type { Store };
 export default store;
