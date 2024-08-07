@@ -33,32 +33,62 @@ const GiftInfo = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-row justify-center items-center gap-10 mt-14">
-                                    <div className="flex flex-col p-2 border-white border-2">
-                                        <img src="/src/Shared/assets/gift2nd.svg" alt="gift2nd" />
-                                        <p className="text-[#CCCCCC] px-3 my-4">
-                                            <span className="font-galmuri text-white text-[20px] block mb-1">스마트워치 (7명)</span>
-                                            최대 7개의 디바이스를 지원하는 캐스퍼 일렉트릭
-                                            <br/>
-                                            스마트키! 스마트 워치로 손쉽게 함께하세요.
-                                        </p>
+                                    <div className="flex flex-col">
+                                        <div className="relative inline-block">
+                                            <span className="absolute inset-1 pl-1 text-black font-galmuri font-bold text-[24px]">
+                                                2등
+                                            </span>
+                                            <img src="/src/Shared/assets/trapezoid3.svg" alt="trapezoid3" />
+                                        </div>
+                                        <div>
+                                            <div className="flex flex-col p-2 border-white border-2">
+                                                <img src="/src/Shared/assets/gift2nd.svg" alt="gift2nd" />
+                                                <p className="text-[#CCCCCC] px-3 my-4">
+                                                    <span className="font-galmuri text-white text-[20px] block mb-1">스마트워치 (7명)</span>
+                                                    최대 7개의 디바이스를 지원하는 캐스퍼 일렉트릭
+                                                    <br/>
+                                                    스마트키! 스마트 워치로 손쉽게 함께하세요.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col p-2 border-white border-2">
-                                        <img src="/src/Shared/assets/gift3rd.svg" alt="gift3rd" />
-                                        <p className="text-[#CCCCCC] px-3 my-4">
-                                            <span className="font-galmuri text-white text-[20px] block mb-1">무선 충전패드 (30명)</span>
-                                            30분 만에 급속 충전되는 캐스퍼 일렉트릭.
-                                            <br/>
-                                            V2L 기능도 제공하니까! 다른 디바이스도 간편하게.
-                                        </p>
+                                    <div className="flex flex-col">
+                                        <div className="relative inline-block">
+                                            <span className="absolute inset-1 pl-1 text-black font-galmuri font-bold text-[24px]">
+                                                3등
+                                            </span>
+                                            <img src="/src/Shared/assets/trapezoid3.svg" alt="trapezoid3" />
+                                        </div>
+                                        <div>
+                                            <div className="flex flex-col p-2 border-white border-2">
+                                                <img src="/src/Shared/assets/gift3rd.svg" alt="gift3rd" />
+                                                <p className="text-[#CCCCCC] px-3 my-4">
+                                                    <span className="font-galmuri text-white text-[20px] block mb-1">무선 충전패드 (30명)</span>
+                                                    30분 만에 급속 충전되는 캐스퍼 일렉트릭.
+                                                    <br/>
+                                                    V2L 기능도 제공하니까! 다른 디바이스도 간편하게.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col p-2 border-white border-2">
-                                        <img src="/src/Shared/assets/gift4th.svg" alt="gift4th" />
-                                        <p className="text-[#CCCCCC] px-3 my-4">
-                                            <span className="font-galmuri text-white text-[20px] block mb-1">휴대용 무드등 (64명)</span>
-                                            64가지의 색상을 내뿜는 캐스퍼 일렉트릭 엠비언트
-                                            <br/>
-                                            라이트! 휴대용 무드등과 언제나 무드있게.
-                                        </p>
+                                    <div className="flex flex-col">
+                                        <div className="relative inline-block">
+                                            <span className="absolute inset-1 pl-1 text-black font-galmuri font-bold text-[24px]">
+                                                4등
+                                            </span>
+                                            <img src="/src/Shared/assets/trapezoid3.svg" alt="trapezoid3" />
+                                        </div>
+                                        <div>
+                                            <div className="flex flex-col p-2 border-white border-2">
+                                                <img src="/src/Shared/assets/gift4th.svg" alt="gift4th" />
+                                                <p className="text-[#CCCCCC] px-3 my-4">
+                                                    <span className="font-galmuri text-white text-[20px] block mb-1">휴대용 무드등 (64명)</span>
+                                                    64가지의 색상을 내뿜는 캐스퍼 일렉트릭 엠비언트
+                                                    <br/>
+                                                    라이트! 휴대용 무드등과 언제나 무드있게.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +99,7 @@ const GiftInfo = () => {
                     <img
                         src="/src/Shared/assets/leftEffect3.svg"
                         alt="leftEffect3"
-                        className="opacity-[70%] w-[400px] left-10 top-[-180px] absolute"
+                        className="opacity-[70%] w-[400px] left-10 top-[-170px] absolute"
                     />
                 </div>
             </div>
