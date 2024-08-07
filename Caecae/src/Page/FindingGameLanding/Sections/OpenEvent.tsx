@@ -126,7 +126,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col justify-center items-center w-screen bg-[black] relative h-screen"
+      className="flex flex-col justify-center items-center w-full bg-[black] relative h-screen"
     >
       <div className="z-10 flex flex-col justify-center items-center ">
         <div className="text-[white] text-[18px] font-bold rounded-[80px] border-2 border-solid border-[rgba(0,0,255,0.60)] bg-[rgba(0,0,255,0.5)] px-[12px] py-[6px] inline">
