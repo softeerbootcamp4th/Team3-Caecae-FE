@@ -2,7 +2,6 @@ import { ReactElement } from "react";
 
 interface RouteProps {
   path: string;
-  isFullScreen: boolean;
   element: ReactElement;
 }
 

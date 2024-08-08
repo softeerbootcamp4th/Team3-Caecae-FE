@@ -14,6 +14,7 @@ import store from "../../Shared/Hyundux/Store";
 import FailContent from "./Enter/FailContent";
 import PhoneNumberOverlay from "../../Component/PhoneNumberOverlay/PhoneNumberOverlay";
 import SuccessEnterContent from "./Enter/SuccessEnterContent";
+import FindingGameResult from "../../Component/FindingGame/FindingGameResult";
 
 const FindingGamePage = () => {
   const [gameState, dispatch] = useWork(
@@ -40,8 +41,12 @@ const FindingGamePage = () => {
       <div className="w-[66%] h-full">
         <FindingGame />
       </div>
-      <div className="grow h-full flex justify-center items-center">
-        <FindingGameInfo />
+      <div className="w-[34%] h-screen flex justify-center items-center">
+        {gameState.gameStatus == "Gaming" ? (
+          <FindingGameInfo />
+        ) : (
+          <FindingGameResult />
+        )}
       </div>
     </div>
   );

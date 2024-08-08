@@ -8,7 +8,8 @@ const WORK_NAME = "FindingGame";
 
 // state type
 interface FindingGamePayLoad {
-  hintIntervalId: NodeJS.Timeout | null;
+  gameStatus: "Gaming" | "Done";
+  answerIndex: number;
   answers: FindingGameAnswer[];
   showingAnswers: FindingGameAnswer[];
   wrongAnswers: { id: number; y: number; x: number }[];
@@ -16,7 +17,8 @@ interface FindingGamePayLoad {
 }
 
 const initFindingGameState = createState<FindingGamePayLoad>(WORK_NAME, {
-  hintIntervalId: null,
+  gameStatus: "Gaming",
+  answerIndex: 0,
   answers: [],
   showingAnswers: [],
   wrongAnswers: [],
@@ -32,8 +34,24 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
       case "init": {
         //  실제로는 여기서 비동기로 answer fetch해야함
         const fetchedAnswers: FindingGameAnswer[] = [
-          { id: Math.random(), y: 100, x: 100, imageURL: null, info: null },
-          { id: Math.random(), y: 500, x: 500, imageURL: null, info: null },
+          {
+            id: Math.random(),
+            y: 100,
+            x: 100,
+            imageURL:
+              "https://cdn.newautopost.co.kr/newautopost/2024/07/09121310/%EC%BA%90%EC%8A%A4%ED%8D%BC-%EC%9D%BC%EB%A0%89%ED%8A%B8%EB%A6%AD-1.jpg",
+            info: "알로이 휠은 강도가 높으면서도 무게가 가벼워 주행 성능과 연비를 개선하는 데 큰 도움을 줍니다. 픽셀 디자인의 휠은 캐스퍼 일렉트릭의 스타일을 돋보이게 합니다.",
+            title: "17인치 알로이 휠 & 타이어",
+          },
+          {
+            id: Math.random(),
+            y: 500,
+            x: 500,
+            imageURL:
+              "https://www.hyundai.co.kr/image/upload/asset_library/MDA00000000000052243/d91508780929423b9999a699bafe60aa.jpg",
+            title: "전자식 공조 시스템",
+            info: "풀 오토 에어컨이 적용된 전자식 공조 시스템을 통해 자동으로 오너가 원하는 온도로 풍량을 조절하여 쾌적한 실내를 유지합니다.",
+          },
         ];
 
         return makePayLoad(state, { answers: fetchedAnswers });
@@ -55,13 +73,15 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
               id: answer.id,
               y: answer.y,
               x: answer.x,
-              imageURL: null,
-              info: null,
+              imageURL: "",
+              title: "",
+              info: "",
             });
           }
         });
         if (isCorrect) {
           return makePayLoad(state, {
+            gameStatus: showingAnswers.length == 2 ? "Done" : "Gaming",
             showingAnswers: showingAnswers,
             showingHint: [],
           });
@@ -94,6 +114,12 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
           return makePayLoad(state, { showingHint: newShowingHints });
         }
         return state;
+      }
+      case "changeShowingAnswer": {
+        const actionPayLoad = (action.payload || {}) as {
+          answerIndex: number;
+        };
+        return makePayLoad(state, { answerIndex: actionPayLoad.answerIndex });
       }
       default:
         return state;
@@ -133,6 +159,15 @@ const action = {
     return {
       type: WORK_NAME,
       actionName: "showHint",
+    };
+  },
+  changeShowingAnswer: (index: number): Action => {
+    return {
+      type: WORK_NAME,
+      actionName: "changeShowingAnswer",
+      payload: {
+        answerIndex: index,
+      },
     };
   },
 };

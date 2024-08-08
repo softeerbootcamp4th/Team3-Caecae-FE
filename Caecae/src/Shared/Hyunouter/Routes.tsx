@@ -11,16 +11,13 @@ interface RoutesProps {
 }
 
 const Routes: React.FC<RoutesProps> = ({ children }) => {
-  const { path, addFullScreenPath } = useContext(RouterContext);
+  const { path } = useContext(RouterContext);
 
   let element: ReactElement | null = null;
 
   React.Children.forEach(children, (child) => {
     if (!isValidElement(child)) {
       return;
-    }
-    if (child.props.isFullScreen) {
-      addFullScreenPath(child.props.path);
     }
     if (child.type === React.Fragment) {
       return;
