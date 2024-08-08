@@ -12,6 +12,7 @@ const ShowCasper1 = () => {
                         <span className="text-[36px] text-[#CCCCCC]">과 함께하는 7일간의 캐미</span>
                     </p>
                     <p className="text-[36px] text-white">
+                        {/* 추후에 날짜는 어드민에서 지정한 날로 동적 출력해야 함 */}
                         07.18.&nbsp;&nbsp;⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯&nbsp;&nbsp;07.25.
                     </p>
                     <h1 className="text-[96px] text-white mt-10 font-bold">
