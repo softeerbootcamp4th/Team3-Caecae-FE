@@ -10,6 +10,7 @@ import correctLottie from "../../Shared/assets/animationCorrect.json";
 import wrongLottie from "../../Shared/assets/animationIncorrect.json";
 import useExistState from "../../Shared/Hyundux/Hooks/useExistState.tsx";
 import HintSpot from "./Hint/HintSpot.tsx";
+import SmileBadge from "../../Widget/SmileBadge/SmileBadge.tsx";
 
 const FindingGame = () => {
   const state = useExistState(initFindingGameState);
@@ -41,23 +42,54 @@ const FindingGame = () => {
     y: number,
     x: number
   ) => {
-    store.dispatch(action.click(y, x));
+    if (state.gameStatus == "Gaming") {
+      store.dispatch(action.click(y, x));
+    }
   };
 
   const lottieWidth = 120;
   const lottieHeight = 120;
 
-  const showingCorrectElements = state.showingAnswers.map((answer) => {
-    return (
-      <LottieContainer
-        key={answer.id}
-        x={answer.x}
-        y={answer.y}
-        width={lottieWidth}
-        height={lottieHeight}
-        jsonFile={correctLottie}
-      />
-    );
+  const showingCorrectElements = state.showingAnswers.map((answer, index) => {
+    if (state.gameStatus == "Gaming") {
+      return (
+        <LottieContainer
+          key={answer.id}
+          x={answer.x}
+          y={answer.y}
+          width={lottieWidth}
+          height={lottieHeight}
+          jsonFile={correctLottie}
+        />
+      );
+    }
+    return <></>;
+  });
+
+  const answerElement = state.answers.map((answer, index) => {
+    if (state.gameStatus == "Done") {
+      const left = answer.x - 50;
+      const top = answer.y - 50;
+      const rotateRadian = index == 0 ? "-13" : "8";
+      return (
+        <div
+          key={index}
+          style={{
+            width: 100,
+            left: `${left}px`,
+            top: `${top}px`,
+            position: "absolute",
+            transform: `rotate(${rotateRadian}deg)`,
+          }}
+          onClick={() => {
+            store.dispatch(action.changeShowingAnswer(index));
+          }}
+        >
+          <SmileBadge width={200} badgeType={6 + index} />
+        </div>
+      );
+    }
+    return <></>;
   });
 
   const showingWrongElement = state.wrongAnswers.map((wrongAnswer) => {
@@ -87,6 +119,7 @@ const FindingGame = () => {
           ...showingCorrectElements,
           ...showingWrongElement,
           ...showingHintElement,
+          ...answerElement,
         ]}
         onClickAction={onClickAction}
       />
