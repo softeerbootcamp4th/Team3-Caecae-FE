@@ -1,12 +1,4 @@
-import {
-  useState,
-  createContext,
-  ReactNode,
-  FC,
-  useEffect,
-  useRef,
-} from "react";
-import useForceRendering from "../Hooks/useForceRendering";
+import { useState, createContext, ReactNode, FC, useEffect } from "react";
 
 interface RouterProps {
   children: ReactNode;
@@ -14,36 +6,19 @@ interface RouterProps {
 
 interface RouterContextType {
   path: string;
-  fullScreenPath: string[];
-  changePath: (path: string) => void;
-  addFullScreenPath: (path: string) => void;
-  isFullScreen: boolean;
+  changePath: (path: string, isChangePath?: boolean) => void;
 }
 
 const RouterContext = createContext<RouterContextType>({
   path: "",
-  fullScreenPath: [],
   changePath: () => undefined,
-  addFullScreenPath: () => undefined,
-  isFullScreen: false,
 });
 RouterContext.displayName = "RouterContext";
 
 const Router: FC<RouterProps> = ({ children }) => {
-  const forceRerendering = useForceRendering();
   const [path, setPath] = useState(window.location.pathname);
-  const fullScreenPaths = useRef<string[]>([]);
-  const isFullScreen = useRef<boolean>(false);
   useEffect(() => {
-    if (fullScreenPaths.current.includes(window.location.pathname)) {
-      isFullScreen.current = true;
-      forceRerendering();
-    }
     const handleLocationChange = () => {
-      isFullScreen.current = false;
-      if (fullScreenPaths.current.includes(window.location.pathname)) {
-        isFullScreen.current = true;
-      }
       setPath(window.location.pathname);
     };
 
@@ -54,30 +29,17 @@ const Router: FC<RouterProps> = ({ children }) => {
     };
   }, []);
 
-  const changePath = (newPath: string) => {
+  const changePath = (newPath: string, isChangePath: boolean = true) => {
     if (path !== newPath) {
-      window.history.pushState({}, "", newPath);
-      isFullScreen.current = false;
-      if (fullScreenPaths.current.includes(newPath)) {
-        isFullScreen.current = true;
+      if (isChangePath) {
+        window.history.pushState({}, "", newPath);
       }
       setPath(newPath);
     }
   };
-
-  const addFullScreenPath = (path: string) => {
-    const newPaths = fullScreenPaths.current;
-    if (newPaths.includes(path)) return;
-    newPaths.push(path);
-    fullScreenPaths.current = newPaths;
-  };
-
   const contextValue = {
     path: path,
     changePath: changePath,
-    fullScreenPath: fullScreenPaths.current,
-    addFullScreenPath: addFullScreenPath,
-    isFullScreen: isFullScreen.current,
   };
   return (
     <RouterContext.Provider value={contextValue}>
