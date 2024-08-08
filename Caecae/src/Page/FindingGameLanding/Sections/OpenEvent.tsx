@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
 import useSpecificTimeEffect from "../../../Shared/Hooks/useSpecificTimeEffect";
+import Link from "../../../Shared/Hyunouter/Link";
 
 // props 타입 정의
 interface OpenEventProps {}
@@ -136,18 +137,25 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
           {data?.title}
         </div>
         {data?.mainContent}
-        <div
-          className={`bg-[${
-            data?.isButtonOpen ? "blue" : "#CCCCCC"
-          }] w-[175px] h-[50px] flex items-center justify-center gap-3 mt-[60px]`}
+        <Link
+          to={leftTime <= 0 ? "/findcaspergame#010643431936" : "/findcasper"}
+          isPathChage={false}
         >
-          <span className="text-[white] font-semibold">캐스퍼 찾으러가기</span>
-          <img
-            src="/src/Shared/assets/whiteRightShevron.svg"
-            alt="smileBage3D"
-            className="w-[10px]"
-          />
-        </div>
+          <div
+            className={`bg-[${
+              data?.isButtonOpen ? "blue" : "#CCCCCC"
+            }] w-[175px] h-[50px] flex items-center justify-center gap-3 mt-[60px]`}
+          >
+            <span className="text-[white] font-semibold">
+              캐스퍼 찾으러가기
+            </span>
+            <img
+              src="/src/Shared/assets/whiteRightShevron.svg"
+              alt="smileBage3D"
+              className="w-[10px]"
+            />
+          </div>
+        </Link>
       </div>
       <img
         src="/src/Shared/assets/openBackGround.svg"
