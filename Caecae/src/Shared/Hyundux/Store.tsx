@@ -3,7 +3,7 @@ import State from "./State";
 import Reducer from "./Reducer";
 import removeFirst from "./Util/RemoveFirst";
 import replaceFirst from "./Util/ReplaceFirst";
-import areEqual from "../Util/areEqual";
+import areEqual from "../../utils/areEqual";
 
 interface Store {
   states: State<unknown>[];

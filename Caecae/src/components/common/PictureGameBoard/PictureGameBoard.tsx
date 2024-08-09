@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import useComponentPosition from "../../Shared/Hooks/useComponentRect";
+import useComponentPosition from "../../shared/hooks/useComponentRect";
 
 interface PictureGameBoardProps {
   imageURL: string;
