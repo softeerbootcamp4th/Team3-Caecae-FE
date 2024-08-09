@@ -1,4 +1,4 @@
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <footer className="bg-footer h-48 text-footerText flex flex-row items-center text-center">
       <div className="basis-3/12 h-full flex justify-end items-start">

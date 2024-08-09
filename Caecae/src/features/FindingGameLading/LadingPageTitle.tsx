@@ -1,6 +1,7 @@
 interface LadingPageTitleProps {
   onClick: () => void;
 }
+
 const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
   return (
     <>

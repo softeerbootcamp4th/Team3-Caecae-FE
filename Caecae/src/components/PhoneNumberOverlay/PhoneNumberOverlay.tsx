@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useEffect, useState } from "react";
 import { action } from "../../jobs/Overlay/OverlayWork";
-import store from "../../Shared/Hyundux/Store";
+import { store } from "../../shared/Hyundux";
 
 const PhoneNumberOverlay = () => {
   const [timeLeft, setTimeLeft] = useState(3 * 60); // 3분을 초 단위로 변환

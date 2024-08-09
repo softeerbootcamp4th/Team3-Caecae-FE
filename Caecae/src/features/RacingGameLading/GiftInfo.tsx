@@ -1,4 +1,4 @@
-import InfoSection from "../../../Widget/InfoSection/InfoSection";
+import InfoSection from "../../components/common/InfoSection/index";
 
 const GiftInfo = () => {
   return (

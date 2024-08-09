@@ -3,10 +3,9 @@ import {
   initOverlayState,
   overlayReducer,
   action,
-} from "../../jobs/Overlay/OverlayWork";
-import findChildrenElement from "../../Shared/Util/FindChildrenElement";
-import useWork from "../../Shared/Hyundux/Hooks/useWork";
-import store from "../../Shared/Hyundux/Store";
+} from "../../../jobs/Overlay/OverlayWork";
+import findChildrenElement from "../../../utils/FindChildrenElement";
+import { store, useWork } from "../../../shared/Hyundux";
 
 interface OverLayProps {
   children: ReactNode;

@@ -1,4 +1,4 @@
-import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
+import SmileBadge from "../../../components/common/SmileBadge";
 
 const FailContent = () => {
   return (
@@ -11,7 +11,7 @@ const FailContent = () => {
           내일 다시 기회를 노려보세요.
         </span>
         <div className="mt-[80px]">
-          <SmileBadge width={180} badgeType={8} />
+          <SmileBadge width={180} badgeType="orange_sad" />
         </div>
         <div className="flex w-[521px] justify-center items-center px-20 py-5 bg-[#002C5F] mt-[60px]">
           <span className="text-white text-[18px]">확인</span>

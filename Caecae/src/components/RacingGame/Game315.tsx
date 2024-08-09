@@ -9,12 +9,11 @@ import {
   initGame315State,
   game315Reducer,
 } from "../../jobs/Game315/Game315Work.tsx";
-import useWork from "../../Shared/Hyundux/Hooks/useWork.tsx";
-import store from "../../Shared/Hyundux/Store.tsx";
+import { useWork, store } from "../../shared/Hyundux/index.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (
-  gameStatus: String,
+  gameStatus: string,
   distance: number,
   handlePlayGame: () => void
 ) => {
@@ -87,7 +86,7 @@ const gameContent = (
 };
 
 /** 게임 상태에 따라 다르게 보여지는 우측 상단 메뉴 */
-const gameMenu = (gameStatus: String) => {
+const gameMenu = (gameStatus: string) => {
   switch (gameStatus) {
     case "previous":
       return (

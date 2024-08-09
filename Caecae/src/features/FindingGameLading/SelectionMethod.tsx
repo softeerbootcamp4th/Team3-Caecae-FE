@@ -1,6 +1,6 @@
-import InfoSection from "../../../Widget/InfoSection/InfoSection";
-import Circle from "../../../Widget/Shape/Circle";
-import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
+import InfoSection from "../../components/common/InfoSection";
+import Circle from "../../components/common/Shape";
+import SmileBadge from "../../components/common/SmileBadge";
 
 const SelectionMethod = () => {
   return (
@@ -13,7 +13,7 @@ const SelectionMethod = () => {
           <InfoSection title="선착순 315명 전원 증정">
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <div className="absolute left-[-70px] top-[200px] transform rotate-[12deg] ">
-                <SmileBadge width={150} badgeType={4} />
+                <SmileBadge width={150} badgeType="white" />
               </div>
               <p className="text-[white] text-center text-[18px] line-[140%]">
                 매일 정해진 선착순 인원에게{" "}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import SmileBadge from "../../../Widget/SmileBadge/SmileBadge.tsx";
-import store from "../../../Shared/Hyundux/Store.tsx";
+import SmileBadge from "../../../components/common/SmileBadge/SmileBadge.tsx";
+import { store } from "../../../shared/Hyundux";
 import { action } from "../../../jobs/Overlay/OverlayWork.tsx";
 
 const EnterContent = () => {
@@ -40,7 +40,7 @@ const EnterContent = () => {
           전화번호를 입력하고 쿠폰을 받아가세요.
         </span>
         <div className="mt-[80px]">
-          <SmileBadge width={180} badgeType={1} />
+          <SmileBadge width={180} badgeType="orange" />
         </div>
         <div
           className="flex w-[521px] justify-center items-center px-20 py-5 bg-[#002C5F] mt-[60px]"

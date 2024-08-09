@@ -1,6 +1,6 @@
 import { action } from "../../../jobs/Overlay/OverlayWork";
-import store from "../../../Shared/Hyundux/Store";
-import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
+import { store } from "../../../shared/Hyundux";
+import SmileBadge from "../../../components/common/SmileBadge/index";
 
 const SuccessEnterContent = () => {
   return (
@@ -13,7 +13,7 @@ const SuccessEnterContent = () => {
           참여해주셔서 감사합니다.
         </span>
         <div className="mt-[80px]">
-          <SmileBadge width={180} badgeType={1} />
+          <SmileBadge width={180} badgeType="orange" />
         </div>
         <div
           className="flex w-[521px] justify-center items-center px-20 py-5 bg-[#002C5F] mt-[60px]"

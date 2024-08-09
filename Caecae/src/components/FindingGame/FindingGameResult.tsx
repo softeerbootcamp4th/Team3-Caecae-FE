@@ -2,8 +2,7 @@ import {
   action,
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGame";
-import useExistState from "../../Shared/Hyundux/Hooks/useExistState";
-import store from "../../Shared/Hyundux/Store";
+import { useExistState, store } from "../../shared/Hyundux/index";
 
 const FindingGameResult = () => {
   const state = useExistState(initFindingGameState);
@@ -50,7 +49,7 @@ const FindingGameResult = () => {
           <p className="font-bold text-[24px]">{currentAnswer.title}</p>
           <p className="mt-[25px]">{currentAnswer.info}</p>
         </div>
-        <div className="flex-grow"></div> {/* 이 부분 수정 */}
+        <div className="flex-grow"></div>
         <div className="bg-[#002C5F] flex justify-center items-center w-10/12 py-[14px] mb-[40px]">
           <p className="text-[white] font-bold text-[18px]">
             이벤트 홈으로 돌아가기

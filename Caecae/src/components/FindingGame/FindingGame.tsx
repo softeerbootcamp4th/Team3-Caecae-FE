@@ -1,16 +1,15 @@
-import PictureGameBoard from "../../Widget/PictureGameBoard/PictureGameBoard.tsx";
+import PictureGameBoard from "../common/PictureGameBoard/index.tsx";
 import {
   action,
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGame.tsx";
-import store from "../../Shared/Hyundux/Store.tsx";
 import { useEffect, useRef } from "react";
-import LottieContainer from "../../Widget/LottieContainer/LottieContainter.tsx";
+import LottieContainer from "../common/LottieContainer/index.tsx";
 import correctLottie from "../../../public/assets/animationCorrect.json";
 import wrongLottie from "../../../public/assets/animationIncorrect.json";
-import useExistState from "../../Shared/Hyundux/Hooks/useExistState.tsx";
+import { store, useExistState } from "../../shared/Hyundux";
 import HintSpot from "./Hint/HintSpot.tsx";
-import SmileBadge from "../../Widget/SmileBadge/SmileBadge.tsx";
+import SmileBadge from "../common/SmileBadge/index.tsx";
 
 const FindingGame = () => {
   const state = useExistState(initFindingGameState);
@@ -71,6 +70,7 @@ const FindingGame = () => {
       const left = answer.x - 50;
       const top = answer.y - 50;
       const rotateRadian = index == 0 ? "-13" : "8";
+      const bageType = index == 0 ? "orange_line" : "yellow_line";
       return (
         <div
           key={index}
@@ -85,7 +85,7 @@ const FindingGame = () => {
             store.dispatch(action.changeShowingAnswer(index));
           }}
         >
-          <SmileBadge width={200} badgeType={6 + index} />
+          <SmileBadge width={200} badgeType={bageType} />
         </div>
       );
     }

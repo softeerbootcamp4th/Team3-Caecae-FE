@@ -1,37 +1,31 @@
 import { useContext, useEffect, useState } from "react";
-import { RouterContext } from "../../Shared/Hyunouter/Router";
-import Link from "../../Shared/Hyunouter/Link";
+import { RouterContext } from "../../../shared/Hyunouter/Router";
+import Link from "../../../shared/Hyunouter/Link";
 import "./Navigation.css";
 
 const Navigation: React.FC = () => {
   const { path } = useContext(RouterContext);
   const isActive = (linkPath: string) => path === linkPath;
-  // 네비게이션 바 표시 상태를 관리하는 state
   const [showNav, setShowNav] = useState(true);
-  // 마지막 스크롤 위치를 저장하는 state
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    // 스크롤 이벤트를 처리하는 함수
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      // 스크롤이 아래로 진행되었는지 확인
       if (currentScrollY > lastScrollY) {
-        setShowNav(false); // 스크롤을 내릴 때 네비게이션 바 숨기기
+        setShowNav(false);
       } else {
-        setShowNav(true); // 스크롤을 올릴 때 네비게이션 바 표시
+        setShowNav(true);
       }
-      // 마지막 스크롤 위치 업데이트
       setLastScrollY(currentScrollY);
     };
 
-    // 스크롤 이벤트 리스너 등록
     window.addEventListener("scroll", handleScroll);
 
-    // 클린업 함수에서 이벤트 리스너 제거
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  // Todo : 정적으로 네비게이션 아이템만들기 (TBD)
   return (
     <nav
       className={`${

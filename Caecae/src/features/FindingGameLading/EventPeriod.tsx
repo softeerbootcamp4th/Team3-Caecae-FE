@@ -1,6 +1,6 @@
-import InfoSection from "../../../Widget/InfoSection/InfoSection";
-import Circle from "../../../Widget/Shape/Circle";
-import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
+import InfoSection from "../../components/common/InfoSection/index";
+import Circle from "../../components/common/Shape/index";
+import SmileBadge from "../../components/common/SmileBadge/index";
 
 const EventPeriod = () => {
   return (
@@ -13,7 +13,7 @@ const EventPeriod = () => {
           <InfoSection title="7일간 매일매일">
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <div className="absolute right-[-70px] bottom-[200px] transform rotate-[-12deg] ">
-                <SmileBadge width={150} badgeType={0} />
+                <SmileBadge width={150} badgeType="blue" />
               </div>
               <p className="text-[white] text-center text-[18px] line-[140%]">
                 참여 기간: 7.15 (월) - 7.21 (일){" "}

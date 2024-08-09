@@ -1,7 +1,10 @@
-import { createState } from "../../Shared/Hyundux/State";
-import { makePayLoad } from "../../Shared/Hyundux/Util/StoreUtil";
-import Reducer from "../../Shared/Hyundux/Reducer";
-import { Action } from "../../Shared/Hyundux/Actions";
+import {
+  createState,
+  makePayLoad,
+  Action,
+  Reducer,
+} from "../../shared/Hyundux";
+
 import FindingGameAnswer from "../../types/FindingGameAnswer";
 
 const WORK_NAME = "FindingGame";

@@ -1,12 +1,13 @@
 import { useRef } from "react";
-import Footer from "../../Widget/Footer/Footer";
-import Navigation from "../../Widget/Navigation/Navigation";
-import EventPeriod from "./FindingGameLading/EventPeriod";
-import HowToEvent from "./FindingGameLading/HowToEvent";
-import LadingPageTitle from "./FindingGameLading/LadingPageTitle";
-
-import OpenEvent from "./FindingGameLading/OpenEvent";
-import SelectionMethod from "./FindingGameLading/SelectionMethod";
+import Footer from "../../components/common/Footer";
+import Navigation from "../../components/common/Navigation";
+import {
+  EventPeriod,
+  HowToEvent,
+  LadingPageTitle,
+  OpenEvent,
+  SelectionMethod,
+} from "../../features/FindingGameLading";
 
 const FindingGameLadingPage = () => {
   const targetRef = useRef<HTMLDivElement>(null);

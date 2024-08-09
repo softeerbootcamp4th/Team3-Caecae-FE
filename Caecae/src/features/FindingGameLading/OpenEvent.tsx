@@ -5,9 +5,9 @@ import React, {
   useRef,
   useState,
 } from "react";
-import SmileBadge from "../../../Widget/SmileBadge/SmileBadge";
-import useSpecificTimeEffect from "../../../Shared/Hooks/useSpecificTimeEffect";
-import Link from "../../../Shared/Hyunouter/Link";
+import SmileBadge from "../../components/common/SmileBadge/index";
+import { useSpecificTimeEffect } from "../../hooks";
+import { Link } from "../../shared/Hyunouter";
 
 // props 타입 정의
 interface OpenEventProps {}
@@ -51,7 +51,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
             className="w-3/5  mt-[60px]"
           />
           <div className="mt-[60px]">
-            <SmileBadge width={175} badgeType={3} />
+            <SmileBadge width={175} badgeType="yellow_wink" />
           </div>
         </>
       ),
@@ -116,7 +116,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
             className="w-3/5  mt-[60px]"
           />
           <div className="mt-[60px]">
-            <SmileBadge width={175} badgeType={3} />
+            <SmileBadge width={175} badgeType="yellow_wink" />
           </div>
         </>
       ),

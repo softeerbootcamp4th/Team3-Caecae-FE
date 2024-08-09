@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { initFindingGameState } from "../../jobs/FindingGame/FindingGame";
-import useExistState from "../../Shared/Hyundux/Hooks/useExistState";
-import SmileBadge from "../../Widget/SmileBadge/SmileBadge";
+import { useExistState } from "../../shared/Hyundux/index";
+import SmileBadge from "../common/SmileBadge/index";
 
 function modeDependency(mode: string): {
   findingWord: string;
@@ -54,6 +54,7 @@ const FindingGameInfo = () => {
   );
 
   const badges = state.answers.map((answer, index) => {
+    const badgeType = index == 0 ? "blue" : "orange";
     if (
       state.showingAnswers.filter(
         (showingAnswer) => showingAnswer.id == answer.id
@@ -63,7 +64,7 @@ const FindingGameInfo = () => {
         <SmileBadge
           key={answer.id}
           isSelected={true}
-          badgeType={index}
+          badgeType={badgeType}
           width={110}
         />
       );
@@ -72,7 +73,7 @@ const FindingGameInfo = () => {
         <SmileBadge
           key={answer.id}
           isSelected={false}
-          badgeType={index}
+          badgeType={badgeType}
           width={110}
         />
       );

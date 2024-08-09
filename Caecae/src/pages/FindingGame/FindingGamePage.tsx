@@ -1,18 +1,15 @@
 import { useEffect } from "react";
-import FindingGame from "../../components/FindingGame/FindingGame";
-import FindingGameInfo from "../../components/FindingGame/FindingGameInfo";
+import { FindingGame, FindingGameInfo } from "../../components/FindingGame";
 import {
   findingGameReducer,
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGame";
 import { action as overlayAction } from "../../jobs/Overlay/OverlayWork";
-import useWork from "../../Shared/Hyundux/Hooks/useWork";
-import OverLay from "../../Widget/Overlay/Overlay";
-import OverLayContent from "../../Widget/Overlay/OverlayContent";
+import { OverLay, OverLayContent } from "../../components/common/Overlay/index";
 import EnterContent from "./Enter/EnterContent";
-import store from "../../Shared/Hyundux/Store";
+import { store, useWork } from "../../shared/Hyundux";
 import FailContent from "./Enter/FailContent";
-import PhoneNumberOverlay from "../../components/PhoneNumberOverlay/PhoneNumberOverlay";
+import PhoneNumberOverlay from "../../components/PhoneNumberOverlay";
 import SuccessEnterContent from "./Enter/SuccessEnterContent";
 import FindingGameResult from "../../components/FindingGame/FindingGameResult";
 

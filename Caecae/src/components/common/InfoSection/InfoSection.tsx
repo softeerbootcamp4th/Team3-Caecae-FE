@@ -1,96 +1,83 @@
-import { ReactNode } from "react";
-
+import { ReactElement, ReactNode } from "react";
 interface InfoSectionProps {
-  type: number; // 헤더 있는 버전: 0, 헤더 없는 버전: 1
-  width?: number;
+  type?: "Default" | "Header";
   title?: string;
-  location?: string; // start, center, end
   children: ReactNode;
 }
 
-const InfoSection = ({ type, title, location, children }: InfoSectionProps) => {
+const InfoSection = ({
+  type = "Header",
+  title = "",
+  children,
+}: InfoSectionProps) => {
+  let header: ReactElement | null = null;
+
   switch (type) {
-    case 0:
-      return (
-        <div className="flex justify-center items-center flex-col">
-          <div className="flex justify-center items-center">
-            <img
-              src="/public/assets/sectionContentHeader.svg"
-              alt="howToEventLeft"
-              className="w-3/4"
-            />
-            <p className="absolute text-[white] font-galmuri text-[28px]">
-              {title}
-            </p>
-          </div>
-          <div className=" border-l-4 border-r-4 border-white relative w-3/4">
-            {children}
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 left-[20px] top-[20px]"
-            />
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 right-[20px] top-[20px]"
-            />
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 left-[20px] bottom-[20px]"
-            />
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 right-[20px] bottom-[20px]"
-            />
-          </div>
+    case "Header":
+      header = (
+        <div className="flex justify-center items-center">
           <img
-            src="/public/assets/bottomLine.svg"
-            alt="howToEventRight"
-            className="w-3/4"
+            src="/public/assets/sectionContentHeader.svg"
+            alt="howToEventLeft"
           />
+          <p className="absolute text-[white] font-galmuri text-[28px]">
+            {title}
+          </p>
         </div>
       );
-    case 1:
-      return (
-        <div className={`flex flex-col justify-center items-${location}`}>
-          <img
-            src="/public/assets/topLine.svg"
-            alt="topLine"
-            className="w-3/4"
-          />
-          <div className=" border-l-4 border-r-4 border-white relative w-3/4">
-            {children}
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 left-[20px] top-[20px]"
-            />
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 right-[20px] top-[20px]"
-            />
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 left-[20px] bottom-[20px]"
-            />
-            <img
-              src="/public/assets/infoSectionPoint.svg"
-              alt="infoSectionPoint"
-              className="w-[20px] absolute z-10 right-[20px] bottom-[20px]"
-            />
-          </div>
-          <img
-            src="/public/assets/bottomLine.svg"
-            alt="howToEventRight"
-            className="w-3/4"
-          />
-        </div>
-      );
+      break;
+    case "Default":
+      header = <img src="/public/assets/topLine.svg" alt="topLine" />;
+      break;
   }
+
+  return (
+    <>
+      <div className="flex flex-col items-center justify-center">
+        {header}
+        <div className="border-l-4 border-r-4 border-white relative w-full h-full">
+          {children}
+          <InfoSectionDot key={0} top={20} left={20} />
+          <InfoSectionDot key={1} top={20} right={20} />
+          <InfoSectionDot key={2} bottom={20} left={20} />
+          <InfoSectionDot key={3} bottom={20} right={20} />
+        </div>
+        <img src="/public/assets/bottomLine.svg" alt="howToEventRight" />
+      </div>
+    </>
+  );
 };
+
+interface InfoSectionDotProps {
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+}
+
+const InfoSectionDot = ({
+  top = 0,
+  bottom = 0,
+  left = 0,
+  right = 0,
+}: InfoSectionDotProps) => {
+  const style: React.CSSProperties = {
+    top: `${top}px`,
+    bottom: `${bottom}px`,
+    left: `${left}px`,
+    right: `${right}px`,
+    width: "20px",
+    position: "absolute",
+    zIndex: "10",
+  };
+
+  return (
+    <img
+      src="/public/assets/infoSectionPoint.svg"
+      alt="infoSectionPoint"
+      style={style}
+    />
+  );
+};
+
 export default InfoSection;
