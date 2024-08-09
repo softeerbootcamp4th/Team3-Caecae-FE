@@ -23,11 +23,11 @@ const SmileBadge = ({
     "orange_sad", // 8
   ];
   const getImageSrc =
-    "/src/Shared/assets/" + badgeTypeList[badgeType] + "Badge.svg";
+    "/public/assets/" + badgeTypeList[badgeType] + "Badge.svg";
 
   const checkIcon = isSelected ? (
     <img
-      src="/src/Shared/assets/checkCircleIcon.svg"
+      src="/public/assets/checkCircleIcon.svg"
       alt="hyundaiLogo"
       width={70}
       className="absolute z-20"

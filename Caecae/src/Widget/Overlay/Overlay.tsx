@@ -3,7 +3,7 @@ import {
   initOverlayState,
   overlayReducer,
   action,
-} from "../../Job/Overlay/OverlayWork";
+} from "../../jobs/Overlay/OverlayWork";
 import findChildrenElement from "../../Shared/Util/FindChildrenElement";
 import useWork from "../../Shared/Hyundux/Hooks/useWork";
 import store from "../../Shared/Hyundux/Store";
@@ -30,7 +30,7 @@ const OverLay: React.FC<OverLayProps> = ({ children }) => {
           style={{ width: "62%", height: "71%" }}
         >
           <img
-            src="/src/Shared/assets/xButton.svg"
+            src="/public/assets/xButton.svg"
             className="absolute right-10 top-10"
             onClick={() => {
               // Todo: store 지우기

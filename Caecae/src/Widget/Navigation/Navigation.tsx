@@ -40,7 +40,7 @@ const Navigation: React.FC = () => {
     >
       <div className="absolute left-0 ml-10 logo">
         <Link to="/mainpage">
-          <img src="/src/Shared/assets/casperLogo.svg" alt="casperLogo" />
+          <img src="/public/assets/casperLogo.svg" alt="casperLogo" />
         </Link>
       </div>
       <ul className="navbar flex list-none text-white space-x-28 h-full items-center">

@@ -9,13 +9,13 @@ interface InfoSectionProps {
 }
 
 const InfoSection = ({ type, title, location, children }: InfoSectionProps) => {
-  switch(type) {
+  switch (type) {
     case 0:
       return (
         <div className="flex justify-center items-center flex-col">
           <div className="flex justify-center items-center">
             <img
-              src="/src/Shared/assets/sectionContentHeader.svg"
+              src="/public/assets/sectionContentHeader.svg"
               alt="howToEventLeft"
               className="w-3/4"
             />
@@ -26,28 +26,28 @@ const InfoSection = ({ type, title, location, children }: InfoSectionProps) => {
           <div className=" border-l-4 border-r-4 border-white relative w-3/4">
             {children}
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 left-[20px] top-[20px]"
             />
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 right-[20px] top-[20px]"
             />
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 left-[20px] bottom-[20px]"
             />
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 right-[20px] bottom-[20px]"
             />
           </div>
           <img
-            src="/src/Shared/assets/bottomLine.svg"
+            src="/public/assets/bottomLine.svg"
             alt="howToEventRight"
             className="w-3/4"
           />
@@ -56,41 +56,41 @@ const InfoSection = ({ type, title, location, children }: InfoSectionProps) => {
     case 1:
       return (
         <div className={`flex flex-col justify-center items-${location}`}>
-          <img 
-            src="/src/Shared/assets/topLine.svg"
+          <img
+            src="/public/assets/topLine.svg"
             alt="topLine"
             className="w-3/4"
           />
           <div className=" border-l-4 border-r-4 border-white relative w-3/4">
             {children}
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 left-[20px] top-[20px]"
             />
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 right-[20px] top-[20px]"
             />
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 left-[20px] bottom-[20px]"
             />
             <img
-              src="/src/Shared/assets/infoSectionPoint.svg"
+              src="/public/assets/infoSectionPoint.svg"
               alt="infoSectionPoint"
               className="w-[20px] absolute z-10 right-[20px] bottom-[20px]"
             />
           </div>
           <img
-            src="/src/Shared/assets/bottomLine.svg"
+            src="/public/assets/bottomLine.svg"
             alt="howToEventRight"
             className="w-3/4"
           />
         </div>
       );
-  };
+  }
 };
 export default InfoSection;
