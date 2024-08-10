@@ -1,5 +1,5 @@
 import { createState, makePayLoad, Action } from "../../shared/Hyundux";
-import Reducer from "../../Shared/Hyundux/Reducer";
+import Reducer from "../../shared/Hyundux/Reducer";
 
 const WORK_NAME = "Overlay";
 

@@ -1,7 +1,7 @@
 import {
   action,
   initFindingGameState,
-} from "../../jobs/FindingGame/FindingGame";
+} from "../../jobs/FindingGame/FindingGameWork";
 import { useExistState, store } from "../../shared/Hyundux/index";
 
 const FindingGameResult = () => {

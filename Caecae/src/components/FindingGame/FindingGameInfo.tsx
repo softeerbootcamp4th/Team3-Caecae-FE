@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { initFindingGameState } from "../../jobs/FindingGame/FindingGame";
+import { initFindingGameState } from "../../jobs/FindingGame/FindingGameWork";
 import { useExistState } from "../../shared/Hyundux/index";
 import SmileBadge from "../common/SmileBadge/index";
 

@@ -2,7 +2,7 @@ import PictureGameBoard from "../common/PictureGameBoard/index.tsx";
 import {
   action,
   initFindingGameState,
-} from "../../jobs/FindingGame/FindingGame.tsx";
+} from "../../jobs/FindingGame/FindingGameWork.tsx";
 import { useEffect, useRef } from "react";
 import LottieContainer from "../common/LottieContainer/index.tsx";
 import correctLottie from "../../../public/assets/animationCorrect.json";

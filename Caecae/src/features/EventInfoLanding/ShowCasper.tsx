@@ -1,4 +1,4 @@
-const ShowCasper2 = () => {
+const ShowCasper = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -41,4 +41,4 @@ const ShowCasper2 = () => {
   );
 };
 
-export default ShowCasper2;
+export default ShowCasper;

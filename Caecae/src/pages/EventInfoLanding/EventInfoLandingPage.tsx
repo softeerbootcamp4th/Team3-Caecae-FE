@@ -1,21 +1,21 @@
 import Footer from "../../components/common/Footer/index";
 import Navigation from "../../components/common/Navigation/index";
 import {
+  EventInfoTitle,
+  ShowCasper,
+  CasperFeature,
+  DarkTeaserCasper,
   GoToEvent,
-  ShowCasper1,
-  ShowCasper2,
-  ShowCasper3,
-  ShowCasper4,
-} from "../../features/Main";
+} from "../../features/EventInfoLanding";
 
 const EventInfoLandingPage = () => {
   return (
     <>
       <Navigation />
-      <ShowCasper1 />
-      <ShowCasper2 />
-      <ShowCasper3 />
-      <ShowCasper4 />
+      <EventInfoTitle />
+      <ShowCasper />
+      <CasperFeature />
+      <DarkTeaserCasper />
       <GoToEvent />
       <Footer />
     </>

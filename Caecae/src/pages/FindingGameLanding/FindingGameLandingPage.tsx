@@ -7,9 +7,9 @@ import {
   LadingPageTitle,
   OpenEvent,
   SelectionMethod,
-} from "../../features/FindingGameLading";
+} from "../../features/FindingGameLanding";
 
-const FindingGameLadingPage = () => {
+const FindingGameLandingPage = () => {
   const targetRef = useRef<HTMLDivElement>(null);
 
   const scrollToElement = () => {
@@ -31,4 +31,4 @@ const FindingGameLadingPage = () => {
   );
 };
 
-export default FindingGameLadingPage;
+export default FindingGameLandingPage;

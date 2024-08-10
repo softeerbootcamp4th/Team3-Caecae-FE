@@ -1,4 +1,4 @@
-const ShowCasper1 = () => {
+const EventInfoTitle = () => {
   return (
     <>
       <div className="flex w-full h-screen justify-center relative">
@@ -35,4 +35,4 @@ const ShowCasper1 = () => {
   );
 };
 
-export default ShowCasper1;
+export default EventInfoTitle;

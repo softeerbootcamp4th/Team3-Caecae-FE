@@ -8,7 +8,7 @@ interface ImageData {
   paragraph: string;
 }
 
-const ShowCasper3 = () => {
+const CasperFeature = () => {
   const images: ImageData[] = [
     {
       id: 0,
@@ -106,4 +106,4 @@ const ShowCasper3 = () => {
   );
 };
 
-export default ShowCasper3;
+export default CasperFeature;

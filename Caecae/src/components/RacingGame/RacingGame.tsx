@@ -1,14 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import { motion, useAnimation, useMotionValue } from "framer-motion";
+import { 
+  motion, 
+  useAnimation, 
+  useMotionValue,
+ } from "framer-motion";
 import animationGame315 from "../../../public/assets/animationGame315.json";
-import frontBackground from "../../../Shared/assets/frontBackground.svg";
-import rearBackground from "../../../Shared/assets/rearBackground.svg";
+import frontBackground from "../../../public/assets/frontBackground.svg";
+import rearBackground from "../../../public/assets/rearBackground.svg";
 import {
   action,
-  initGame315State,
-  game315Reducer,
-} from "../../jobs/Game315/Game315Work.tsx";
+  initRacingGameState,
+  racingGameReducer,
+} from "../../jobs/RacingGame/RacingGameWork.tsx";
 import { useWork, store } from "../../shared/Hyundux/index.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
@@ -112,13 +116,13 @@ const gameMenu = (gameStatus: string) => {
   }
 };
 
-const Game315: React.FC = () => {
+const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
-  const [state, dispatch] = useWork(initGame315State, game315Reducer);
+  const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -260,4 +264,4 @@ const Game315: React.FC = () => {
   );
 };
 
-export default Game315;
+export default RacingGame;

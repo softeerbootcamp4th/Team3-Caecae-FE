@@ -3,7 +3,7 @@ import { FindingGame, FindingGameInfo } from "../../components/FindingGame";
 import {
   findingGameReducer,
   initFindingGameState,
-} from "../../jobs/FindingGame/FindingGame";
+} from "../../jobs/FindingGame/FindingGameWork";
 import { action as overlayAction } from "../../jobs/Overlay/OverlayWork";
 import { OverLay, OverLayContent } from "../../components/common/Overlay/index";
 import EnterContent from "./Enter/EnterContent";

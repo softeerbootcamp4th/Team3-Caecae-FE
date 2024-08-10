@@ -1,11 +1,10 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Router, Routes, Route } from "./shared/Hyunouter/index.tsx";
-import LottieGame315 from "../public/assets/LottieGame315.tsx";
-import FindingGameLadingPage from "./pages/FindingGameLanding/FindingGameLadingPage.tsx";
-import FindingGamePage from "./pages/FindingGame/FindingGamePage.tsx";
-import FindingGame from "./components/FindingGame/FindingGame.tsx";
 import EventInfoLandingPage from "./pages/EventInfoLanding/EventInfoLandingPage.tsx";
+import FindingGameLandingPage from "./pages/FindingGameLanding/FindingGameLandingPage.tsx";
+import RacingGameLandingPage from "./pages/RacingGameLanding/RacingGameLandingPage.tsx";
+import FindingGamePage from "./pages/FindingGame/FindingGamePage.tsx";
 
 // 임시 React component
 const App = () => {
@@ -14,15 +13,8 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/mainpage" element={<EventInfoLandingPage />} />
-          <Route path="/findcasper" element={<FindingGameLadingPage />} />
-          <Route
-            path="/racecasper"
-            element={
-              <div className="flex justify-center items-center">
-                <LottieGame315 />
-              </div>
-            }
-          />
+          <Route path="/findcasper" element={<FindingGameLandingPage />} />
+          <Route path="/racecasper" element={<RacingGameLandingPage />} />
           <Route
             path="/findcaspergame#010643431936"
             element={<FindingGamePage />}

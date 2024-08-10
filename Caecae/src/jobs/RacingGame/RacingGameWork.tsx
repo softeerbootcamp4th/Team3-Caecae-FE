@@ -1,26 +1,26 @@
-import { createState } from "../../Shared/Hyundux/State";
-import { makePayLoad } from "../../Shared/Hyundux/Util/StoreUtil";
-import Reducer from "../../Shared/Hyundux/Reducer";
+import { createState } from "../../shared/Hyundux/State";
+import { makePayLoad } from "../../shared/Hyundux/Util/StoreUtil";
+import Reducer from "../../shared/Hyundux/Reducer";
 import { Action } from "../../shared/Hyundux/Actions";
 
-const WORKFLOW_NAME = "Game315";
+const WORKFLOW_NAME = "RacingGame";
 
 const km315 = 315;
 const aniMovingDistance = 11990;
 
 // state type
-interface game315PayLoad {
+interface RacingGamePayLoad {
   gameStatus: "previous" | "playing" | "end";
   distance: number;
 }
 
-const initGame315State = createState<game315PayLoad>(WORKFLOW_NAME, {
+const initRacingGameState = createState<RacingGamePayLoad>(WORKFLOW_NAME, {
   gameStatus: "previous",
   distance: 0,
 });
 
 // define reducer
-const game315Reducer: Reducer<game315PayLoad> = {
+const racingGameReducer: Reducer<RacingGamePayLoad> = {
   type: WORKFLOW_NAME,
   reducer: async function reducer(state, action) {
     switch (action.actionName) {
@@ -66,4 +66,4 @@ const action = {
   },
 };
 
-export { action, initGame315State, game315Reducer };
+export { action, initRacingGameState, racingGameReducer };

@@ -1,4 +1,4 @@
-const ShowCasper4 = () => {
+const DarkTeaserCasper = () => {
   return (
     <>
       <div className="flex w-full h-screen justify-center items-center relative">
@@ -22,4 +22,4 @@ const ShowCasper4 = () => {
   );
 };
 
-export default ShowCasper4;
+export default DarkTeaserCasper;
