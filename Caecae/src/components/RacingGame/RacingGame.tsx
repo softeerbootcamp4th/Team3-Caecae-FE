@@ -1,10 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import { 
-  motion, 
-  useAnimation, 
-  useMotionValue,
- } from "framer-motion";
+import { motion, useAnimation, useMotionValue } from "framer-motion";
 import animationGame315 from "../../../public/assets/animationGame315.json";
 import frontBackground from "../../../public/assets/frontBackground.svg";
 import rearBackground from "../../../public/assets/rearBackground.svg";
@@ -134,6 +130,7 @@ const RacingGame: React.FC = () => {
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
+    dispatch;
     store.dispatch(action.updateDistance(totalDistance));
   };
 

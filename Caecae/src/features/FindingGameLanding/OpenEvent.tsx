@@ -1,10 +1,4 @@
-import React, {
-  forwardRef,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, ReactElement, useRef, useState } from "react";
 import SmileBadge from "../../components/common/SmileBadge/index";
 import { useSpecificTimeEffect } from "../../hooks";
 import { Link } from "../../shared/Hyunouter";
@@ -22,7 +16,7 @@ interface StatusInfo {
 const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
   const eventOpenStatus = useRef<EventOpenStatus>("none");
   const [leftTime, setLeftTime] = useState(0);
-
+  props;
   const targetDate = new Date();
   targetDate.setHours(17, 0, 0, 0);
 

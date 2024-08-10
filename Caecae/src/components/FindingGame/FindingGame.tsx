@@ -41,6 +41,8 @@ const FindingGame = () => {
     y: number,
     x: number
   ) => {
+    width;
+    heigjht;
     if (state.gameStatus == "Gaming") {
       store.dispatch(action.click(y, x));
     }
@@ -49,7 +51,7 @@ const FindingGame = () => {
   const lottieWidth = 120;
   const lottieHeight = 120;
 
-  const showingCorrectElements = state.showingAnswers.map((answer, index) => {
+  const showingCorrectElements = state.showingAnswers.map((answer) => {
     if (state.gameStatus == "Gaming") {
       return (
         <LottieContainer

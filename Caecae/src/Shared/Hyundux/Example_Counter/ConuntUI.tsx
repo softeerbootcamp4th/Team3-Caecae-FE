@@ -3,9 +3,10 @@ import { action, initCountState, countReducer } from "./CountWork.tsx";
 import store from "../Store.tsx";
 
 const Counter = () => {
-  const state = useWork(initCountState, countReducer);
+  const [state, dispatch] = useWork(initCountState, countReducer);
 
   function temp1() {
+    dispatch;
     store.dispatch(action.countUp());
   }
 

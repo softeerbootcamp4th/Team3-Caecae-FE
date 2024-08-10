@@ -1,4 +1,4 @@
-import React, { memo, useRef } from "react";
+import { memo, useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 
 interface LottieContainerProps {

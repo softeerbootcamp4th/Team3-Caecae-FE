@@ -2,7 +2,7 @@ import { createStory, Story } from "../Story";
 import huynxios from "../../Hyunxios";
 import { Action } from "../../Hyundux/Actions";
 import useSaga from "../useSaga";
-import { createState } from "../../Hyundux/State"; 
+import { createState } from "../../Hyundux/State";
 import { makePayLoad } from "../../Hyundux/Util/StoreUtil";
 import Reducer from "../../Hyundux/Reducer";
 import useWork from "../../Hyundux/Hooks/useWork";
@@ -15,7 +15,7 @@ interface HealthCheckDTO {
   data: string;
 }
 
-const HealthCheckStory: Story = async (object: object) => {
+const HealthCheckStory: Story = async () => {
   const response = await huynxios.get<HealthCheckDTO>("/api/health");
   return response;
 };
@@ -24,7 +24,7 @@ const HealthCheckStory: Story = async (object: object) => {
 const TestComponent = () => {
   const [state, store] = useWork(initTestState, countReducer);
   const [status, teller] = useSaga();
-
+  store;
   useEffect(() => {
     setTimeout(() => {
       const testStory = createStory(HealthCheckStory, {});
@@ -60,7 +60,6 @@ const initTestState = createState<TestPayLoad>(WORKFLOW_NAME, {
 const countReducer: Reducer<TestPayLoad> = {
   type: WORKFLOW_NAME,
   reducer: async function reducer(state, action) {
-    const payLoad = state.payload;
     switch (action.actionName) {
       case "init": {
         const actionPayLoad = (action.payload || {}) as { data: string };
