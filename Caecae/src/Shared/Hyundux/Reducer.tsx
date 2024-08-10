@@ -1,5 +1,5 @@
-import { Action } from "./Actions";
 import State from "./State";
+import { Action } from "./Actions";
 
 interface Reducer<PayLoad> {
   type: string;
