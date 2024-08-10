@@ -1,4 +1,5 @@
 import InfoSection from "../../components/common/InfoSection/index";
+import { Link } from "../../shared/Hyunouter";
 
 const EventPeriod = () => {
   return (
@@ -23,14 +24,14 @@ const EventPeriod = () => {
                     alt="eventPeriodBackground"
                   />
                 </div>
-                <div className="mt-2">
-                  <button onClick={play315Game}>
+                <Link to="/racecaspergame">
+                  <div className="mt-2">
                     <img
                       src="/public/assets/play315GameButton.svg"
                       alt="play315GameButton"
                     />
-                  </button>
-                </div>
+                  </div>
+                </Link>
               </div>
             </InfoSection>
           </div>
@@ -38,10 +39,6 @@ const EventPeriod = () => {
       </div>
     </>
   );
-};
-
-const play315Game = () => {
-  console.log("315게임을 실행합니다!");
 };
 
 export default EventPeriod;
