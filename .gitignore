@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/react,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,yarn
 
+### webserverKey ###
+*.pem
+
 ### react ###
 .DS_*
 *.log
@@ -151,4 +154,3 @@ dist
 # temporary folders
 .tmp/
 temp/
-
