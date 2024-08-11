@@ -25,7 +25,7 @@ const EventInfoTitle = () => {
         </div>
         <div>
           <img
-            src="/public/assets/eventInfoPage1.svg"
+            src="/src/assets/eventInfoPage1.svg"
             alt="eventInfoPage1"
             className="absolute top-0 left-0 w-full h-screen object-cover object-bottom-center"
           />

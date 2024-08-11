@@ -2,8 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 import animationGame315 from "../../assets/animationGame315.json";
-import frontBackground from "../../../public/assets/frontBackground.svg";
-import rearBackground from "../../../public/assets/rearBackground.svg";
+import frontBackground from "../../../src/assets/frontBackground.svg";
+import rearBackground from "../../../src/assets/rearBackground.svg";
 import {
   action,
   initRacingGameState,

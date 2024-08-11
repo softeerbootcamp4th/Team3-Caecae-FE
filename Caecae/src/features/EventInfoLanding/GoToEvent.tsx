@@ -26,7 +26,7 @@ const GoToEvent = () => {
               <InfoSection type="Default">
                 <div className="flex flex-col justify-center items-center bg-[#191919]">
                   <div className="my-8">
-                    <img src="/public/assets/sharp1.svg" alt="sharp1" />
+                    <img src="/src/assets/sharp1.svg" alt="sharp1" />
                   </div>
                   <h2 className="font-galmuri text-[#D9D9D9] text-[24px]">
                     선착순 경품 이벤트
@@ -36,7 +36,7 @@ const GoToEvent = () => {
                       나를 찾아봐!
                     </h1>
                     <img
-                      src="/public/assets/magnifier.svg"
+                      src="/src/assets/magnifier.svg"
                       alt="magnifier"
                       className="h-[45px] ml-2"
                     />
@@ -48,7 +48,7 @@ const GoToEvent = () => {
                   </p>
                   <div className="mt-10">
                     <img
-                      src="/public/assets/findCasperLogo.svg"
+                      src="/src/assets/findCasperLogo.svg"
                       alt="findCasperLogo"
                       className="h-[260px] mb-10"
                     />
@@ -56,7 +56,7 @@ const GoToEvent = () => {
                   <Link to="/findcasper">
                     <button className="mb-16">
                       <img
-                        src="/public/assets/eventEnterBtn.svg"
+                        src="/src/assets/eventEnterBtn.svg"
                         alt="eventEnterBtn"
                       />
                     </button>
@@ -68,7 +68,7 @@ const GoToEvent = () => {
               <InfoSection type="Default">
                 <div className="flex flex-col justify-center items-center bg-[#191919]">
                   <div className="my-8">
-                    <img src="/public/assets/sharp2.svg" alt="sharp2" />
+                    <img src="/src/assets/sharp2.svg" alt="sharp2" />
                   </div>
                   <h2 className="font-galmuri text-[#D9D9D9] text-[24px]">
                     당첨자 경품 이벤트
@@ -80,7 +80,7 @@ const GoToEvent = () => {
                         315Km
                       </span>
                       <img
-                        src="/public/assets/background315km.svg"
+                        src="/src/assets/background315km.svg"
                         alt="background315km"
                         className="block h-[55px]"
                       />
@@ -93,7 +93,7 @@ const GoToEvent = () => {
                   </p>
                   <div className="mt-10">
                     <img
-                      src="/public/assets/pixelCasper.svg"
+                      src="/src/assets/pixelCasper.svg"
                       alt="pixelCasper"
                       className="pr-10 h-[300px]"
                     />
@@ -101,7 +101,7 @@ const GoToEvent = () => {
                   <Link to="/racecasper">
                     <button className="mb-16">
                       <img
-                        src="/public/assets/eventEnterBtn.svg"
+                        src="/src/assets/eventEnterBtn.svg"
                         alt="eventEnterBtn"
                       />
                     </button>

@@ -28,7 +28,7 @@ const FindingGameResult = () => {
                 store.dispatch(action.changeShowingAnswer(index));
               }}
             >
-              <img src="/public/assets/whiteLeftShevron.svg" />
+              <img src="/src/assets/whiteLeftShevron.svg" />
             </div>
             <div
               className="bg-[#000000] bg-opacity-50 w-[50px] h-[50px] flex justify-center items-center"
@@ -37,7 +37,7 @@ const FindingGameResult = () => {
                 store.dispatch(action.changeShowingAnswer(index));
               }}
             >
-              <img src="/public/assets/whiteRightShevron.svg" />
+              <img src="/src/assets/whiteRightShevron.svg" />
             </div>
           </div>
           <img

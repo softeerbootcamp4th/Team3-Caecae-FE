@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="bg-footer h-48 text-footerText flex flex-row items-center text-center">
       <div className="basis-3/12 h-full flex justify-end items-start">
         <img
-          src="/public/assets/hyundaiLogo.svg"
+          src="/src/assets/hyundaiLogo.svg"
           alt="hyundaiLogo"
           className="mt-14 mr-2"
         />

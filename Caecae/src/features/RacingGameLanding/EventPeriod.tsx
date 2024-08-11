@@ -19,14 +19,14 @@ const EventPeriod = () => {
                 </p>
                 <div className="my-16">
                   <img
-                    src="/public/assets/eventPeriodBackground.svg"
+                    src="/src/assets/eventPeriodBackground.svg"
                     alt="eventPeriodBackground"
                   />
                 </div>
                 <div className="mt-2">
                   <button onClick={play315Game}>
                     <img
-                      src="/public/assets/play315GameButton.svg"
+                      src="/src/assets/play315GameButton.svg"
                       alt="play315GameButton"
                     />
                   </button>

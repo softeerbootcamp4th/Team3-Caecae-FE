@@ -28,14 +28,11 @@ const HowToEvent = () => {
                       <span className="absolute inset-1 pl-1 text-black font-galmuri font-bold text-[12px]">
                         Step 1
                       </span>
-                      <img
-                        src="/public/assets/trapezoid1.svg"
-                        alt="trapezoid1"
-                      />
+                      <img src="/src/assets/trapezoid1.svg" alt="trapezoid1" />
                     </div>
                     <div className="flex flex-col p-2 border-white border-2">
                       <img
-                        src="/public/assets/racingGameStep1Image.svg"
+                        src="/src/assets/racingGameStep1Image.svg"
                         alt="racingGameStep1Image"
                       />
                       <p className="text-[#CCCCCC] text-center my-4">
@@ -52,7 +49,7 @@ const HowToEvent = () => {
                           Step 2
                         </span>
                         <img
-                          src="/public/assets/trapezoid1.svg"
+                          src="/src/assets/trapezoid1.svg"
                           alt="trapezoid1"
                         />
                       </div>
@@ -60,7 +57,7 @@ const HowToEvent = () => {
                     <div>
                       <div className="flex flex-col p-2 border-white border-2">
                         <img
-                          src="/public/assets/racingGameStep2Image.svg"
+                          src="/src/assets/racingGameStep2Image.svg"
                           alt="racingGameStep2Image"
                         />
                         <p className="text-[#CCCCCC] text-center my-4">
@@ -77,7 +74,7 @@ const HowToEvent = () => {
                           Step 3
                         </span>
                         <img
-                          src="/public/assets/trapezoid1.svg"
+                          src="/src/assets/trapezoid1.svg"
                           alt="trapezoid1"
                         />
                       </div>
@@ -85,7 +82,7 @@ const HowToEvent = () => {
                     <div>
                       <div className="flex flex-col p-2 border-white border-2">
                         <img
-                          src="/public/assets/racingGameStep3Image.svg"
+                          src="/src/assets/racingGameStep3Image.svg"
                           alt="racingGameStep3Image"
                         />
                         <p className="text-[#CCCCCC] text-center my-4">
@@ -120,14 +117,14 @@ const HowToEvent = () => {
                           Case 1. 공간 활용의 기술
                         </span>
                         <img
-                          src="/public/assets/trapezoid2.svg"
+                          src="/src/assets/trapezoid2.svg"
                           alt="trapezoid2"
                         />
                       </div>
                       <div>
                         <div className="flex flex-col p-2 border-white border-2">
                           <img
-                            src="/public/assets/racingGameCase1Image.svg"
+                            src="/src/assets/racingGameCase1Image.svg"
                             alt="racingGameCase1Image"
                           />
                         </div>
@@ -139,14 +136,14 @@ const HowToEvent = () => {
                           Case 2. 레저의 정석
                         </span>
                         <img
-                          src="/public/assets/trapezoid2.svg"
+                          src="/src/assets/trapezoid2.svg"
                           alt="trapezoid2"
                         />
                       </div>
                       <div>
                         <div className="flex flex-col p-2 border-white border-2">
                           <img
-                            src="/public/assets/racingGameCase2Image.svg"
+                            src="/src/assets/racingGameCase2Image.svg"
                             alt="racingGameCase2Image"
                           />
                         </div>
@@ -161,14 +158,14 @@ const HowToEvent = () => {
                           </span>
                         </span>
                         <img
-                          src="/public/assets/trapezoid2.svg"
+                          src="/src/assets/trapezoid2.svg"
                           alt="trapezoid2"
                         />
                       </div>
                       <div>
                         <div className="flex flex-col p-2 border-white border-2">
                           <img
-                            src="/public/assets/racingGameCase3Image.svg"
+                            src="/src/assets/racingGameCase3Image.svg"
                             alt="racingGameCase3Image"
                           />
                         </div>
@@ -185,14 +182,14 @@ const HowToEvent = () => {
                           </span>
                         </span>
                         <img
-                          src="/public/assets/trapezoid2.svg"
+                          src="/src/assets/trapezoid2.svg"
                           alt="trapezoid2"
                         />
                       </div>
                       <div>
                         <div className="flex flex-col p-2 border-white border-2">
                           <img
-                            src="/public/assets/racingGameCase4Image.svg"
+                            src="/src/assets/racingGameCase4Image.svg"
                             alt="racingGameCase4Image"
                           />
                         </div>
@@ -204,14 +201,14 @@ const HowToEvent = () => {
                           Case 5. 펫 프렌들리
                         </span>
                         <img
-                          src="/public/assets/trapezoid2.svg"
+                          src="/src/assets/trapezoid2.svg"
                           alt="trapezoid2"
                         />
                       </div>
                       <div>
                         <div className="flex flex-col p-2 border-white border-2">
                           <img
-                            src="/public/assets/racingGameCase5Image.svg"
+                            src="/src/assets/racingGameCase5Image.svg"
                             alt="racingGameCase5Image"
                           />
                         </div>
@@ -225,12 +222,12 @@ const HowToEvent = () => {
         </div>
         <div>
           <img
-            src="/public/assets/leftEffect2.svg"
+            src="/src/assets/leftEffect2.svg"
             alt="leftEffect2"
             className="opacity-[70%] left-4 top-0 absolute"
           />
           <img
-            src="/public/assets/rightEffect2.svg"
+            src="/src/assets/rightEffect2.svg"
             alt="rightEffect2"
             className="opacity-[70%] w-[400px] right-8 top-[1200px] absolute"
           />

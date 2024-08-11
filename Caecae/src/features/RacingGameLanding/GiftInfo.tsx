@@ -17,7 +17,7 @@ const GiftInfo = () => {
                 </p>
                 <div className="flex flex-row justify-center items-center gap-10 mt-14">
                   <div className="">
-                    <img src="/public/assets/gift1st.svg" alt="gift1st" />
+                    <img src="/src/assets/gift1st.svg" alt="gift1st" />
                   </div>
                   <div className="w-[399px] h-[238px] flex items-center justify-center border-white border-2">
                     <div className="w-[383px] h-[222px] bg-white text-[22px] flex flex-col justify-center items-center">
@@ -38,14 +38,11 @@ const GiftInfo = () => {
                       <span className="absolute inset-1 pl-1 text-black font-galmuri font-bold text-[24px]">
                         2등
                       </span>
-                      <img
-                        src="/public/assets/trapezoid3.svg"
-                        alt="trapezoid3"
-                      />
+                      <img src="/src/assets/trapezoid3.svg" alt="trapezoid3" />
                     </div>
                     <div>
                       <div className="flex flex-col p-2 border-white border-2">
-                        <img src="/public/assets/gift2nd.svg" alt="gift2nd" />
+                        <img src="/src/assets/gift2nd.svg" alt="gift2nd" />
                         <p className="text-[#CCCCCC] px-3 my-4">
                           <span className="font-galmuri text-white text-[20px] block mb-1">
                             스마트워치 (7명)
@@ -62,14 +59,11 @@ const GiftInfo = () => {
                       <span className="absolute inset-1 pl-1 text-black font-galmuri font-bold text-[24px]">
                         3등
                       </span>
-                      <img
-                        src="/public/assets/trapezoid3.svg"
-                        alt="trapezoid3"
-                      />
+                      <img src="/src/assets/trapezoid3.svg" alt="trapezoid3" />
                     </div>
                     <div>
                       <div className="flex flex-col p-2 border-white border-2">
-                        <img src="/public/assets/gift3rd.svg" alt="gift3rd" />
+                        <img src="/src/assets/gift3rd.svg" alt="gift3rd" />
                         <p className="text-[#CCCCCC] px-3 my-4">
                           <span className="font-galmuri text-white text-[20px] block mb-1">
                             무선 충전패드 (30명)
@@ -86,14 +80,11 @@ const GiftInfo = () => {
                       <span className="absolute inset-1 pl-1 text-black font-galmuri font-bold text-[24px]">
                         4등
                       </span>
-                      <img
-                        src="/public/assets/trapezoid3.svg"
-                        alt="trapezoid3"
-                      />
+                      <img src="/src/assets/trapezoid3.svg" alt="trapezoid3" />
                     </div>
                     <div>
                       <div className="flex flex-col p-2 border-white border-2">
-                        <img src="/public/assets/gift4th.svg" alt="gift4th" />
+                        <img src="/src/assets/gift4th.svg" alt="gift4th" />
                         <p className="text-[#CCCCCC] px-3 my-4">
                           <span className="font-galmuri text-white text-[20px] block mb-1">
                             휴대용 무드등 (64명)
@@ -112,7 +103,7 @@ const GiftInfo = () => {
         </div>
         <div>
           <img
-            src="/public/assets/leftEffect3.svg"
+            src="/src/assets/leftEffect3.svg"
             alt="leftEffect3"
             className="opacity-[70%] w-[400px] left-10 top-[-170px] absolute"
           />
