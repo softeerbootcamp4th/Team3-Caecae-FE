@@ -16,7 +16,7 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
               나를 찾아봐!
             </p>
             <img
-              src="/public/assets/magnifier.svg"
+              src="/assets/magnifier.svg"
               alt="Magnifier"
               className="h-[70px]"
             />
