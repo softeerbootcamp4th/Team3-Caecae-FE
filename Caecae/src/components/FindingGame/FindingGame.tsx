@@ -5,8 +5,8 @@ import {
 } from "../../jobs/FindingGame/FindingGameWork.tsx";
 import { useEffect, useRef } from "react";
 import LottieContainer from "../common/LottieContainer/index.tsx";
-import correctLottie from "../../../public/assets/animationCorrect.json";
-import wrongLottie from "../../../public/assets/animationIncorrect.json";
+import correctLottie from "../../assets/animationCorrect.json";
+import wrongLottie from "../../assets/animationIncorrect.json";
 import { store, useExistState } from "../../shared/Hyundux";
 import HintSpot from "./Hint/HintSpot.tsx";
 import SmileBadge from "../common/SmileBadge/index.tsx";
