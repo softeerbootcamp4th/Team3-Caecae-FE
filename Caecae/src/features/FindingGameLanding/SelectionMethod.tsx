@@ -42,7 +42,7 @@ const SelectionMethod = () => {
                     </p>
                   </div>
                   <img
-                    src="/public/assets/starbucks.svg"
+                    src="/assets/starbucks.svg"
                     alt="starbucks"
                     className="w-full p-[8px]"
                   />

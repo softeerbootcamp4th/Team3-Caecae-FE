@@ -29,7 +29,7 @@ const OverLay: React.FC<OverLayProps> = ({ children }) => {
           style={{ width: "62%", height: "71%" }}
         >
           <img
-            src="/public/assets/xButton.svg"
+            src="/assets/xButton.svg"
             className="absolute right-10 top-10"
             onClick={() => {
               // Todo: store 지우기

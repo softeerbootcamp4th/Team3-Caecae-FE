@@ -18,7 +18,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
   const [leftTime, setLeftTime] = useState(0);
   props;
   const targetDate = new Date();
-  targetDate.setHours(17, 0, 0, 0);
+  targetDate.setHours(16, 0, 0, 0);
 
   useSpecificTimeEffect(targetDate, (leftSeconds) => {
     if (leftSeconds <= 3600 && leftSeconds > 0) {
@@ -40,7 +40,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
       mainContent: (
         <>
           <img
-            src="/public/assets/comingSoon.svg"
+            src="/assets/comingSoon.svg"
             alt="smileBage3D"
             className="w-3/5  mt-[60px]"
           />
@@ -74,7 +74,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
               </p>
             </div>
             <img
-              src="/public/assets/colon.svg"
+              src="/assets/colon.svg"
               alt="smileBage3D"
               className="w-[15px] mx-[20px]"
             />
@@ -105,7 +105,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
       mainContent: (
         <>
           <img
-            src="/public/assets/hurryUp.svg"
+            src="/assets/hurryUp.svg"
             alt="smileBage3D"
             className="w-3/5  mt-[60px]"
           />
@@ -144,7 +144,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
               캐스퍼 찾으러가기
             </span>
             <img
-              src="/public/assets/whiteRightShevron.svg"
+              src="/assets/whiteRightShevron.svg"
               alt="smileBage3D"
               className="w-[10px]"
             />
@@ -152,7 +152,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
         </Link>
       </div>
       <img
-        src="/public/assets/openBackGround.svg"
+        src="/assets/openBackGround.svg"
         alt="smileBage3D"
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px]"
       />

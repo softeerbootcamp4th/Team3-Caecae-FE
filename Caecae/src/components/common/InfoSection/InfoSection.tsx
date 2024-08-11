@@ -16,10 +16,7 @@ const InfoSection = ({
     case "Header":
       header = (
         <div className="flex justify-center items-center">
-          <img
-            src="/public/assets/sectionContentHeader.svg"
-            alt="howToEventLeft"
-          />
+          <img src="/assets/sectionContentHeader.svg" alt="howToEventLeft" />
           <p className="absolute text-[white] font-galmuri text-[28px]">
             {title}
           </p>
@@ -27,7 +24,7 @@ const InfoSection = ({
       );
       break;
     case "Default":
-      header = <img src="/public/assets/topLine.svg" alt="topLine" />;
+      header = <img src="/assets/topLine.svg" alt="topLine" />;
       break;
   }
 
@@ -42,7 +39,7 @@ const InfoSection = ({
           <InfoSectionDot key={2} bottom={20} left={20} />
           <InfoSectionDot key={3} bottom={20} right={20} />
         </div>
-        <img src="/public/assets/bottomLine.svg" alt="howToEventRight" />
+        <img src="/assets/bottomLine.svg" alt="howToEventRight" />
       </div>
     </>
   );
@@ -73,7 +70,7 @@ const InfoSectionDot = ({
 
   return (
     <img
-      src="/public/assets/infoSectionPoint.svg"
+      src="/assets/infoSectionPoint.svg"
       alt="infoSectionPoint"
       style={style}
     />

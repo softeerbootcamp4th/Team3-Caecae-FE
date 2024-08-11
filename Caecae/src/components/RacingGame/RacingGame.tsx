@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
-import animationGame315 from "../../../public/assets/animationGame315.json";
-import frontBackground from "../../../public/assets/frontBackground.svg";
-import rearBackground from "../../../public/assets/rearBackground.svg";
+import animationGame315 from "@assets/animationGame315.json";
+import frontBackground from "../../../assets/frontBackground.svg";
+import rearBackground from "../../../assets/rearBackground.svg";
 import {
   action,
   initRacingGameState,
@@ -67,14 +67,14 @@ const gameContent = (
             >
               <img
                 className="h-[50px]"
-                src="public/assets/enterEventBtn.svg"
+                src="assets/enterEventBtn.svg"
                 alt="enterEventBtn"
               />
             </button>
             <button className="" onClick={handlePlayGame}>
               <img
                 className="h-[50px]"
-                src="public/assets/retryBtn.svg"
+                src="assets/retryBtn.svg"
                 alt="retryBtn"
               />
             </button>

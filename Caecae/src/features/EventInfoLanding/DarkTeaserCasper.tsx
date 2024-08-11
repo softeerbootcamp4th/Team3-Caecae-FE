@@ -12,7 +12,7 @@ const DarkTeaserCasper = () => {
         </div>
         <div>
           <img
-            src="/public/assets/eventInfoPage3.svg"
+            src="/assets/eventInfoPage3.svg"
             alt="eventInfoPage3"
             className="absolute top-0 left-0 w-full h-screen object-cover object-bottom-center"
           />

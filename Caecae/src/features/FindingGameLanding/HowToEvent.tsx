@@ -24,7 +24,7 @@ const HowToEvent = () => {
                     </p>
                   </div>
                   <img
-                    src="/public/assets/ladingRobotBadgeImage.svg"
+                    src="/assets/ladingRobotBadgeImage.svg"
                     alt="howToEventRight"
                     className="w-full p-[8px]"
                   />
@@ -36,7 +36,7 @@ const HowToEvent = () => {
                     </p>
                   </div>
                   <img
-                    src="/public/assets/laindingPixel.svg"
+                    src="/assets/laindingPixel.svg"
                     alt="howToEventRight"
                     className="w-full p-[8px]"
                   />
@@ -49,12 +49,12 @@ const HowToEvent = () => {
 
       <div className="relative">
         <img
-          src="/public/assets/howToEventLeft.svg"
+          src="/assets/howToEventLeft.svg"
           alt="howToEventLeft"
           className="absolute top-0 left-0 w-[175px]"
         />
         <img
-          src="/public/assets/howToEventRight.svg"
+          src="/assets/howToEventRight.svg"
           alt="howToEventLeft"
           className="absolute top-0 right-0 w-[116px]"
         />

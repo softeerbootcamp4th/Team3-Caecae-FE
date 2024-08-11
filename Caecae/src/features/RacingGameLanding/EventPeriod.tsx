@@ -20,14 +20,14 @@ const EventPeriod = () => {
                 </p>
                 <div className="my-16">
                   <img
-                    src="/public/assets/eventPeriodBackground.svg"
+                    src="/assets/eventPeriodBackground.svg"
                     alt="eventPeriodBackground"
                   />
                 </div>
                 <Link to="/racecaspergame">
                   <div className="mt-2">
                     <img
-                      src="/public/assets/play315GameButton.svg"
+                      src="/assets/play315GameButton.svg"
                       alt="play315GameButton"
                     />
                   </div>

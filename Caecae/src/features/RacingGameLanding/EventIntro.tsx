@@ -16,7 +16,7 @@ const EventIntro = () => {
                 315Km
               </span>
               <img
-                src="/public/assets/background315km.svg"
+                src="/assets/background315km.svg"
                 alt="background315km"
                 className="block"
               />
@@ -29,7 +29,7 @@ const EventIntro = () => {
             받아가자!
           </p>
           <img
-            src="/public/assets/pixelCasper.svg"
+            src="/assets/pixelCasper.svg"
             alt="pixelCasper"
             className="pr-10"
           />
@@ -38,7 +38,7 @@ const EventIntro = () => {
               className="bg-[#0609CD] w-[300px] h-[100px] flex flex-row justify-center items-center gap-3"
               onClick={shareEvent}
             >
-              <img src="/public/assets/sharedButton.svg" alt="sharedButton" />
+              <img src="/assets/sharedButton.svg" alt="sharedButton" />
               <span className="text-white text-[24px]">공유하기</span>
             </div>
             <Link to="/racecaspergame">
@@ -51,17 +51,17 @@ const EventIntro = () => {
         </div>
         <div>
           <img
-            src="/public/assets/backgroundGradation.svg"
+            src="/assets/backgroundGradation.svg"
             alt="backgroundGradation"
             className="absolute top-0 left-0 w-full h-screen object-cover object-bottom-center"
           />
           <img
-            src="/public/assets/leftEffect.svg"
+            src="/assets/leftEffect.svg"
             alt="leftEffect"
             className="opacity-[70%] w-[350px] left-0 top-56 absolute z-10"
           />
           <img
-            src="/public/assets/rightEffect.svg"
+            src="/assets/rightEffect.svg"
             alt="rightEffect"
             className="opacity-[70%] w-[230px] right-0 top-96 absolute z-10"
           />

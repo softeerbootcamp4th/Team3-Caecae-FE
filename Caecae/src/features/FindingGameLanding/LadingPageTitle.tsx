@@ -16,7 +16,7 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
               나를 찾아봐!
             </p>
             <img
-              src="/public/assets/magnifier.svg"
+              src="/assets/magnifier.svg"
               alt="Magnifier"
               className="h-[70px]"
             />
@@ -27,13 +27,13 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
             받아가자!
           </p>
           <img
-            src="/public/assets/smileBage3D.svg"
+            src="/assets/smileBage3D.svg"
             alt="smileBage3D"
             className="h-[300px] mt-[50px]"
           />
           <div className="flex gap-[30px]">
             <div className="bg-[#0609CD] flex items-center justify-center w-[300px] h-[80px]">
-              <img src="/public/assets/sharedButton.svg" alt="sharedButton" />
+              <img src="/assets/sharedButton.svg" alt="sharedButton" />
               <p className="text-[white] text-[22px] ml-[10px]">공유하기</p>
             </div>
             <div
@@ -41,23 +41,23 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
               onClick={() => onClick()}
             >
               <p className="text-[22px]">바로 캐스퍼 찾으러가기</p>
-              <img src="/public/assets/rightShevron.svg" alt="sharedButton" />
+              <img src="/assets/rightShevron.svg" alt="sharedButton" />
             </div>
           </div>
         </div>
         <div id="background">
           <img
-            src="/public/assets/findGameTitleBackground.svg"
+            src="/assets/findGameTitleBackground.svg"
             alt="findGameLeftBlocks"
             className="absolute top-0 left-0 w-full h-[115vh] object-cover bg-[black] object-bottom-center"
           />
           <img
-            src="/public/assets/findGameLeftBlocks.svg"
+            src="/assets/findGameLeftBlocks.svg"
             alt="findGameLeftBlocks"
             className="opacity-[70%] w-[350px] left-0 absolute bottom-0 z-10"
           />
           <img
-            src="/public/assets/findGameRightBlocks.svg"
+            src="/assets/findGameRightBlocks.svg"
             alt="findGameLeftBlocks"
             className="opacity-[70%] w-[230px] right-0 absolute bottom-0 z-10"
           />

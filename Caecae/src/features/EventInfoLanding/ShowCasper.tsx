@@ -31,7 +31,7 @@ const ShowCasper = () => {
         </div>
         <div>
           <img
-            src="/public/assets/eventInfoPage2.svg"
+            src="/assets/eventInfoPage2.svg"
             alt="eventInfoPage2"
             className="absolute top-0 left-0 w-full h-screen object-cover object-bottom-center"
           />
