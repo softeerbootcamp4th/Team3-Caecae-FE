@@ -32,7 +32,7 @@ const EventPeriod = () => {
                     </p>
                     <Circle color="000066" radius={120} />
                   </div>
-                  <img src="/src/assets/arrow.svg" alt="arrow" />
+                  <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
                       7.16
@@ -42,7 +42,7 @@ const EventPeriod = () => {
                     </p>
                     <Circle color="000066" radius={120} />
                   </div>
-                  <img src="/src/assets/arrow.svg" alt="arrow" />
+                  <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
                       7.17
@@ -52,7 +52,7 @@ const EventPeriod = () => {
                     </p>
                     <Circle color="000066" radius={120} />
                   </div>
-                  <img src="/src/assets/arrow.svg" alt="arrow" />
+                  <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
                       7.18
@@ -73,7 +73,7 @@ const EventPeriod = () => {
                     </p>
                     <Circle color="000066" radius={120} />
                   </div>
-                  <img src="/src/assets/arrow.svg" alt="arrow" />
+                  <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
                       7.20
@@ -83,7 +83,7 @@ const EventPeriod = () => {
                     </p>
                     <Circle color="000066" radius={120} />
                   </div>
-                  <img src="/src/assets/arrow.svg" alt="arrow" />
+                  <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
                       7.21
@@ -93,7 +93,7 @@ const EventPeriod = () => {
                     </p>
                     <Circle color="000066" radius={120} />
                   </div>
-                  <img src="/src/assets/arrow.svg" alt="arrow" />
+                  <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
                       7.29

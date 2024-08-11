@@ -12,7 +12,7 @@ const CasperFeature = () => {
   const images: ImageData[] = [
     {
       id: 0,
-      src: "/src/assets/casperMerit1.svg",
+      src: "/assets/casperMerit1.svg",
       alt: "casperMerit1",
       header: "길어진 주행거리\n많아진 즐길거리",
       paragraph:
@@ -20,7 +20,7 @@ const CasperFeature = () => {
     },
     {
       id: 1,
-      src: "/src/assets/casperMerit2.svg",
+      src: "/assets/casperMerit2.svg",
       alt: "casperMerit2",
       header: "다양한 라이프스타일에\n딱 맞는 옵션",
       paragraph:
@@ -28,7 +28,7 @@ const CasperFeature = () => {
     },
     {
       id: 2,
-      src: "/src/assets/casperMerit3.svg",
+      src: "/assets/casperMerit3.svg",
       alt: "casperMerit3",
       header: "길어진 휠베이스로\n더욱 넓어진 공간",
       paragraph:
@@ -36,7 +36,7 @@ const CasperFeature = () => {
     },
     {
       id: 3,
-      src: "/src/assets/casperMerit4.svg",
+      src: "/assets/casperMerit4.svg",
       alt: "casperMerit4",
       header: "더 스마트하게, 더 센스있게\n다양한 주행보조장치",
       paragraph:

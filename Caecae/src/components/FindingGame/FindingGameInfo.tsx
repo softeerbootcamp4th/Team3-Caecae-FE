@@ -37,7 +37,7 @@ const FindingGameInfo = () => {
     <>
       <div className="shadow-[0px_6px_10px_0px_rgba(0,0,0,0.15)] w-full bg-[#F7F7F7] rounded-lg relative mt-[16px] leading-[150%]">
         <img
-          src="/src/assets/xButton.svg"
+          src="/assets/xButton.svg"
           className="absolute w-[16px] h-[16px] right-[14px] top-[14px]"
           onClick={clickToolTip}
         />
@@ -97,7 +97,7 @@ const FindingGameInfo = () => {
           >
             {modeData.tooltipTitle}
             <img
-              src="/src/assets/questionIcon.svg"
+              src="/assets/questionIcon.svg"
               alt="hyundaiLogo"
               width={15}
               height={15}
@@ -114,7 +114,7 @@ const FindingGameInfo = () => {
         </div>
         {state.showingHint.length != 0 ? (
           <div className="flex justify-center items-center">
-            <img src="/src/assets/hintTalk.svg" alt="hintTalk" />
+            <img src="/assets/hintTalk.svg" alt="hintTalk" />
           </div>
         ) : null}
       </div>

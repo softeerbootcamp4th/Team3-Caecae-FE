@@ -20,11 +20,11 @@ const SmileBadge = ({
   height,
   badgeType,
 }: SmileBadgeProps) => {
-  const getImageSrc = "/src/assets/" + badgeType + "Badge.svg";
+  const getImageSrc = "/assets/" + badgeType + "Badge.svg";
 
   const checkIcon = isSelected ? (
     <img
-      src="/src/assets/checkCircleIcon.svg"
+      src="/assets/checkCircleIcon.svg"
       alt="hyundaiLogo"
       width={70}
       className="absolute z-20"

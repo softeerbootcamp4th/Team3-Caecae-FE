@@ -14,7 +14,7 @@ const EventIntro = () => {
                 315Km
               </span>
               <img
-                src="/src/assets/background315km.svg"
+                src="/assets/background315km.svg"
                 alt="background315km"
                 className="block"
               />
@@ -27,7 +27,7 @@ const EventIntro = () => {
             받아가자!
           </p>
           <img
-            src="/src/assets/pixelCasper.svg"
+            src="/assets/pixelCasper.svg"
             alt="pixelCasper"
             className="pr-10"
           />
@@ -36,7 +36,7 @@ const EventIntro = () => {
               className="bg-[#0609CD] w-[300px] h-[100px] flex flex-row justify-center items-center gap-3"
               onClick={shareEvent}
             >
-              <img src="/src/assets/sharedButton.svg" alt="sharedButton" />
+              <img src="/assets/sharedButton.svg" alt="sharedButton" />
               <span className="text-white text-[24px]">공유하기</span>
             </div>
             <div
@@ -44,23 +44,23 @@ const EventIntro = () => {
               onClick={play315Game}
             >
               <span className="text-[24px]">전력 질주하러 가기</span>
-              <img src="/src/assets/rightShevron.svg" alt="rightShevron" />
+              <img src="/assets/rightShevron.svg" alt="rightShevron" />
             </div>
           </div>
         </div>
         <div>
           <img
-            src="/src/assets/backgroundGradation.svg"
+            src="/assets/backgroundGradation.svg"
             alt="backgroundGradation"
             className="absolute top-0 left-0 w-full h-screen object-cover object-bottom-center"
           />
           <img
-            src="/src/assets/leftEffect.svg"
+            src="/assets/leftEffect.svg"
             alt="leftEffect"
             className="opacity-[70%] w-[350px] left-0 top-56 absolute z-10"
           />
           <img
-            src="/src/assets/rightEffect.svg"
+            src="/assets/rightEffect.svg"
             alt="rightEffect"
             className="opacity-[70%] w-[230px] right-0 top-96 absolute z-10"
           />

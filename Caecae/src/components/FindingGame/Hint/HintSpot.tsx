@@ -18,7 +18,7 @@ const HintSpot: React.FC<HintSpotProps> = ({ y, x }) => {
 
   return (
     <img
-      src="/src/assets/hintSpot.svg"
+      src="/assets/hintSpot.svg"
       alt="hintImg"
       style={style}
       className="fade-in-out"

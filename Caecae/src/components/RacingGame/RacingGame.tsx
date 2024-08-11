@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
-import animationGame315 from "../../assets/animationGame315.json";
-import frontBackground from "../../../src/assets/frontBackground.svg";
-import rearBackground from "../../../src/assets/rearBackground.svg";
+import animationGame315 from "@assets/animationGame315.json";
+import frontBackground from "../../../assets/frontBackground.svg";
+import rearBackground from "../../../assets/rearBackground.svg";
 import {
   action,
   initRacingGameState,
@@ -27,7 +27,7 @@ const gameContent = (
             <button className="" onClick={handlePlayGame}>
               <img
                 className="w-[300px] h-[55px]"
-                src="public/assets/gameStartBtn.svg"
+                src="/assetsgameStartBtn.svg"
                 alt="gameStartBtn"
               />
             </button>
@@ -42,7 +42,7 @@ const gameContent = (
           <div className="flex flex-row items-center justify-center mt-2">
             <div className="font-bold text-xl mr-2">stop :</div>
             <div className="ml-2">
-              <img src="public/assets/spacebarBtn.svg" alt="spacebarBtn" />
+              <img src="/assetsspacebarBtn.svg" alt="spacebarBtn" />
             </div>
           </div>
         </div>
@@ -66,14 +66,14 @@ const gameContent = (
             >
               <img
                 className="h-[50px]"
-                src="public/assets/enterEventBtn.svg"
+                src="/assetsenterEventBtn.svg"
                 alt="enterEventBtn"
               />
             </button>
             <button className="" onClick={handlePlayGame}>
               <img
                 className="h-[50px]"
-                src="public/assets/retryBtn.svg"
+                src="/assetsretryBtn.svg"
                 alt="retryBtn"
               />
             </button>
