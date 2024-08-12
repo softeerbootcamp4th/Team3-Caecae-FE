@@ -28,7 +28,7 @@ const FindingGamePage = () => {
   }, [gameState.showingAnswers.length]);
 
   return (
-    <div className="flex flex-row h-full relative">
+    <div className="relative flex flex-row h-full">
       <OverLay>
         <OverLayContent index={0} element={<EnterContent />} />
         <OverLayContent index={1} element={<PhoneNumberOverlayFindingGame />} />
