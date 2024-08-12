@@ -1,11 +1,8 @@
 name: Deploy
 on:
-  pull_request:
-    branches:
-      - cdTst
   push:
     branches:
-      - cdTst
+      - main
 jobs:
   build:
     runs-on: ubuntu-24.04

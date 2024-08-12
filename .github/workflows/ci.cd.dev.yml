@@ -1,0 +1,23 @@
+name: Deploy
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies including TypeScript, React, and Vite
+        run: npm install --save-dev typescript @types/react @types/react-dom vite @vitejs/plugin-react @types/node
+        working-directory: ./Caecae
+
+      - name: Install other dependencies with Yarn
+        run: yarn install
+        working-directory: ./Caecae
+
+      - name: Build project
+        run: npm run build
+        working-directory: ./Caecae
