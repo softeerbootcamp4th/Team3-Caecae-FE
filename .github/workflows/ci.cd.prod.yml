@@ -1,0 +1,45 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Check Node.js version
+        run: node -v
+
+      - name: Install dependencies including TypeScript, React, and Vite
+        run: npm install --save-dev typescript @types/react @types/react-dom vite @vitejs/plugin-react @types/node
+        working-directory: ./Caecae
+
+      - name: Install other dependencies with Yarn
+        run: yarn install
+        working-directory: ./Caecae
+
+      - name: Build project
+        run: npm run build
+        working-directory: ./Caecae
+
+      - name: Create zip file
+        run: zip -qq -r ./build.zip .
+        working-directory: ./Caecae
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp --region ap-northeast-2 ./build.zip s3://caecae-s3bucket/build.zip
+        working-directory: ./Caecae
+
+      - name: Deploy with CodeDeploy
+        run: aws deploy create-deployment --application-name caecae-codeDeploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name caecae-codeDeploy-group --s3-location bucket=caecae-s3bucket,bundleType=zip,key=build.zip
