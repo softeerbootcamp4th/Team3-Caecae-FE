@@ -5,7 +5,7 @@ import EventInfoLandingPage from "./pages/EventInfoLanding/EventInfoLandingPage.
 import FindingGameLandingPage from "./pages/FindingGameLanding/FindingGameLandingPage.tsx";
 import RacingGameLandingPage from "./pages/RacingGameLanding/RacingGameLandingPage.tsx";
 import FindingGamePage from "./pages/FindingGame/FindingGamePage.tsx";
-import RacingGame from "./components/RacingGame/RacingGame.tsx";
+import RacingGamePage from "./pages/RacingGame/RacingGamePage.tsx";
 
 // 임시 React component
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
             path="/findcaspergame#010643431936"
             element={<FindingGamePage />}
           />
-          <Route path="/racecaspergame" element={<RacingGame />} />
+          <Route path="/racecaspergame" element={<RacingGamePage />} />
         </Routes>
       </Router>
     </div>
