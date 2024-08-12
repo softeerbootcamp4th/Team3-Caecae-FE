@@ -9,14 +9,15 @@ import {
   initRacingGameState,
   racingGameReducer,
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
-import { useWork, store } from "../../shared/Hyundux/index.tsx";
+import { useWork, store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (
   gameStatus: string,
   distance: number,
-  handlePlayGame: () => void
+  handlePlayGame: () => void,
+  enterEvent: () => void
 ) => {
   switch (gameStatus) {
     case "previous":
@@ -63,19 +64,35 @@ const gameContent = (
           <div className="flex flex-row items-center justify-center mt-2 space-x-4">
             <button
               className=""
-              // onClick={}
+              onClick={enterEvent}
             >
               <img
                 className="h-[50px]"
-                src="assets/enterEventBtn.svg"
+                src="public/assets/enterEventBtn.svg"
                 alt="enterEventBtn"
               />
             </button>
             <button className="" onClick={handlePlayGame}>
               <img
                 className="h-[50px]"
-                src="assets/retryBtn.svg"
+                src="public/assets/retryBtn.svg"
                 alt="retryBtn"
+              />
+            </button>
+          </div>
+        </div>
+      );
+    case "enterEvent":
+      return (
+        <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center">
+          <div className="font-bold text-xl mb-2">CASPER ELECTRIC</div>
+          <div className="font-bold text-xl mb-2">전력으로...!</div>
+          <div className="mt-2">
+            <button className="" onClick={handlePlayGame}>
+              <img
+                className="w-[300px] h-[55px]"
+                src="public/assets/gameStartBtn.svg"
+                alt="gameStartBtn"
               />
             </button>
           </div>
@@ -125,7 +142,8 @@ const RacingGame: React.FC = () => {
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
-  const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
+  // const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
+  const state = useExistState(initRacingGameState);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -137,7 +155,7 @@ const RacingGame: React.FC = () => {
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
-    dispatch;
+
     store.dispatch(action.updateDistance(totalDistance));
   };
 
@@ -197,6 +215,10 @@ const RacingGame: React.FC = () => {
       });
     }
   };
+
+  const enterEvent = () => {
+    store.dispatch(action.enterEvent());
+  }
 
   /** 2개의 백그라운드 이미지의 width를 구하는 로직 */
   useEffect(() => {
@@ -262,7 +284,7 @@ const RacingGame: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent(state.gameStatus, state.distance, handlePlayGame)}
+      {gameContent(state.gameStatus, state.distance, handlePlayGame, enterEvent)}
       {gameMenu(state.gameStatus)}
     </div>
   );
