@@ -9,9 +9,9 @@ import { OverLay, OverLayContent } from "../../components/common/Overlay/index";
 import EnterContent from "./Enter/EnterContent";
 import { store, useWork } from "../../shared/Hyundux";
 import FailContent from "./Enter/FailContent";
-import PhoneNumberOverlay from "../../components/PhoneNumberOverlay";
 import SuccessEnterContent from "./Enter/SuccessEnterContent";
 import FindingGameResult from "../../components/FindingGame/FindingGameResult";
+import PhoneNumberOverlayFindingGame from "../../components/PhoneNumberOverlay/PhoneNumberOverlayFindingGame";
 
 const FindingGamePage = () => {
   const [gameState, dispatch] = useWork(
@@ -28,10 +28,10 @@ const FindingGamePage = () => {
   }, [gameState.showingAnswers.length]);
 
   return (
-    <div className="flex flex-row h-full relative">
+    <div className="relative flex flex-row h-full">
       <OverLay>
         <OverLayContent index={0} element={<EnterContent />} />
-        <OverLayContent index={1} element={<PhoneNumberOverlay />} />
+        <OverLayContent index={1} element={<PhoneNumberOverlayFindingGame />} />
         <OverLayContent index={2} element={<SuccessEnterContent />} />
         <OverLayContent index={3} element={<FailContent />} />
       </OverLay>
