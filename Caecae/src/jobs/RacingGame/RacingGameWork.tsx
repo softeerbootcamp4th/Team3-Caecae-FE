@@ -10,7 +10,7 @@ const aniMovingDistance = 11990;
 
 // state type
 interface RacingGamePayLoad {
-  gameStatus: "previous" | "playing" | "end";
+  gameStatus: "previous" | "playing" | "end" | "enterEvent";
   distance: number;
 }
 
@@ -34,7 +34,9 @@ const racingGameReducer: Reducer<RacingGamePayLoad> = {
         return makePayLoad(state, {
           distance: (actionPayLoad.distance / aniMovingDistance) * km315,
         });
-      }
+      };
+      case "enterEvent":
+        return makePayLoad(state, { gameStatus: "enterEvent" });
       default:
         return state;
     }
@@ -62,6 +64,12 @@ const action = {
       payload: {
         distance: distance,
       },
+    };
+  },
+  enterEvent: (): Action => {
+    return {
+      type: WORKFLOW_NAME,
+      actionName: "enterEvent",
     };
   },
 };
