@@ -1,3 +1,5 @@
+import { Link } from "../../shared/Hyunouter";
+
 const EventIntro = () => {
   return (
     <>
@@ -39,13 +41,12 @@ const EventIntro = () => {
               <img src="/assets/sharedButton.svg" alt="sharedButton" />
               <span className="text-white text-[24px]">공유하기</span>
             </div>
-            <div
-              className="bg-white w-[300px] h-[100px] flex flex-row justify-center items-center gap-3"
-              onClick={play315Game}
-            >
-              <span className="text-[24px]">전력 질주하러 가기</span>
-              <img src="/assets/rightShevron.svg" alt="rightShevron" />
-            </div>
+            <Link to="/racecaspergame">
+              <div className="bg-white w-[300px] h-[100px] flex flex-row justify-center items-center gap-3">
+                <span className="text-[24px]">전력 질주하러 가기</span>
+                <img src="/public/assets/rightShevron.svg" alt="rightShevron" />
+              </div>
+            </Link>
           </div>
         </div>
         <div>
@@ -71,10 +72,6 @@ const EventIntro = () => {
 };
 const shareEvent = () => {
   console.log("이벤트를 공유합니다!");
-};
-
-const play315Game = () => {
-  console.log("315게임을 실행합니다!");
 };
 
 export default EventIntro;

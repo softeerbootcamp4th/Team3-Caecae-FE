@@ -10,6 +10,7 @@ import {
   racingGameReducer,
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
 import { useWork, store } from "../../shared/Hyundux/index.tsx";
+import Link from "../../shared/Hyunouter/Link.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (
@@ -90,21 +91,27 @@ const gameMenu = (gameStatus: string) => {
   switch (gameStatus) {
     case "previous":
       return (
-        <div className="absolute right-[50px] top-[30px] z-40">
-          <button>게임 종료</button>
-        </div>
+        <Link to="/racecasper">
+          <div className="absolute right-[50px] top-[30px] z-40">
+            <button>게임 종료</button>
+          </div>
+        </Link>
       );
     case "playing":
       return (
-        <div className="absolute right-[50px] top-[30px] z-40">
-          <button>게임 종료</button>
-        </div>
+        <Link to="/racecasper">
+          <div className="absolute right-[50px] top-[30px] z-40">
+            <button>게임 종료</button>
+          </div>
+        </Link>
       );
     case "end":
       return (
         <div className="absolute right-[50px] top-[30px] z-40 space-x-4">
           <button>기록 자랑하기</button>
-          <button>게임 종료</button>
+          <Link to="/racecasper">
+            <button>게임 종료</button>
+          </Link>
         </div>
       );
     default:
