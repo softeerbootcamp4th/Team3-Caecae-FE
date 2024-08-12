@@ -2,35 +2,10 @@ import { ChangeEventHandler, useEffect, useState } from "react";
 import { action } from "../../jobs/Overlay/OverlayWork";
 import { store } from "../../shared/Hyundux";
 
-const PhoneNumberOverlay = () => {
-  const [timeLeft, setTimeLeft] = useState(3 * 60); // 3분을 초 단위로 변환
+const PhoneNumberOverlayRacingGame = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [check, setCheck] = useState(false);
   const [enterable, setEnterable] = useState(false);
-
-  const timeToString = () => {
-    const minute = Math.floor(timeLeft / 60);
-    const second = timeLeft % 60;
-    const minuteStr = "0" + `${minute}`;
-    const secondStr = second < 10 ? "0" + `${second}` : `${second}`;
-    return minuteStr + ":" + secondStr;
-  };
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 1) {
-          // Todo: 여기 있는 store 제거하기
-          store.dispatch(action.toggleOverlay());
-          clearInterval(intervalId);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  });
 
   const onPhoneNumberFieldChange: ChangeEventHandler<HTMLInputElement> = (
     event
@@ -77,30 +52,27 @@ const PhoneNumberOverlay = () => {
 
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="pl-[59px] pr-[59px] grow pl-[60px] pt-[80px]">
-        <p className="text-2xl font-medium">전화번호 입력</p>
-        <div className="mt-[7px]">
-          <span className="text-[red] underline">
-            <span>{timeToString()}</span>내
-          </span>
-          <span>에 입력하지 않으면 미당첨으로 간주되어 자동 종료됩니다.</span>
+      <div className="pl-[60px] pr-[59px] grow pt-[80px]">
+        <p className="text-[32px] font-bold text-[#1C1A1B]">전화번호 입력</p>
+        <div className="text-[#444444] mt-[10px]">
+          <span>경품 수령을 위해 간단한 정보를 입력해 주세요.</span>
         </div>
         <div className="flex items-center mt-[45px] justify-between">
-          <p className="font-medium font-xl mr-[80px]">전화번호</p>
+          <p className="font-bold text-[20px] text-[#1C1A1B] mr-[80px]">전화번호</p>
           <input
             type="text"
             value={phoneNumber}
             onChange={onPhoneNumberFieldChange}
             placeholder={""}
-            className="border border-gray-300 bg-white py-2 px-4 text-base focus:focus:border-[#002C5F] w-[600px] h-[55px]"
+            className="border border-gray-300 bg-white py-2 px-4 text-base focus:focus:border-[#002C5F] w-[700px] h-[55px]"
           />
         </div>
         <div className="flex mt-[45px] justify-between">
-          <p className="font-medium font-xl mr-[80px] pt-[12px]">
+          <p className="font-bold text-[20px] text-[#1C1A1B] mr-[80px] pt-[12px]">
             개인정보 동의
           </p>
           <div>
-            <div className="border border-gray-300 bg-white py-2 px-4 w-[600px] h-[140px] overflow-scroll">
+            <div className="border border-gray-300 bg-white py-2 px-4 w-[700px] h-[140px] overflow-scroll">
               <p>
                 1. 개인정보의 처리 목적
                 <br />
@@ -122,14 +94,14 @@ const PhoneNumberOverlay = () => {
                 <br />
               </p>
             </div>
-            <div className="flex mt-[10px] items-center">
+            <div className="flex mt-[20px] items-center">
               <input
                 type="checkbox"
                 checked={check}
                 onChange={onCheckboxChange}
                 className="form-checkbox h-4 w-4 text-[#002C5F] border-[#DDD] bg-neutral-white mr-[5px]"
               />
-              <p>
+              <p className="ml-2">
                 개인정보보호법에 따라 귀하의 개인정보를 다음과 같이
                 수집・이용하는데 동의합니다.
               </p>
@@ -151,4 +123,4 @@ const PhoneNumberOverlay = () => {
   );
 };
 
-export default PhoneNumberOverlay;
+export default PhoneNumberOverlayRacingGame;
