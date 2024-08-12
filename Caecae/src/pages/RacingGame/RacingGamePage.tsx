@@ -10,7 +10,7 @@ import PhoneNumberOverlayRacingGame from "../../components/PhoneNumberOverlay/Ph
 
 const RacingGamePage = () => {
   const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
-
+    dispatch;
   useEffect(() => {
     if (state.gameStatus === "enterEvent") {
       store.dispatch(overlayAction.toggleOverlay());

@@ -6,10 +6,9 @@ import frontBackground from "@assets/frontBackground.svg";
 import rearBackground from "@assets/rearBackground.svg";
 import {
   action,
-  initRacingGameState,
-  racingGameReducer,
+  initRacingGameState
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
-import { useWork, store, useExistState } from "../../shared/Hyundux/index.tsx";
+import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */

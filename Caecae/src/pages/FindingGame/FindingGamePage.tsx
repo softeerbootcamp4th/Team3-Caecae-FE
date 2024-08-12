@@ -9,7 +9,6 @@ import { OverLay, OverLayContent } from "../../components/common/Overlay/index";
 import EnterContent from "./Enter/EnterContent";
 import { store, useWork } from "../../shared/Hyundux";
 import FailContent from "./Enter/FailContent";
-import PhoneNumberOverlay from "../../components/PhoneNumberOverlay";
 import SuccessEnterContent from "./Enter/SuccessEnterContent";
 import FindingGameResult from "../../components/FindingGame/FindingGameResult";
 import PhoneNumberOverlayFindingGame from "../../components/PhoneNumberOverlay/PhoneNumberOverlayFindingGame";
