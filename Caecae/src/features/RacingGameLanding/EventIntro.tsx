@@ -44,7 +44,7 @@ const EventIntro = () => {
             <Link to="/racecaspergame">
               <div className="bg-white w-[300px] h-[100px] flex flex-row justify-center items-center gap-3">
                 <span className="text-[24px]">전력 질주하러 가기</span>
-                <img src="/public/assets/rightShevron.svg" alt="rightShevron" />
+                <img src="/assets/rightShevron.svg" alt="rightShevron" />
               </div>
             </Link>
           </div>

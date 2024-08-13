@@ -12,7 +12,7 @@ const EnterComplete = () => {
                     중복 응모시 등록된 점수 중 최고점수 1건만 추첨에 반영됩니다.
                 </div>
                 <div className="flex justify-center items-center">
-                    <img src="/public/assets/racingGameEnterImage.svg" alt="racingGameEnterImage" className="pr-[80px]" />
+                    <img src="/assets/racingGameEnterImage.svg" alt="racingGameEnterImage" className="pr-[80px]" />
                 </div>
                 <div 
                     className="flex justify-center items-center w-[50%] h-[70px] bg-[#002C5F] mt-[30px] hover:cursor-pointer"
