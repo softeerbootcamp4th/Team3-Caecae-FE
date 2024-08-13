@@ -6,7 +6,7 @@ import RacingGame from "../../components/RacingGame/index";
 import { initRacingGameState, racingGameReducer } from "../../jobs/RacingGame/RacingGameWork";
 import SelectCustom from "./Enter/SelectCustom";
 import EnterComplete from "./Enter/EnterComplete";
-import PhoneNumberOverlayRacingGame from "../../components/PhoneNumberOverlay/PhoneNumberOverlayRacingGame";
+import PhoneNumberOverlay from "../../components/PhoneNumberOverlay";
 
 const RacingGamePage = () => {
   const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
@@ -20,7 +20,7 @@ const RacingGamePage = () => {
   return (
     <div className="flex flex-row h-full relative">
       <OverLay>
-        <OverLayContent index={0} element={<PhoneNumberOverlayRacingGame />} />
+        <OverLayContent index={0} element={<PhoneNumberOverlay type="raceCasper" />} />
         <OverLayContent index={1} element={<SelectCustom />} />
         <OverLayContent index={2} element={<EnterComplete />} />
       </OverLay>

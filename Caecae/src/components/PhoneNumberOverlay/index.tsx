@@ -1,4 +1,3 @@
-import PhoneNumberOverlayFindingGame from "./PhoneNumberOverlayFindingGame";
-import PhoneNumberOverlayRacingGame from "./PhoneNumberOverlayRacingGame";
+import PhoneNumberOverlay from "./PhoneNumberOverlay";
 
-export default { PhoneNumberOverlayFindingGame, PhoneNumberOverlayRacingGame };
+export default PhoneNumberOverlay ;
