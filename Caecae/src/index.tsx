@@ -6,6 +6,7 @@ import FindingGameLandingPage from "./pages/FindingGameLanding/FindingGameLandin
 import RacingGameLandingPage from "./pages/RacingGameLanding/RacingGameLandingPage.tsx";
 import FindingGamePage from "./pages/FindingGame/FindingGamePage.tsx";
 import RacingGamePage from "./pages/RacingGame/RacingGamePage.tsx";
+import AdminPage from "./pages/Admin/AdminPage.tsx";
 
 // 임시 React component
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
             element={<FindingGamePage />}
           />
           <Route path="/racecaspergame" element={<RacingGamePage />} />
+          <Route path="/adminCaecCae" element={<AdminPage />} />
         </Routes>
       </Router>
     </div>
