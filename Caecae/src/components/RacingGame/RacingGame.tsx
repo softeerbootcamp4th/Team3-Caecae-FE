@@ -20,6 +20,7 @@ const gameContent = (
 ) => {
   switch (gameStatus) {
     case "previous":
+    case "enterEvent":
       return (
         <div className="absolute left-[600px] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
           <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">CASPER ELECTRIC</div>
@@ -81,22 +82,6 @@ const gameContent = (
           </div>
         </div>
       );
-    case "enterEvent":
-      return (
-        <div className="absolute left-[600px] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
-          <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">CASPER ELECTRIC</div>
-          <div className=" text-[44px] mb-2 text-[#666666]">전력으로...!</div>
-          <div className="mt-5">
-            <button className="w-[500px]" onClick={handlePlayGame}>
-              <img
-                className="w-[500px]"
-                src="public/assets/gameStartBtn.svg"
-                alt="gameStartBtn"
-              />
-            </button>
-          </div>
-        </div>
-      );
     default:
       return null;
   }
@@ -106,33 +91,19 @@ const gameContent = (
 const gameMenu = (gameStatus: string) => {
   switch (gameStatus) {
     case "previous":
-      return (
-        <Link to="/racecasper">
-          <div className="absolute right-[50px] top-[30px] z-40 font-galmuri text-[#494949] text-xl">
-            <button>게임 종료</button>
-          </div>
-        </Link>
-      );
     case "playing":
+    case "enterEvent":
       return (
-        <Link to="/racecasper">
-          <div className="absolute right-[50px] top-[30px] z-40 font-galmuri text-[#494949] text-xl">
-            <button>게임 종료</button>
-          </div>
-        </Link>
+        <div className="absolute right-[50px] top-[30px] z-40 font-galmuri text-[#494949] text-xl">
+          <Link to="/racecasper">
+            <button>게임 종료</button>  
+          </Link>
+        </div>
       );
     case "end":
       return (
         <div className="absolute right-[50px] top-[30px] z-40 space-x-10 font-galmuri text-[#494949] text-xl">
           <button>기록 자랑하기</button>
-          <Link to="/racecasper">
-            <button>게임 종료</button>
-          </Link>
-        </div>
-      );
-    case "enterEvent":
-      return (
-        <div className="absolute right-[50px] top-[30px] z-40 space-x-4 font-galmuri text-[#494949] text-xl">
           <Link to="/racecasper">
             <button>게임 종료</button>
           </Link>
