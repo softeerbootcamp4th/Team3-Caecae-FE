@@ -56,8 +56,8 @@ const GoToEvent = () => {
                   <Link to="/findcasper">
                     <button className="mb-16">
                       <img
-                        src="/assets/eventEnterBtn.svg"
-                        alt="eventEnterBtn"
+                        src="/assets/goEventBtn.svg"
+                        alt="goEventBtn"
                       />
                     </button>
                   </Link>
@@ -101,8 +101,8 @@ const GoToEvent = () => {
                   <Link to="/racecasper">
                     <button className="mb-16">
                       <img
-                        src="/assets/eventEnterBtn.svg"
-                        alt="eventEnterBtn"
+                        src="/assets/goEventBtn.svg"
+                        alt="goEventBtn"
                       />
                     </button>
                   </Link>

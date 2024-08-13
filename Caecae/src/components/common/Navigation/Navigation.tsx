@@ -33,7 +33,7 @@ const Navigation: React.FC = () => {
       } relative bg-navigation flex justify-center items-center h-16 border-b-4 border-navigationUnderline header`}
     >
       <div className="absolute left-0 ml-10 logo">
-        <Link to="/mainpage">
+        <Link to="/">
           <img src="/assets/casperLogo.svg" alt="casperLogo" />
         </Link>
       </div>
@@ -43,17 +43,17 @@ const Navigation: React.FC = () => {
             before:absolute before:bottom-0 before:left-0 before:w-full before:h-0.5 before:bg-white
             before:transform before:transition-transform before:duration-300 before:ease-in-out
             ${
-              isActive("/mainpage")
+              isActive("/")
                 ? "before:scale-x-100"
                 : "before:scale-x-0 hover:before:scale-x-50"
             }
           `}
         >
           <div className="h-full flex items-center">
-            <Link to="/mainpage">
+            <Link to="/">
               <span
                 className={`font-bold ${
-                  isActive("/mainpage")
+                  isActive("/")
                     ? "text-white"
                     : "text-navigationText hover:text-white transition-colors duration-300"
                 }`}
