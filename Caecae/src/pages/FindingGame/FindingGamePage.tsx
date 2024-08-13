@@ -11,7 +11,7 @@ import { store, useWork } from "../../shared/Hyundux";
 import FailContent from "./Enter/FailContent";
 import SuccessEnterContent from "./Enter/SuccessEnterContent";
 import FindingGameResult from "../../components/FindingGame/FindingGameResult";
-import PhoneNumberOverlayFindingGame from "../../components/PhoneNumberOverlay/PhoneNumberOverlayFindingGame";
+import PhoneNumberOverlay from "../../components/PhoneNumberOverlay/PhoneNumberOverlay";
 
 const FindingGamePage = () => {
   const [gameState, dispatch] = useWork(
@@ -31,7 +31,7 @@ const FindingGamePage = () => {
     <div className="relative flex flex-row h-full">
       <OverLay>
         <OverLayContent index={0} element={<EnterContent />} />
-        <OverLayContent index={1} element={<PhoneNumberOverlayFindingGame />} />
+        <OverLayContent index={1} element={<PhoneNumberOverlay type="findCasper" />} />
         <OverLayContent index={2} element={<SuccessEnterContent />} />
         <OverLayContent index={3} element={<FailContent />} />
       </OverLay>

@@ -2,10 +2,39 @@ import { ChangeEventHandler, useEffect, useState } from "react";
 import { action } from "../../jobs/Overlay/OverlayWork";
 import { store } from "../../shared/Hyundux";
 
-const PhoneNumberOverlayRacingGame = () => {
+interface PhoneNumberOverlayProps {
+  type: "findCasper" | "raceCasper";
+}
+
+const PhoneNumberOverlay = ({ type }: PhoneNumberOverlayProps) => {
+  const [timeLeft, setTimeLeft] = useState(3 * 60); // 3분을 초 단위로 변환
   const [phoneNumber, setPhoneNumber] = useState("");
   const [check, setCheck] = useState(false);
   const [enterable, setEnterable] = useState(false);
+
+  const timeToString = () => {
+    const minute = Math.floor(timeLeft / 60);
+    const second = timeLeft % 60;
+    const minuteStr = "0" + `${minute}`;
+    const secondStr = second < 10 ? "0" + `${second}` : `${second}`;
+    return minuteStr + ":" + secondStr;
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          // Todo: 여기 있는 store 제거하기
+          store.dispatch(action.toggleOverlay());
+          clearInterval(intervalId);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  });
 
   const onPhoneNumberFieldChange: ChangeEventHandler<HTMLInputElement> = (
     event
@@ -52,13 +81,24 @@ const PhoneNumberOverlayRacingGame = () => {
 
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="pl-[60px] pr-[59px] grow pt-[80px]">
+      <div className="px-[60px] pt-[80px] grow">
         <p className="text-[32px] font-bold text-[#1C1A1B]">전화번호 입력</p>
-        <div className="text-[#444444] mt-[10px]">
-          <span>경품 수령을 위해 간단한 정보를 입력해 주세요.</span>
-        </div>
-        <div className="flex items-center mt-[45px] justify-between">
-          <p className="font-bold text-[20px] text-[#1C1A1B] mr-[80px]">전화번호</p>
+        {type === "findCasper" ? (
+          <div className="mt-[10px] text-[18px]">
+            <span className="text-[#F21415] underline mt-[10px]">
+              <span>{timeToString()}</span> 내
+            </span>
+            <span className="text-[#444444]">
+              에 입력하지 않으면 미당첨으로 간주되어 자동 종료됩니다.
+            </span>
+          </div>
+        ) : (
+          <div className="text-[#444444] mt-[10px]">
+            <span>경품 수령을 위해 간단한 정보를 입력해 주세요.</span>
+          </div>
+        )}
+        <div className="flex items-center mt-[70px] justify-between">
+          <p className="font-bold text-[22px] text-[#1C1A1B] mr-[80px]">전화번호</p>
           <input
             type="text"
             value={phoneNumber}
@@ -68,11 +108,11 @@ const PhoneNumberOverlayRacingGame = () => {
           />
         </div>
         <div className="flex mt-[45px] justify-between">
-          <p className="font-bold text-[20px] text-[#1C1A1B] mr-[80px] pt-[12px]">
+          <p className="font-bold text-[22px] text-[#1C1A1B] mr-[80px] pt-[12px]">
             개인정보 동의
           </p>
           <div>
-            <div className="border border-gray-300 bg-white py-2 px-4 w-[700px] h-[140px] overflow-scroll">
+            <div className="border border-gray-300 bg-white py-2 px-4 w-[700px] h-[140px] overflow-auto">
               <p>
                 1. 개인정보의 처리 목적
                 <br />
@@ -109,18 +149,22 @@ const PhoneNumberOverlayRacingGame = () => {
           </div>
         </div>
       </div>
-      <div
-        onClick={() => {
-          store.dispatch(action.nextPage());
-        }}
-        className={`bg-[${
-          enterable ? "#002C5F" : "#CCCCCC"
-        }] h-[12%] flex items-center justify-center`}
-      >
-        <p className="text-[white] text-[20px] font-bold">응모 완료가기</p>
-      </div>
+      {enterable === true ? (
+        <div
+          onClick={() => {
+            store.dispatch(action.nextPage());
+          }}
+          className="bg-[#002C5F] h-[12%] flex items-center justify-center hover:cursor-pointer"
+        >
+          <p className="text-white text-[20px] font-bold">응모 완료하기</p>
+        </div>
+      ) : (
+        <div className="bg-[#CCCCCC] h-[12%] flex items-center justify-center">
+          <p className="text-white text-[20px] font-bold">개인정보를 입력해주세요</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default PhoneNumberOverlayRacingGame;
+export default PhoneNumberOverlay;

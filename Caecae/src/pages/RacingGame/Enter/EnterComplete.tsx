@@ -15,12 +15,12 @@ const EnterComplete = () => {
                     <img src="/public/assets/racingGameEnterImage.svg" alt="racingGameEnterImage" className="pr-[80px]" />
                 </div>
                 <div 
-                    className="flex justify-center items-center w-[521px] h-[82px] bg-[#002C5F] mt-[30px]"
+                    className="flex justify-center items-center w-[50%] h-[70px] bg-[#002C5F] mt-[30px] hover:cursor-pointer"
                     onClick={() => {
                         store.dispatch(action.toggleOverlay());
                     }}
                     >
-                    <span className="text-white text-[18px]">확인</span>
+                    <span className="text-white text-[20px] font-bold">확인</span>
                 </div>
             </div>
             
