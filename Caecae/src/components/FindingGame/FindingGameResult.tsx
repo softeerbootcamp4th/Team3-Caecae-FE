@@ -3,6 +3,7 @@ import {
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGameWork";
 import { useExistState, store } from "../../shared/Hyundux/index";
+import { Link } from "../../shared/Hyunouter";
 
 const FindingGameResult = () => {
   const state = useExistState(initFindingGameState);
@@ -51,9 +52,11 @@ const FindingGameResult = () => {
         </div>
         <div className="flex-grow"></div>
         <div className="bg-[#002C5F] flex justify-center items-center w-10/12 py-[14px] mb-[40px]">
-          <p className="text-[white] font-bold text-[18px]">
-            이벤트 홈으로 돌아가기
-          </p>
+          <Link to="/findcasper">
+            <p className="text-[white] font-bold text-[18px]">
+              이벤트 홈으로 돌아가기
+            </p>
+          </Link>
         </div>
       </div>
     </>
