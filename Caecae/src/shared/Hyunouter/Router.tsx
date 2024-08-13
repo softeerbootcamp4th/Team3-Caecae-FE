@@ -35,6 +35,7 @@ const Router: FC<RouterProps> = ({ children }) => {
         window.history.pushState({}, "", newPath);
       }
       setPath(newPath);
+      window.scrollTo(0, 0);
     }
   };
   const contextValue = {
