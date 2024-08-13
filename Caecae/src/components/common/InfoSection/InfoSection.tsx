@@ -53,19 +53,19 @@ interface InfoSectionDotProps {
 }
 
 const InfoSectionDot = ({
-  top = 0,
-  bottom = 0,
-  left = 0,
-  right = 0,
+  top,
+  bottom,
+  left,
+  right,
 }: InfoSectionDotProps) => {
   const style: React.CSSProperties = {
-    top: `${top}px`,
-    bottom: `${bottom}px`,
-    left: `${left}px`,
-    right: `${right}px`,
     width: "20px",
     position: "absolute",
-    zIndex: "10",
+    zIndex: 10,
+    ...(top !== undefined && { top: `${top}px` }),
+    ...(bottom !== undefined && { bottom: `${bottom}px` }),
+    ...(left !== undefined && { left: `${left}px` }),
+    ...(right !== undefined && { right: `${right}px` }),
   };
 
   return (
