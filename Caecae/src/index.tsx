@@ -21,6 +21,7 @@ const App = () => {
             element={<FindingGamePage />}
           />
           <Route path="/racecaspergame" element={<RacingGamePage />} />
+          <Route path="/adminCaecCae" element={<AdminPage />} />
         </Routes>
       </Router>
     </div>
