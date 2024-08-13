@@ -13,11 +13,11 @@ const SelectCustom = () => {
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [enterable, setEnterable] = useState(false);
     const options: Option[] = [
-        { id: 1, imgSrc: "/public/assets/racingGameCase1Image.svg", title: "Case 1. 공간활용의 기술", description: "캐스퍼 일렉트릭의 구석구석을\n활용해 많은 물건도 알차게 실을래요." },
-        { id: 2, imgSrc: "/public/assets/racingGameCase2Image.svg", title: "Case 2. 레저의 정석", description: "캐스퍼 일렉트릭과 함께 방방곡곡\n누빌 레저 라이프가 기대되어요." },
-        { id: 3, imgSrc: "/public/assets/racingGameCase3Image.svg", title: <>Case 3. 여행의 정석 <span className="text-[10px]">Camping</span></>, description: "캐스퍼 일렉트릭과 함께 아웃도어\n활동을 쉽고 편안하게 할래요." },
-        { id: 4, imgSrc: "/public/assets/racingGameCase4Image.svg", title: <>Case 4. 여행의 정석 <span className="text-[10px]">Picnic</span></>, description: "캐스퍼 일렉트릭과 함께하는 즐거운\n피크닉이 기대되어요." },
-        { id: 5, imgSrc: "/public/assets/racingGameCase5Image.svg", title: "Case 5. 펫 프렌들리", description: "캐스퍼 일렉트릭으로 반려동물과\n편안하고 안전한 여행을 할래요." },
+        { id: 1, imgSrc: "/assets/racingGameCase1Image.svg", title: "Case 1. 공간활용의 기술", description: "캐스퍼 일렉트릭의 구석구석을\n활용해 많은 물건도 알차게 실을래요." },
+        { id: 2, imgSrc: "/assets/racingGameCase2Image.svg", title: "Case 2. 레저의 정석", description: "캐스퍼 일렉트릭과 함께 방방곡곡\n누빌 레저 라이프가 기대되어요." },
+        { id: 3, imgSrc: "/assets/racingGameCase3Image.svg", title: <>Case 3. 여행의 정석 <span className="text-[10px]">Camping</span></>, description: "캐스퍼 일렉트릭과 함께 아웃도어\n활동을 쉽고 편안하게 할래요." },
+        { id: 4, imgSrc: "/assets/racingGameCase4Image.svg", title: <>Case 4. 여행의 정석 <span className="text-[10px]">Picnic</span></>, description: "캐스퍼 일렉트릭과 함께하는 즐거운\n피크닉이 기대되어요." },
+        { id: 5, imgSrc: "/assets/racingGameCase5Image.svg", title: "Case 5. 펫 프렌들리", description: "캐스퍼 일렉트릭으로 반려동물과\n편안하고 안전한 여행을 할래요." },
     ];
 
     const handleOptionSelect = (id: number) => {
@@ -49,8 +49,8 @@ const SelectCustom = () => {
                             <div className="relative mt-2">
                                 <img 
                                     src={selectedOption === option.id 
-                                        ? "/public/assets/customSelectDescriptionFocus.svg" 
-                                        : "/public/assets/customSelectDescription.svg"} 
+                                        ? "/assets/customSelectDescriptionFocus.svg" 
+                                        : "/assets/customSelectDescription.svg"} 
                                     alt={`option${option.id}`} 
                                 />
                                 <div className="absolute inset-0 top-2 flex flex-col justify-center items-center text-center p-1">

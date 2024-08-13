@@ -29,7 +29,7 @@ const gameContent = (
             <button className="w-[500px]" onClick={handlePlayGame}>
               <img
                 className="w-[500px]"
-                src="public/assets/gameStartBtn.svg"
+                src="/assets/gameStartBtn.svg"
                 alt="gameStartBtn"
               />
             </button>
@@ -44,7 +44,7 @@ const gameContent = (
           <div className="flex flex-row items-center justify-center mt-2">
             <div className="font-bold text-[28px] mr-2 text-[#666666]">stop :</div>
             <div className="ml-2">
-              <img src="public/assets/spacebarBtn.svg" alt="spacebarBtn" />
+              <img src="/assets/spacebarBtn.svg" alt="spacebarBtn" />
             </div>
           </div>
         </div>
@@ -68,14 +68,14 @@ const gameContent = (
             >
               <img
                 className="h-[50px]"
-                src="public/assets/enterEventBtn.svg"
+                src="/assets/enterEventBtn.svg"
                 alt="enterEventBtn"
               />
             </button>
             <button className="" onClick={handlePlayGame}>
               <img
                 className="h-[50px]"
-                src="public/assets/retryBtn.svg"
+                src="/assets/retryBtn.svg"
                 alt="retryBtn"
               />
             </button>
