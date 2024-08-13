@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import { ChangeEvent, useState } from "react";
 import PictureGameBoard from "../../components/common/PictureGameBoard";
 import huynxios from "../../shared/Hyunxios";
@@ -205,6 +204,8 @@ const AdminPage = () => {
                 y: number,
                 x: number
               ) => {
+                width;
+                height;
                 const newAnswer = { ...answer };
                 newAnswer.y = y / 400;
                 newAnswer.x = x / 473.7036;
@@ -328,7 +329,7 @@ const AdminPage = () => {
           <div
             className="bg-gray-400 w-[100px] h-[40px] flex items-center justify-center"
             onClick={async () => {
-              const response = await huynxios.post(
+              await huynxios.post(
                 "/api/admin/finding/answer",
                 findMeToDTO(findmes[day])
               );
