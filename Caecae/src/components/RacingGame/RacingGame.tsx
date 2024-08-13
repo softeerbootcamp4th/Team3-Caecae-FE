@@ -130,6 +130,14 @@ const gameMenu = (gameStatus: string) => {
           </Link>
         </div>
       );
+    case "enterEvent":
+      return (
+        <div className="absolute right-[50px] top-[30px] z-40 space-x-4">
+          <Link to="/racecasper">
+            <button>게임 종료</button>
+          </Link>
+        </div>
+      );
     default:
       return null;
   }

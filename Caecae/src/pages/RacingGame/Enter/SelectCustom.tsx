@@ -26,8 +26,8 @@ const SelectCustom = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center">
-            <div className="p-[70px]">
+        <div className="flex flex-col w-full h-full">
+            <div className="px-[60px] pt-[70px] grow">
                 <div className="text-[32px] font-bold self-start">
                     기대되는 옵션 선택하고 추가 당첨 확률 높이기!
                 </div>
@@ -36,7 +36,7 @@ const SelectCustom = () => {
                     <br/>
                     캐스퍼 일렉트릭 당첨 시 선택한 옵션으로 받게 돼요.
                 </div>
-                <div className="flex flex-row gap-3 mt-10">
+                <div className="flex flex-row gap-3 mt-5">
                     {options.map((option) => (
                         <div
                             key={option.id}
@@ -93,17 +93,20 @@ const SelectCustom = () => {
                     ))}
                 </div>
             </div>
-            
-            <div
-                onClick={() => {
-                store.dispatch(action.nextPage());
-                }}
-                className={`bg-[${
-                enterable ? "#002C5F" : "#CCCCCC"
-                }] w-full h-[60px] flex items-center justify-center`}
-            >
-                <p className="text-[white] text-[20px] font-bold">응모 완료가기</p>
-            </div>
+            {enterable === true ? (
+                    <div 
+                        onClick={() => {
+                            store.dispatch(action.nextPage());
+                        }}
+                        className="bg-[#002C5F] h-[12%] flex items-center justify-center hover:cursor-pointer"
+                    >
+                        <p className="text-white text-[20px] font-bold">확인</p>
+                    </div>
+                ) : (
+                    <div className="bg-[#CCCCCC] h-[12%] flex items-center justify-center">
+                        <p className="text-white text-[20px] font-bold">마음에 드는 커스텀마이징을 선택하세요</p>
+                    </div>
+                )}
         </div>
     );
 };
