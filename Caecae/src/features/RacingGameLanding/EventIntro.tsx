@@ -1,6 +1,40 @@
+import { useState } from "react";
 import { Link } from "../../shared/Hyunouter";
 
 const EventIntro = () => {
+  const [showMessage, setShowMessage] = useState(false);
+  const [animate, setAnimate] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const shareEvent = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    const url: string = window.location.href;
+
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        setShowMessage(true);
+
+        setTimeout(() => {
+          setAnimate(true);
+
+          setTimeout(() => {
+            setAnimate(false);
+
+            setTimeout(() => {
+              setShowMessage(false);
+              setIsAnimating(false);
+            }, 500);
+
+          }, 3000);
+          
+        }, 10);  
+      })
+      .catch((err: Error) => {
+        console.error('URL 복사에 실패했습니다.', err);
+        setIsAnimating(false);
+      });
+  };
   return (
     <>
       <div className="flex w-full h-screen justify-center items-center relative">
@@ -35,14 +69,14 @@ const EventIntro = () => {
           />
           <div className="flex flex-row gap-6 justify-center items-center">
             <div
-              className="bg-[#0609CD] w-[300px] h-[100px] flex flex-row justify-center items-center gap-3"
+              className="bg-[#0609CD] w-[300px] h-[80px] flex flex-row justify-center items-center gap-3 hover:cursor-pointer"
               onClick={shareEvent}
             >
               <img src="/assets/sharedButton.svg" alt="sharedButton" />
               <span className="text-white text-[24px]">공유하기</span>
             </div>
             <Link to="/racecaspergame">
-              <div className="bg-white w-[300px] h-[100px] flex flex-row justify-center items-center gap-3">
+              <div className="bg-white w-[300px] h-[80px] flex flex-row justify-center items-center gap-3">
                 <span className="text-[24px]">전력 질주하러 가기</span>
                 <img src="/assets/rightShevron.svg" alt="rightShevron" />
               </div>
@@ -66,12 +100,16 @@ const EventIntro = () => {
             className="opacity-[70%] w-[230px] right-0 top-96 absolute z-10"
           />
         </div>
+        {showMessage && (
+          <div className={`absolute left-1/2 bottom-[150px] z-50 transform -translate-x-1/2 text-white bg-[#1C1A1B] border-blue-700 border-4 px-6 py-3 rounded-2xl transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="flex justify-center items-center text-[24px]">
+              URL이 복사되었습니다!
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
-};
-const shareEvent = () => {
-  console.log("이벤트를 공유합니다!");
 };
 
 export default EventIntro;
