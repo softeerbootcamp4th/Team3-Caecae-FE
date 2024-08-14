@@ -9,7 +9,7 @@ const EventPeriod = () => {
           <h1 className="text-white font-[900] text-[40px] mt-16">
             이벤트 기간
           </h1>
-          <div className="mt-14">
+          <div className="mt-14 px-20">
             <InfoSection title="7일간 매일매일">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
                 <p className="text-white text-center text-[24px] line-[140%]">

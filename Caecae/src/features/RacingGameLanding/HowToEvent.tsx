@@ -8,7 +8,7 @@ const HowToEvent = () => {
           <h1 className="text-white font-[900] text-[40px] mt-28">
             이벤트 참여 방법
           </h1>
-          <div className="mt-14">
+          <div className="mt-14 px-20">
             <InfoSection title="#1 전력으로... Game Start!">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
                 <p className="text-white text-center text-[24px] line-[140%]">
@@ -91,7 +91,7 @@ const HowToEvent = () => {
               </div>
             </InfoSection>
           </div>
-          <div className="mt-14">
+          <div className="mt-14  px-20">
             <InfoSection title="#2 가장 기대되는 Case는?">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
                 <p className="text-white text-center text-[24px] line-[140%]">
