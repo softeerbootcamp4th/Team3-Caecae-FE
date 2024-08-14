@@ -1,6 +1,5 @@
-import { forwardRef, ReactElement, useEffect, useRef, useState } from "react";
+import { forwardRef, ReactElement, useEffect, useState } from "react";
 import SmileBadge from "../../components/common/SmileBadge/index";
-import { useSpecificTimeEffect } from "../../hooks";
 import { Link } from "../../shared/Hyunouter";
 import getFindingGameStartTime from "../../stories/getFindingGameStartTime";
 
@@ -25,7 +24,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
       const reponse = await getFindingGameStartTime();
 
       let answer: EventOpenStatus = "none"; // 명시적으로 타입 지정
-      reponse.data.findingGameInfos.forEach((info, index) => {
+      reponse.data.findingGameInfos.forEach((info) => {
         const tempAnswer: EventOpenStatus = chechCurrentStuts(
           info.startTime,
           info.endTime
