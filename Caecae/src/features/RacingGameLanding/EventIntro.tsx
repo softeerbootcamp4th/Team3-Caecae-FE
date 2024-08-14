@@ -39,14 +39,14 @@ const EventIntro = () => {
     <>
       <div className="flex w-full h-screen justify-center items-center relative">
         <div className="flex flex-col absolute z-20 items-center mt-20">
-          <p className="text-[#B6B6B6] text-[22px]">
-            <span className="text-white ">CASPER Electric </span>
+          <p className="text-[#B6B6B6] text-[20px]">
+            <span className="text-white font-bold">CASPER Electric </span>
             신차 출시 추첨 이벤트
           </p>
-          <h1 className="flex items-center font-galmuri text-[white] text-[80px] font-bold my-2">
+          <h1 className="flex items-center font-galmuri text-[white] text-[80px] font-bold mb-2">
             전력으로...!
             <div className="relative inline-block ml-5">
-              <span className="absolute inset-0 flex items-center justify-center text-black">
+              <span className="absolute inset-0 pl-2 pt-1 flex items-center justify-center text-black">
                 315Km
               </span>
               <img
@@ -73,11 +73,11 @@ const EventIntro = () => {
               onClick={shareEvent}
             >
               <img src="/assets/sharedButton.svg" alt="sharedButton" />
-              <span className="text-white text-[24px]">공유하기</span>
+              <span className="text-white text-[22px]">공유하기</span>
             </div>
             <Link to="/racecaspergame">
               <div className="bg-white w-[300px] h-[80px] flex flex-row justify-center items-center gap-3">
-                <span className="text-[24px]">전력 질주하러 가기</span>
+                <span className="text-[22px]">전력 질주하러 가기</span>
                 <img src="/assets/rightShevron.svg" alt="rightShevron" />
               </div>
             </Link>

@@ -11,7 +11,7 @@ const HowToEvent = () => {
           <div className="mt-14 px-20">
             <InfoSection title="#1 전력으로... Game Start!">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
-                <p className="text-white text-center text-[24px] line-[140%]">
+                <p className="text-white text-center text-[22px] line-[140%]">
                   캐스퍼 일렉트릭과 전력으로 315Km를 질주해보아요!
                   <br />
                   <span className="text-[#00AAD2]">
@@ -19,7 +19,7 @@ const HowToEvent = () => {
                   </span>
                   에게 추첨하여 경품 증정!
                 </p>
-                <p className="text-white text-[18px] mt-5">
+                <p className="text-white text-[16px] mt-5">
                   * 중복 응모 시 가장 높은 점수 1건만 추첨에 반영됩니다.
                 </p>
                 <div className="flex flex-row justify-center items-center gap-10 mt-14">
@@ -94,7 +94,7 @@ const HowToEvent = () => {
           <div className="mt-14  px-20">
             <InfoSection title="#2 가장 기대되는 Case는?">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
-                <p className="text-white text-center text-[24px] line-[140%]">
+                <p className="text-white text-center text-[22px] line-[140%]">
                   캐스퍼 일렉트릭은 다양한 옵션 선택이 가능해요.
                   <br />
                   가장 기대되는 커스터마이징 옵션을 고르면

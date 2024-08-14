@@ -9,7 +9,7 @@ const GiftInfo = () => {
           <div className="mt-14  px-20">
             <InfoSection title="추첨 경품">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
-                <p className="text-white text-center text-[24px] line-[140%]">
+                <p className="text-white text-center text-[22px] line-[140%]">
                   캐스퍼 일렉트릭과 함께 압도적 캐미를 보여준 분께
                   <br />
                   <span className="text-[#00AAD2]">딱 맞는 아이템</span>을

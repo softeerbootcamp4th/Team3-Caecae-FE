@@ -12,10 +12,10 @@ const EventPeriod = () => {
           <div className="mt-14 px-20">
             <InfoSection title="7일간 매일매일">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
-                <p className="text-white text-center text-[24px] line-[140%]">
-                  참여기간: 7.15(월) - 7.21(일)
+                <p className="text-white text-center text-[22px] line-[140%]">
+                  참여 기간: 7.15 (월) - 7.21 (일)
                   <br />
-                  당첨자 발표 날짜: 7.29(월)부터 주말ㆍ공휴일 제외 순차적으로
+                  당첨자 발표 날짜: 7.29 (월)부터 주말ㆍ공휴일 제외 순차적으로
                   발송
                 </p>
                 <div className="my-16">
