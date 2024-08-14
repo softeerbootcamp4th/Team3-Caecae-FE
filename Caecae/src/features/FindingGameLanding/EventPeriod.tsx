@@ -9,8 +9,8 @@ const EventPeriod = () => {
         <p className="text-[white] font-[900] text-[35px] mt-[60px]">
           이벤트 기간
         </p>
-        <div className="mt-[50px]">
-          <InfoSection title="7일간 매일매일">
+        <div className="mt-[50px] flex justify-center">
+          <InfoSection title="7일간 매일매일" width={90}>
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <div className="absolute right-[-70px] bottom-[200px] transform rotate-[-12deg] ">
                 <SmileBadge width={150} badgeType="blue" />

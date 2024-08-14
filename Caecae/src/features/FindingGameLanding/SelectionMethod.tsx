@@ -9,8 +9,8 @@ const SelectionMethod = () => {
         <p className="text-[white] font-[900] text-[35px] mt-[60px]">
           참여 혜택 및 선정 방식
         </p>
-        <div className="mt-[50px]">
-          <InfoSection title="선착순 315명 전원 증정">
+        <div className="mt-[50px] flex justify-center">
+          <InfoSection title="선착순 315명 전원 증정" width={90}>
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <div className="absolute left-[-70px] top-[200px] transform rotate-[12deg] ">
                 <SmileBadge width={150} badgeType="white" />

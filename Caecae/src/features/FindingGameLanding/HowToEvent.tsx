@@ -7,8 +7,8 @@ const HowToEvent = () => {
         <p className="text-[white] font-[900] text-[35px] mt-[60px]">
           이벤트 참여 방법
         </p>
-        <div className="mt-[50px]">
-          <InfoSection title="나를 찾아봐">
+        <div className="mt-[50px] flex justify-center">
+          <InfoSection title="나를 찾아봐" width={90}>
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <p className="text-[white] text-center text-[18px] line-[140%]">
                 매일 새롭게 제공되는 캐스퍼 일렉트릭의 사진에서 숨겨진 로봇
