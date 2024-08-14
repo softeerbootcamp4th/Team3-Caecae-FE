@@ -1,7 +1,7 @@
-import { forwardRef, ReactElement, useRef, useState } from "react";
+import { forwardRef, ReactElement, useEffect, useState } from "react";
 import SmileBadge from "../../components/common/SmileBadge/index";
-import { useSpecificTimeEffect } from "../../hooks";
 import { Link } from "../../shared/Hyunouter";
+import getFindingGameStartTime from "../../stories/getFindingGameStartTime";
 
 // props 타입 정의
 interface OpenEventProps {}
@@ -14,26 +14,51 @@ interface StatusInfo {
 }
 
 const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
-  const eventOpenStatus = useRef<EventOpenStatus>("none");
-  const [leftTime, setLeftTime] = useState(0);
   props;
+  const [eventStatus, setEventStatus] = useState<EventOpenStatus>("none");
+  const [leftTime, setLeftTime] = useState(0);
   const targetDate = new Date();
-  targetDate.setHours(16, 0, 0, 0);
 
-  useSpecificTimeEffect(targetDate, (leftSeconds) => {
-    if (leftSeconds <= 3600 && leftSeconds > 0) {
-      eventOpenStatus.current = "soon";
-      setLeftTime(leftSeconds);
-    } else if (leftSeconds < 0) {
-      eventOpenStatus.current = "opened";
-      setLeftTime(leftSeconds);
-    } else {
-      eventOpenStatus.current = "none";
-    }
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+      const reponse = await getFindingGameStartTime();
 
+      let answer: EventOpenStatus = "none"; // 명시적으로 타입 지정
+      reponse.data.findingGameInfos.forEach((info) => {
+        const tempAnswer: EventOpenStatus = chechCurrentStuts(
+          info.startTime,
+          info.endTime
+        );
+
+        if (tempAnswer !== "none") {
+          answer = tempAnswer;
+        }
+        if (tempAnswer === "soon") {
+          targetDate.setHours(info.startTime[3], info.startTime[4], 0, 0);
+        }
+      });
+      setEventStatus(answer);
+
+      // @ts-expect-error: 진짜 ts 병신
+      if (answer === "soon") {
+        const checkTime = () => {
+          const now = new Date();
+          setLeftTime(
+            Math.floor((targetDate.getTime() - now.getTime()) / 1000)
+          );
+        };
+        checkTime();
+        const intervalId = setInterval(checkTime, 1000);
+        return () => clearInterval(intervalId);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(eventStatus);
   let data: StatusInfo | null = null;
-  if (eventOpenStatus.current == "none") {
+  if (eventStatus == "none") {
     data = {
       badgeTitle: "이벤트 오픈 예정",
       title: "7월 15일 오후 3시 15분",
@@ -51,7 +76,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
       ),
       isButtonOpen: false,
     };
-  } else if (eventOpenStatus.current == "soon") {
+  } else if (eventStatus == "soon") {
     data = {
       badgeTitle: "이벤트 오픈 예정",
       title: "이벤트 오픈이 얼마 남지 않았어요!",
@@ -159,6 +184,33 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
     </div>
   );
 });
+
+function chechCurrentStuts(startTime: number[], endTime: number[]) {
+  const currentDate = new Date();
+  const currentTime = [
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    currentDate.getDate(),
+    currentDate.getHours(),
+    currentDate.getMinutes(),
+  ];
+  const soonTime = [...startTime];
+  soonTime[3] = soonTime[3] - 1;
+
+  function isIn(startTime: number[], targetTime: number[], endTime: number[]) {
+    for (let i = 0; i < startTime.length; i++) {
+      if (startTime[i] === endTime[i] && startTime[i] === targetTime[i])
+        continue;
+      else if (startTime[i] <= targetTime[i] && targetTime[i] <= endTime[i])
+        return true;
+      else return false;
+    }
+    return false;
+  }
+  if (isIn(soonTime, currentTime, startTime)) return "soon";
+  else if (isIn(startTime, currentTime, endTime)) return "opened";
+  return "none";
+}
 
 const WhiteTimerRectangle = (props: { num: number }) => {
   return (

@@ -6,16 +6,16 @@ const SelectionMethod = () => {
   return (
     <div className="h-[115vh] bg-[black]">
       <div className="absolute z-10 flex flex-col items-center w-full h-screen">
-        <p className="text-[white] font-[900] text-[35px] mt-[60px]">
+        <p className="text-[white] font-[900] text-[40px] mt-[60px]">
           참여 혜택 및 선정 방식
         </p>
-        <div className="mt-[50px]">
-          <InfoSection title="선착순 315명 전원 증정">
+        <div className="mt-[50px] flex justify-center">
+          <InfoSection title="선착순 315명 전원 증정" width={90}>
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <div className="absolute left-[-70px] top-[200px] transform rotate-[12deg] ">
                 <SmileBadge width={150} badgeType="white" />
               </div>
-              <p className="text-[white] text-center text-[18px] line-[140%]">
+              <p className="text-[white] text-center text-[22px] line-[140%]">
                 매일 정해진 선착순 인원에게{" "}
                 <span className="text-[#00AAD2]">스타벅스 1만 원 쿠폰</span>을
                 드려요.
@@ -23,7 +23,7 @@ const SelectionMethod = () => {
                 당첨 후 <span className="text-[#00AAD2]">3분 내</span>로 전화
                 번호를 기입하면 응모 완료!
               </p>
-              <p className="text-[white] text-[14px] mt-[20px]">
+              <p className="text-[white] text-[16px] mt-[20px]">
                 * 하루에 한 번 응모 가능합니다.
               </p>
               <div className="flex justify-center gap-[30px] mt-[40px]">

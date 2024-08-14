@@ -6,10 +6,10 @@ const GiftInfo = () => {
       <div className="relative h-[1400px] bg-black">
         <div className="absolute inset-0 z-10 flex flex-col items-center w-full bg-[#00113F] bg-opacity-40">
           <h1 className="text-white font-[900] text-[40px] mt-16">참여 혜택</h1>
-          <div className="mt-14">
+          <div className="mt-14  px-20">
             <InfoSection title="추첨 경품">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
-                <p className="text-white text-center text-[24px] line-[140%]">
+                <p className="text-white text-center text-[22px] line-[140%]">
                   캐스퍼 일렉트릭과 함께 압도적 캐미를 보여준 분께
                   <br />
                   <span className="text-[#00AAD2]">딱 맞는 아이템</span>을

@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode } from "react";
 interface InfoSectionProps {
+  width?: number;
   type?: "Default" | "Header";
   title?: string;
   children: ReactNode;
@@ -9,6 +10,7 @@ const InfoSection = ({
   type = "Header",
   title = "",
   children,
+  width = 100,
 }: InfoSectionProps) => {
   let header: ReactElement | null = null;
 
@@ -27,10 +29,12 @@ const InfoSection = ({
       header = <img src="/assets/topLine.svg" alt="topLine" />;
       break;
   }
-
+  const style = {
+    width: `${width}%`,
+  };
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center" style={style}>
         {header}
         <div className="border-l-4 border-r-4 border-white relative w-full h-full">
           {children}
@@ -52,12 +56,7 @@ interface InfoSectionDotProps {
   right?: number;
 }
 
-const InfoSectionDot = ({
-  top,
-  bottom,
-  left,
-  right,
-}: InfoSectionDotProps) => {
+const InfoSectionDot = ({ top, bottom, left, right }: InfoSectionDotProps) => {
   const style: React.CSSProperties = {
     width: "20px",
     position: "absolute",
