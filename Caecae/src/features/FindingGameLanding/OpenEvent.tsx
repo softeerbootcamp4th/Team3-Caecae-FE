@@ -56,7 +56,6 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
     fetchData();
   }, []);
 
-  console.log(eventStatus);
   let data: StatusInfo | null = null;
   if (eventStatus == "none") {
     data = {
