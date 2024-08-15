@@ -200,19 +200,4 @@ const action = {
   },
 };
 
-function postionToBodyParameter() {}
-
-const calculateRange = (
-  answerY: number,
-  answerX: number,
-  clickedY: number,
-  clickedX: number
-) => {
-  return (
-    Math.sqrt(
-      Math.pow(answerY - clickedY, 2) + Math.pow(answerX - clickedX, 2)
-    ) <= 100
-  );
-};
-
 export { action, initFindingGameState, findingGameReducer };

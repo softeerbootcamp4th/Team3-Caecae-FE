@@ -3,12 +3,12 @@ import {
   action,
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGameWork.tsx";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import LottieContainer from "../common/LottieContainer/index.tsx";
 import correctLottie from "@assets/animationCorrect.json";
 import wrongLottie from "@assets/animationIncorrect.json";
 import { store, useExistState } from "../../shared/Hyundux";
-import HintSpot from "./Hint/HintSpot.tsx";
+//import HintSpot from "./Hint/HintSpot.tsx";
 import SmileBadge from "../common/SmileBadge/index.tsx";
 import { createStory } from "../../shared/Hyundux-saga/Story.tsx";
 import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
