@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link } from "../../shared/Hyunouter";
 
-const EventIntro = () => {
+interface EventIntroProps {
+  isEventOpen: boolean;
+}
+
+const EventIntro: React.FC<EventIntroProps> = (isEventOpen) => {
   const [showMessage, setShowMessage] = useState(false);
   const [animate, setAnimate] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -35,6 +39,13 @@ const EventIntro = () => {
         setIsAnimating(false);
       });
   };
+
+  const checkEventOpen = () => {
+    if(!isEventOpen) {
+      alert("지금은 이벤트 기간이 아닙니다!");
+    }
+  };
+
   return (
     <>
       <div className="flex w-full h-screen justify-center items-center relative">
@@ -75,12 +86,14 @@ const EventIntro = () => {
               <img src="/assets/sharedButton.svg" alt="sharedButton" />
               <span className="text-white text-[22px]">공유하기</span>
             </div>
-            <Link to="/racecaspergame">
-              <div className="bg-white w-[300px] h-[80px] flex flex-row justify-center items-center gap-3">
-                <span className="text-[22px]">전력 질주하러 가기</span>
-                <img src="/assets/rightShevron.svg" alt="rightShevron" />
-              </div>
-            </Link>
+            <div onClick={checkEventOpen}>
+              <Link to={isEventOpen ? "/racecaspergame" : "/racecasper"}>
+                <div className="bg-white w-[300px] h-[80px] flex flex-row justify-center items-center gap-3 hover:cursor-pointer">
+                  <span className="text-[22px]">전력 질주하러 가기</span>
+                  <img src="/assets/rightShevron.svg" alt="rightShevron" />
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
         <div>

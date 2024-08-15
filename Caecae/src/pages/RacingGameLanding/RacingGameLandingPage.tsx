@@ -29,10 +29,10 @@ const RacingGameLandingPage = () => {
   return (
       <>
         <Navigation />
-        <EventIntro />
+        <EventIntro isEventOpen={isEventOpen} />
         <HowToEvent />
         <GiftInfo />
-        <EventPeriod />
+        <EventPeriod isEventOpen={isEventOpen} />
         <EventPrecaution />
         <Footer />
       </>
