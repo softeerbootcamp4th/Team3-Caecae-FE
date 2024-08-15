@@ -20,6 +20,8 @@ const RacingGameLandingPage = () => {
 
       if(racingGameOpen === true) {
         setIsEventOpen(true);
+      }else {
+        setIsEventOpen(false);
       }
     };
     

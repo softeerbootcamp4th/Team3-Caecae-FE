@@ -5,7 +5,7 @@ interface EventIntroProps {
   isEventOpen: boolean;
 }
 
-const EventIntro: React.FC<EventIntroProps> = (isEventOpen) => {
+const EventIntro: React.FC<EventIntroProps> = ({isEventOpen}) => {
   const [showMessage, setShowMessage] = useState(false);
   const [animate, setAnimate] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);

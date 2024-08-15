@@ -5,7 +5,7 @@ interface EventPeriodProps {
   isEventOpen: boolean;
 }
 
-const EventPeriod:React.FC<EventPeriodProps> = (isEventOpen) => {
+const EventPeriod:React.FC<EventPeriodProps> = ({isEventOpen}) => {
 
   const checkEventOpen = () => {
     if(!isEventOpen) {
