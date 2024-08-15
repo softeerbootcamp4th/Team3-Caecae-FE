@@ -10,7 +10,7 @@ import {
   getFindGameIsAnswerDTO,
 } from "../../stories/getFindGameIsAnswer";
 import { FindGame } from "../../stories/getFindingGame";
-import Response from "../../stories/Response";
+import Response from "../../utils/Response";
 
 import { CorrectAnswer } from "../../stories/getFindGameIsAnswer";
 import huynxios from "../../shared/Hyunxios";
