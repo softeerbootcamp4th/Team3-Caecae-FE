@@ -1,7 +1,18 @@
 import InfoSection from "../../components/common/InfoSection/index";
 import { Link } from "../../shared/Hyunouter";
 
-const EventPeriod = () => {
+interface EventPeriodProps {
+  isEventOpen: boolean;
+}
+
+const EventPeriod:React.FC<EventPeriodProps> = ({isEventOpen}) => {
+
+  const checkEventOpen = () => {
+    if(!isEventOpen) {
+      alert("지금은 이벤트 기간이 아닙니다!");
+    }
+  };
+
   return (
     <>
       <div className="relative h-[1100px] bg-black ">
@@ -24,14 +35,16 @@ const EventPeriod = () => {
                     alt="eventPeriodBackground"
                   />
                 </div>
-                <Link to="/racecaspergame">
-                  <div className="mt-2">
-                    <img
-                      src="/assets/play315GameButton.svg"
-                      alt="play315GameButton"
-                    />
-                  </div>
-                </Link>
+                <div onClick={checkEventOpen}>
+                  <Link to={isEventOpen ? "/racecaspergame" : "/racecasper"}>
+                    <div className="mt-2">
+                      <img
+                        src="/assets/play315GameButton.svg"
+                        alt="play315GameButton"
+                      />
+                    </div>
+                  </Link>
+                </div>
               </div>
             </InfoSection>
           </div>
