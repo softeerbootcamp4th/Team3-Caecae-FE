@@ -10,11 +10,13 @@ import {
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
+import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (
   gameStatus: string,
   distance: number,
+  topRate: number | null,
   handlePlayGame: () => void,
   enterEvent: () => void
 ) => {
@@ -58,7 +60,9 @@ const gameContent = (
               <div className="font-bold text-[52px] mb-2">
                 {distance.toFixed(3)} KM
               </div>
-              <div className="font-bold text-xl text-[#3D3D3D] flex items-end pb-5">상위 1%</div>
+              <div className="font-bold text-xl text-[#3D3D3D] flex items-end pb-5">
+                {`상위 ${topRate}%`}
+              </div>
             </div>
           </div>
           <div className="flex flex-row items-center justify-center mt-2 space-x-4">
@@ -130,6 +134,7 @@ const RacingGame: React.FC = () => {
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   // const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
   const state = useExistState(initRacingGameState);
+  const [topRate, setTopRate] = useState<number | null>(null);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -242,6 +247,19 @@ const RacingGame: React.FC = () => {
     return () => unsubscribeFrontX();
   }, [frontX]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getRacingGameTopRate(state.distance);
+        setTopRate(Number(response.data.percent.toFixed(3)));
+      }catch (error) {
+        console.error("레이싱 게임 점수 백분위 api 연결 에러:", error);
+        setTopRate(null);
+      }
+    };
+
+    fetchData();
+  }, [state.distance]);
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       <motion.div
@@ -270,7 +288,7 @@ const RacingGame: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent(state.gameStatus, state.distance, handlePlayGame, enterEvent)}
+      {gameContent(state.gameStatus, state.distance, topRate, handlePlayGame, enterEvent)}
       {gameMenu(state.gameStatus)}
     </div>
   );
