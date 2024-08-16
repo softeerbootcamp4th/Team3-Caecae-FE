@@ -8,7 +8,7 @@ function modeDependency(mode: string): {
   tooltipTitle: string;
   tooltipContent: string;
 } {
-  if (mode === "pixel") {
+  if (mode === "PIXEL") {
     return {
       findingWord: "숨겨진 픽셀",
       tooltipTitle: "픽셀 디자인",
@@ -31,7 +31,7 @@ const FindingGameInfo = () => {
     setIsTooltipShowing((prev) => !prev);
   }
 
-  const modeData = modeDependency("pixel");
+  const modeData = modeDependency(state.gameType);
 
   const tooltip = isTooltipShowing ? (
     <>
@@ -53,13 +53,9 @@ const FindingGameInfo = () => {
     <></>
   );
 
-  const badges = state.answers.map((answer, index) => {
+  const badges = new Array(2).fill(0).map((answer, index) => {
     const badgeType = index == 0 ? "blue" : "orange";
-    if (
-      state.showingAnswers.filter(
-        (showingAnswer) => showingAnswer.id == answer.id
-      ).length !== 0
-    ) {
+    if (state.showingAnswers.length > index) {
       return (
         <SmileBadge
           key={answer.id}

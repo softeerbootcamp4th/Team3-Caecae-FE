@@ -6,16 +6,16 @@ const EventPeriod = () => {
   return (
     <div className="h-[115vh] bg-[black]">
       <div className="absolute z-10 flex flex-col items-center w-full h-screen">
-        <p className="text-[white] font-[900] text-[35px] mt-[60px]">
+        <p className="text-[white] font-[900] text-[40px] mt-[60px]">
           이벤트 기간
         </p>
-        <div className="mt-[50px]">
-          <InfoSection title="7일간 매일매일">
+        <div className="mt-[50px] flex justify-center">
+          <InfoSection title="7일간 매일매일" width={90}>
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <div className="absolute right-[-70px] bottom-[200px] transform rotate-[-12deg] ">
                 <SmileBadge width={150} badgeType="blue" />
               </div>
-              <p className="text-[white] text-center text-[18px] line-[140%]">
+              <p className="text-[white] text-center text-[22px] line-[140%]">
                 참여 기간: 7.15 (월) - 7.21 (일){" "}
                 <span className="text-[#00AAD2]">오후 3시 15분</span>
                 <br />

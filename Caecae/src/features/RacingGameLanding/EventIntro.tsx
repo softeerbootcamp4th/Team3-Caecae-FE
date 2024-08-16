@@ -1,18 +1,63 @@
+import { useState } from "react";
 import { Link } from "../../shared/Hyunouter";
 
-const EventIntro = () => {
+interface EventIntroProps {
+  isEventOpen: boolean;
+}
+
+const EventIntro: React.FC<EventIntroProps> = ({isEventOpen}) => {
+  const [showMessage, setShowMessage] = useState(false);
+  const [animate, setAnimate] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const shareEvent = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    const url: string = window.location.href;
+
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        setShowMessage(true);
+
+        setTimeout(() => {
+          setAnimate(true);
+
+          setTimeout(() => {
+            setAnimate(false);
+
+            setTimeout(() => {
+              setShowMessage(false);
+              setIsAnimating(false);
+            }, 500);
+
+          }, 3000);
+          
+        }, 10);  
+      })
+      .catch((err: Error) => {
+        console.error('URL 복사에 실패했습니다.', err);
+        setIsAnimating(false);
+      });
+  };
+
+  const checkEventOpen = () => {
+    if(!isEventOpen) {
+      alert("지금은 이벤트 기간이 아닙니다!");
+    }
+  };
+
   return (
     <>
       <div className="flex w-full h-screen justify-center items-center relative">
         <div className="flex flex-col absolute z-20 items-center mt-20">
-          <p className="text-[#B6B6B6] text-[22px]">
-            <span className="text-white ">CASPER Electric </span>
+          <p className="text-[#B6B6B6] text-[20px]">
+            <span className="text-white font-bold">CASPER Electric </span>
             신차 출시 추첨 이벤트
           </p>
-          <h1 className="flex items-center font-galmuri text-[white] text-[80px] font-bold my-2">
+          <h1 className="flex items-center font-galmuri text-[white] text-[80px] font-bold mb-2">
             전력으로...!
             <div className="relative inline-block ml-5">
-              <span className="absolute inset-0 flex items-center justify-center text-black">
+              <span className="absolute inset-0 pl-2 pt-1 flex items-center justify-center text-black">
                 315Km
               </span>
               <img
@@ -35,18 +80,20 @@ const EventIntro = () => {
           />
           <div className="flex flex-row gap-6 justify-center items-center">
             <div
-              className="bg-[#0609CD] w-[300px] h-[100px] flex flex-row justify-center items-center gap-3"
+              className="bg-[#0609CD] w-[300px] h-[80px] flex flex-row justify-center items-center gap-3 hover:cursor-pointer"
               onClick={shareEvent}
             >
               <img src="/assets/sharedButton.svg" alt="sharedButton" />
-              <span className="text-white text-[24px]">공유하기</span>
+              <span className="text-white text-[22px]">공유하기</span>
             </div>
-            <Link to="/racecaspergame">
-              <div className="bg-white w-[300px] h-[100px] flex flex-row justify-center items-center gap-3">
-                <span className="text-[24px]">전력 질주하러 가기</span>
-                <img src="/assets/rightShevron.svg" alt="rightShevron" />
-              </div>
-            </Link>
+            <div onClick={checkEventOpen}>
+              <Link to={isEventOpen ? "/racecaspergame" : "/racecasper"}>
+                <div className="bg-white w-[300px] h-[80px] flex flex-row justify-center items-center gap-3 hover:cursor-pointer">
+                  <span className="text-[22px]">전력 질주하러 가기</span>
+                  <img src="/assets/rightShevron.svg" alt="rightShevron" />
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
         <div>
@@ -66,12 +113,16 @@ const EventIntro = () => {
             className="opacity-[70%] w-[230px] right-0 top-96 absolute z-10"
           />
         </div>
+        {showMessage && (
+          <div className={`absolute left-1/2 bottom-[150px] z-50 transform -translate-x-1/2 text-white bg-[#1C1A1B] border-blue-700 border-4 px-6 py-3 rounded-2xl transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="flex justify-center items-center text-[24px]">
+              URL이 복사되었습니다!
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
-};
-const shareEvent = () => {
-  console.log("이벤트를 공유합니다!");
 };
 
 export default EventIntro;

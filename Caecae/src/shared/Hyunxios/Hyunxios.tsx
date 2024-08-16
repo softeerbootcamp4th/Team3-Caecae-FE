@@ -44,6 +44,7 @@ class Hyunxios {
     try {
       const response = await this.fetch(`${this.baseUrl}${url}`, {
         method: "GET",
+        credentials: "include",
         headers: headers,
         redirect: "follow",
       });
@@ -67,6 +68,7 @@ class Hyunxios {
       const response = await this.fetch(`${this.baseUrl}${url}`, {
         method: "POST",
         headers: headers,
+        credentials: "include",
         body: jsonData,
         redirect: "follow",
       });
@@ -90,6 +92,7 @@ class Hyunxios {
       const response = await this.fetch(`${this.baseUrl}${url}`, {
         method: "DELETE",
         headers: headers,
+        credentials: "include",
         redirect: "follow",
       });
 
@@ -113,6 +116,7 @@ class Hyunxios {
       const response = await this.fetch(`${this.baseUrl}${url}`, {
         method: "UPDATE",
         headers: headers,
+        credentials: "include",
         body: jsonData,
         redirect: "follow",
       });

@@ -4,9 +4,13 @@ import { store } from "../../shared/Hyundux";
 
 interface PhoneNumberOverlayProps {
   type: "findCasper" | "raceCasper";
+  onClick?: (phoneNumber: string) => void;
 }
 
-const PhoneNumberOverlay = ({ type }: PhoneNumberOverlayProps) => {
+const PhoneNumberOverlay = ({
+  type,
+  onClick = () => {},
+}: PhoneNumberOverlayProps) => {
   const [timeLeft, setTimeLeft] = useState(3 * 60); // 3분을 초 단위로 변환
   const [phoneNumber, setPhoneNumber] = useState("");
   const [check, setCheck] = useState(false);
@@ -98,13 +102,15 @@ const PhoneNumberOverlay = ({ type }: PhoneNumberOverlayProps) => {
           </div>
         )}
         <div className="flex items-center mt-[70px] justify-between">
-          <p className="font-bold text-[22px] text-[#1C1A1B] mr-[80px]">전화번호</p>
+          <p className="font-bold text-[22px] text-[#1C1A1B] mr-[80px]">
+            전화번호
+          </p>
           <input
             type="text"
             value={phoneNumber}
             onChange={onPhoneNumberFieldChange}
             placeholder={""}
-            className="border border-gray-300 bg-white py-2 px-4 text-base focus:focus:border-[#002C5F] w-[700px] h-[55px]"
+            className="border border-gray-300 bg-white py-2 px-4 text-base focus:focus:border-[#002C5F] w-[600px] h-[55px]"
           />
         </div>
         <div className="flex mt-[45px] justify-between">
@@ -112,7 +118,7 @@ const PhoneNumberOverlay = ({ type }: PhoneNumberOverlayProps) => {
             개인정보 동의
           </p>
           <div>
-            <div className="border border-gray-300 bg-white py-2 px-4 w-[700px] h-[140px] overflow-auto">
+            <div className="border border-gray-300 bg-white py-2 px-4 w-[600px] h-[140px] overflow-auto">
               <p>
                 1. 개인정보의 처리 목적
                 <br />
@@ -152,6 +158,8 @@ const PhoneNumberOverlay = ({ type }: PhoneNumberOverlayProps) => {
       {enterable === true ? (
         <div
           onClick={() => {
+            const parameter = phoneNumber.replace(/-/g, "");
+            onClick(parameter);
             store.dispatch(action.nextPage());
           }}
           className="bg-[#002C5F] h-[12%] flex items-center justify-center hover:cursor-pointer"
@@ -160,7 +168,9 @@ const PhoneNumberOverlay = ({ type }: PhoneNumberOverlayProps) => {
         </div>
       ) : (
         <div className="bg-[#CCCCCC] h-[12%] flex items-center justify-center">
-          <p className="text-white text-[20px] font-bold">개인정보를 입력해주세요</p>
+          <p className="text-white text-[20px] font-bold">
+            개인정보를 입력해주세요
+          </p>
         </div>
       )}
     </div>
