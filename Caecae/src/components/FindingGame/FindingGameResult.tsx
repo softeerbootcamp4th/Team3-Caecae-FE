@@ -7,8 +7,7 @@ import { Link } from "../../shared/Hyunouter";
 
 const FindingGameResult = () => {
   const state = useExistState(initFindingGameState);
-  const currentAnswer = state.answers[state.answerIndex];
-
+  const currentAnswer = state.showingAnswers[state.answerIndex];
   return (
     <>
       <div className="flex flex-col justify-center items-center h-screen">
@@ -24,8 +23,8 @@ const FindingGameResult = () => {
               className="bg-[#000000] bg-opacity-50 w-[50px] h-[50px] flex justify-center items-center"
               onClick={() => {
                 const index =
-                  (state.answers.length + state.answerIndex - 1) %
-                  state.answers.length;
+                  (state.showingAnswers.length + state.answerIndex - 1) %
+                  state.showingAnswers.length;
                 store.dispatch(action.changeShowingAnswer(index));
               }}
             >
@@ -34,7 +33,8 @@ const FindingGameResult = () => {
             <div
               className="bg-[#000000] bg-opacity-50 w-[50px] h-[50px] flex justify-center items-center"
               onClick={() => {
-                const index = (state.answerIndex + 1) % state.answers.length;
+                const index =
+                  (state.answerIndex + 1) % state.showingAnswers.length;
                 store.dispatch(action.changeShowingAnswer(index));
               }}
             >
@@ -42,13 +42,13 @@ const FindingGameResult = () => {
             </div>
           </div>
           <img
-            src={currentAnswer.imageURL}
+            src={currentAnswer.descriptionImageUrl}
             className="object-cover object-center w-full h-full"
           />
         </div>
         <div className="w-10/12 mt-[20px]">
           <p className="font-bold text-[24px]">{currentAnswer.title}</p>
-          <p className="mt-[25px]">{currentAnswer.info}</p>
+          <p className="mt-[25px]">{currentAnswer.content}</p>
         </div>
         <div className="flex-grow"></div>
         <div className="bg-[#002C5F] flex justify-center items-center w-10/12 py-[14px] mb-[40px]">
