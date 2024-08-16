@@ -44,7 +44,6 @@ const FindingGamePage = () => {
                   ticketId: gameState.ticketId,
                   phone: phoneNumber,
                 });
-                console.log(response);
               }}
             />
           }
