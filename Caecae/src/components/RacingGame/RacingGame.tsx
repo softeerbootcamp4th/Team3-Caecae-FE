@@ -24,7 +24,7 @@ const gameContent = (
     case "previous":
     case "enterEvent":
       return (
-        <div className="absolute left-[600px] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
+        <div className="absolute left-[35%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
           <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">CASPER ELECTRIC</div>
           <div className=" text-[44px] mb-2 text-[#666666]">전력으로...!</div>
           <div className="mt-5">
@@ -40,7 +40,7 @@ const gameContent = (
       );
     case "playing":
       return (
-        <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
+        <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
           <div className="font-bold text-xl mb-2 text-[#A8A8A8]">Game Score</div>
           <div className="font-bold mb-2 text-[52px]">{distance.toFixed(3)} KM</div>
           <div className="flex flex-row items-center justify-center mt-2">
@@ -53,14 +53,14 @@ const gameContent = (
       );
     case "end":
       return (
-        <div className="absolute left-[650px] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
+        <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
           <div className="flex flex-col items-center justify-center">
-            <div className="font-bold text-xl mb-2 text-[#A8A8A8]">Game Score</div>
+            <div className="font-bold text-xl mb-1 text-[#A8A8A8]">Game Score</div>
             <div className="flex flex-row space-x-2">
               <div className="font-bold text-[52px] mb-2">
                 {distance.toFixed(3)} KM
               </div>
-              <div className="font-bold text-xl text-[#3D3D3D] flex items-end pb-5">
+              <div className="font-bold text-2xl text-[#3D3D3D] flex items-end pb-5 pl-1">
                 {`상위 ${topRate}%`}
               </div>
             </div>
