@@ -3,7 +3,7 @@ import {
   action,
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGameWork.tsx";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import LottieContainer from "../common/LottieContainer/index.tsx";
 import correctLottie from "@assets/animationCorrect.json";
 import wrongLottie from "@assets/animationIncorrect.json";
@@ -18,6 +18,8 @@ const FindingGame = () => {
   const state = useExistState(initFindingGameState);
   // const timerId = useRef<NodeJS.Timeout | null>(null);
   const [status, teller] = useSaga();
+  const pictureWidth = useRef(0);
+  const pictureHeight = useRef(0);
   status;
   useEffect(() => {
     const getFindGameRunStory = createStory(getFindGameStory, {});
@@ -44,8 +46,8 @@ const FindingGame = () => {
     y: number,
     x: number
   ) => {
-    width;
-    heigjht;
+    pictureWidth.current = width;
+    pictureHeight.current = heigjht;
     if (state.gameStatus == "Gaming") {
       store.dispatch(action.click(y, x, width, heigjht));
     }
@@ -58,8 +60,8 @@ const FindingGame = () => {
     if (state.gameStatus == "Gaming") {
       return (
         <LottieContainer
-          x={answer.positionX}
-          y={answer.positionY}
+          x={answer.positionX * pictureWidth.current}
+          y={answer.positionY * pictureHeight.current}
           width={lottieWidth}
           height={lottieHeight}
           jsonFile={correctLottie}
@@ -71,8 +73,8 @@ const FindingGame = () => {
 
   const answerElement = state.showingAnswers.map((answer, index) => {
     if (state.gameStatus == "DoneSuccess" || state.gameStatus == "DoneFail") {
-      const left = answer.positionX - 50;
-      const top = answer.positionY - 50;
+      const left = answer.positionX * pictureWidth.current - 50;
+      const top = answer.positionY * pictureHeight.current - 50;
       const rotateRadian = index == 0 ? "-13" : "8";
       const bageType = index == 0 ? "orange_line" : "yellow_line";
       return (
@@ -100,8 +102,8 @@ const FindingGame = () => {
     return (
       <LottieContainer
         key={wrongAnswer.id}
-        x={wrongAnswer.x}
-        y={wrongAnswer.y}
+        x={wrongAnswer.x * pictureWidth.current}
+        y={wrongAnswer.y * pictureHeight.current}
         width={lottieWidth}
         height={lottieHeight}
         jsonFile={wrongLottie}
