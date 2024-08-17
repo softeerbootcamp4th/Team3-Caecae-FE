@@ -276,9 +276,8 @@ const AdminPage = () => {
           <div
             className="absolute right-[20px] bottom-[20px] flex items-center justify-center bg-gray-400 w-[100px] h-[40px]"
             onClick={() => {
-              console.log(typeof findmes);
               const newFindMe = [...findmes];
-              console.log(answer);
+
               newFindMe[day].answers = [...newFindMe[day].answers, answer];
               setFindMes(newFindMe);
             }}

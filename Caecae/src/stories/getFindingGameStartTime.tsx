@@ -1,10 +1,5 @@
 import huynxios from "../shared/Hyunxios";
-
-interface Response {
-  responseCode: number;
-  message: string;
-  data: Data;
-}
+import Response from "../utils/Response";
 
 interface Data {
   findingGameInfos: FindingGameInfo[];
@@ -19,7 +14,7 @@ interface FindingGameInfo {
 }
 
 export default async function getFindingGameStartTime() {
-  const response = await huynxios.get<Response>("/api/finding/info");
+  const response = await huynxios.get<Response<Data>>("/api/finding/info");
 
   return response;
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { FindingGame, FindingGameInfo } from "../../components/FindingGame";
 import {
   findingGameReducer,
@@ -12,6 +12,7 @@ import FailContent from "./Enter/FailContent";
 import SuccessEnterContent from "./Enter/SuccessEnterContent";
 import FindingGameResult from "../../components/FindingGame/FindingGameResult";
 import PhoneNumberOverlay from "../../components/PhoneNumberOverlay/PhoneNumberOverlay";
+import huynxios from "../../shared/Hyunxios";
 
 const FindingGamePage = () => {
   const [gameState, dispatch] = useWork(
@@ -27,14 +28,42 @@ const FindingGamePage = () => {
     }
   }, [gameState.showingAnswers.length]);
 
-  return (
-    <div className="relative flex flex-row h-full">
+  let content: ReactNode | null = null;
+  if (gameState.gameStatus == "DoneSuccess") {
+    console.log(gameState.gameStatus);
+    content = (
       <OverLay>
         <OverLayContent index={0} element={<EnterContent />} />
-        <OverLayContent index={1} element={<PhoneNumberOverlay type="findCasper" />} />
+        <OverLayContent
+          index={1}
+          element={
+            <PhoneNumberOverlay
+              type="findCasper"
+              onClick={async (phoneNumber) => {
+                await huynxios.post("/api/finding/register", {
+                  ticketId: gameState.ticketId,
+                  phone: phoneNumber,
+                });
+              }}
+            />
+          }
+        />
         <OverLayContent index={2} element={<SuccessEnterContent />} />
-        <OverLayContent index={3} element={<FailContent />} />
       </OverLay>
+    );
+  } else if (gameState.gameStatus == "DoneFail") {
+    console.log(gameState.gameStatus);
+    content = (
+      <OverLay>
+        <OverLayContent index={0} element={<FailContent />} />
+      </OverLay>
+    );
+  }
+  console.log(gameState.gameStatus);
+
+  return (
+    <div className="relative flex flex-row h-full">
+      {content}
       <div className="w-[66%] h-full">
         <FindingGame />
       </div>

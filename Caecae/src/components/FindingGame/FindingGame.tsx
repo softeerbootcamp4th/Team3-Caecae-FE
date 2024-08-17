@@ -8,32 +8,37 @@ import LottieContainer from "../common/LottieContainer/index.tsx";
 import correctLottie from "@assets/animationCorrect.json";
 import wrongLottie from "@assets/animationIncorrect.json";
 import { store, useExistState } from "../../shared/Hyundux";
-import HintSpot from "./Hint/HintSpot.tsx";
+//import HintSpot from "./Hint/HintSpot.tsx";
 import SmileBadge from "../common/SmileBadge/index.tsx";
+import { createStory } from "../../shared/Hyundux-saga/Story.tsx";
+import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
+import { getFindGameStory } from "../../stories/getFindingGame.tsx";
 
 const FindingGame = () => {
   const state = useExistState(initFindingGameState);
-  const timerId = useRef<NodeJS.Timeout | null>(null);
+  // const timerId = useRef<NodeJS.Timeout | null>(null);
+  const [status, teller] = useSaga();
+  const pictureWidth = useRef(0);
+  const pictureHeight = useRef(0);
+  status;
   useEffect(() => {
-    store.dispatch(action.init());
-    timerId.current = setTimeout(() => {
-      store.dispatch(action.showHint());
-    }, 40000);
+    const getFindGameRunStory = createStory(getFindGameStory, {});
+    teller(action.init, [getFindGameRunStory]);
+    // timerId.current = setTimeout(() => {
+    //   store.dispatch(action.showHint());
+    // }, 40000);
   }, []);
 
-  useEffect(() => {
-    if (state.showingHint.length == 0) {
-      if (timerId.current != null) {
-        clearInterval(timerId.current);
-      }
-      timerId.current = setTimeout(() => {
-        store.dispatch(action.showHint());
-      }, 40000);
-    }
-  }, [state.showingHint]);
-
-  const imgURL =
-    "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202109/01/b57fdda5-3996-430f-8bf2-65052b1d12b2.jpg";
+  // useEffect(() => {
+  //   if (state.showingHint.length == 0) {
+  //     if (timerId.current != null) {
+  //       clearInterval(timerId.current);
+  //     }
+  //     timerId.current = setTimeout(() => {
+  //       store.dispatch(action.showHint());
+  //     }, 40000);
+  //   }
+  // }, [state.showingHint]);
 
   const onClickAction = (
     width: number,
@@ -41,10 +46,10 @@ const FindingGame = () => {
     y: number,
     x: number
   ) => {
-    width;
-    heigjht;
+    pictureWidth.current = width;
+    pictureHeight.current = heigjht;
     if (state.gameStatus == "Gaming") {
-      store.dispatch(action.click(y, x));
+      store.dispatch(action.click(y, x, width, heigjht));
     }
   };
 
@@ -55,9 +60,8 @@ const FindingGame = () => {
     if (state.gameStatus == "Gaming") {
       return (
         <LottieContainer
-          key={answer.id}
-          x={answer.x}
-          y={answer.y}
+          x={answer.positionX * pictureWidth.current}
+          y={answer.positionY * pictureHeight.current}
           width={lottieWidth}
           height={lottieHeight}
           jsonFile={correctLottie}
@@ -67,10 +71,10 @@ const FindingGame = () => {
     return <></>;
   });
 
-  const answerElement = state.answers.map((answer, index) => {
-    if (state.gameStatus == "Done") {
-      const left = answer.x - 50;
-      const top = answer.y - 50;
+  const answerElement = state.showingAnswers.map((answer, index) => {
+    if (state.gameStatus == "DoneSuccess" || state.gameStatus == "DoneFail") {
+      const left = answer.positionX * pictureWidth.current - 50;
+      const top = answer.positionY * pictureHeight.current - 50;
       const rotateRadian = index == 0 ? "-13" : "8";
       const bageType = index == 0 ? "orange_line" : "yellow_line";
       return (
@@ -98,8 +102,8 @@ const FindingGame = () => {
     return (
       <LottieContainer
         key={wrongAnswer.id}
-        x={wrongAnswer.x}
-        y={wrongAnswer.y}
+        x={wrongAnswer.x * pictureWidth.current}
+        y={wrongAnswer.y * pictureHeight.current}
         width={lottieWidth}
         height={lottieHeight}
         jsonFile={wrongLottie}
@@ -109,18 +113,19 @@ const FindingGame = () => {
       />
     );
   });
-  const showingHintElement = state.showingHint.map((hintAnswer) => {
-    return <HintSpot y={hintAnswer.y} x={hintAnswer.x} />;
-  });
+
+  // const showingHintElement = state.showingHint.map((hintAnswer) => {
+  //   return <HintSpot y={hintAnswer.y} x={hintAnswer.x} />;
+  // });
 
   return (
     <div>
       <PictureGameBoard
-        imageURL={imgURL}
+        imageURL={state.imageURL}
         showingElements={[
           ...showingCorrectElements,
           ...showingWrongElement,
-          ...showingHintElement,
+          //...showingHintElement,
           ...answerElement,
         ]}
         onClickAction={onClickAction}
