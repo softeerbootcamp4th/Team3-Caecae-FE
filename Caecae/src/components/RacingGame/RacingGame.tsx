@@ -17,6 +17,7 @@ const gameContent = (
   gameStatus: string,
   distance: number,
   topRate: number | null,
+  isButtonDisabled: boolean,
   handlePlayGame: () => void,
   enterEvent: () => void
 ) => {
@@ -67,8 +68,9 @@ const gameContent = (
           </div>
           <div className="flex flex-row items-center justify-center mt-2 space-x-4">
             <button
-              className=""
+              className={`${isButtonDisabled? "opacity-50" : ""}`}
               onClick={enterEvent}
+              disabled={isButtonDisabled}
             >
               <img
                 className="h-[50px]"
@@ -76,7 +78,11 @@ const gameContent = (
                 alt="enterEventBtn"
               />
             </button>
-            <button className="" onClick={handlePlayGame}>
+            <button
+              className={`${isButtonDisabled? "opacity-50" : ""}`}
+              onClick={handlePlayGame}
+              disabled={isButtonDisabled}
+            >
               <img
                 className="h-[50px]"
                 src="/assets/retryBtn.svg"
@@ -134,6 +140,7 @@ const RacingGame: React.FC = () => {
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
   const [topRate, setTopRate] = useState<number | null>(null);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -216,6 +223,8 @@ const RacingGame: React.FC = () => {
   };
 
   const handlePlayGame = () => {
+    setIsButtonDisabled(true);
+
     stopSoundPlayedRef.current = false;
     playAudio(playingSoundRef.current);
 
@@ -326,7 +335,17 @@ const RacingGame: React.FC = () => {
 
     fetchData();
   }, [state.distance]);
+
+  useEffect(() => {
+    if (state.gameStatus === "end") {
+      const timer = setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 2000);
   
+      return () => clearTimeout(timer);
+    }
+  }, [state.gameStatus]);
+
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       <motion.div
@@ -355,7 +374,7 @@ const RacingGame: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent(state.gameStatus, state.distance, topRate, handlePlayGame, enterEvent)}
+      {gameContent(state.gameStatus, state.distance, topRate, isButtonDisabled, handlePlayGame, enterEvent)}
       {gameMenu(state.gameStatus)}
     </div>
   );
