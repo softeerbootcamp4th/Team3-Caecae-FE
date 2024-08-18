@@ -132,7 +132,6 @@ const RacingGame: React.FC = () => {
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
-  // const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
   const state = useExistState(initRacingGameState);
   const [topRate, setTopRate] = useState<number | null>(null);
 
@@ -176,7 +175,6 @@ const RacingGame: React.FC = () => {
     store.dispatch(action.updateDistance(totalDistance));
   };
 
-  /** 스페이스바를 눌렀을 때 멈추는 로직 */
   const handleSmoothlyStop = () => {
     if (endGameTimeoutRef.current) {
       clearTimeout(endGameTimeoutRef.current);
@@ -189,16 +187,14 @@ const RacingGame: React.FC = () => {
       const currentFrontX = frontRef.current?.getBoundingClientRect().x || 0;
       const currentRearX = rearRef.current?.getBoundingClientRect().x || 0;
 
-      /** 부드럽게 멈추는 로직 */
       frontAnimationControls.start({
-        x: currentFrontX - 500, // 현재 위치에서 500 만큼 더 이동
-        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
+        x: currentFrontX - 500,
+        transition: { duration: 1, ease: "easeOut" },
       });
 
-      /** 부드럽게 멈추는 로직 */
       rearAnimationControls.start({
-        x: currentRearX - 500, // 현재 위치에서 500 만큼 더 이동
-        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
+        x: currentRearX - 500,
+        transition: { duration: 1, ease: "easeOut" },
       });
 
       fadeOutSound(playingSoundRef.current, 1000, () => {
@@ -210,7 +206,6 @@ const RacingGame: React.FC = () => {
     }
   };
 
-  /** 스페이스 바를 눌렀을 때 작동 로직 */
   const handleSpacebar = (event: KeyboardEvent) => {
     if (event.code === "Space") {
       event.preventDefault();
@@ -220,7 +215,6 @@ const RacingGame: React.FC = () => {
     }
   };
 
-  /** 게임 시작 시 작동 로직 */
   const handlePlayGame = () => {
     stopSoundPlayedRef.current = false;
     playAudio(playingSoundRef.current);
@@ -274,7 +268,6 @@ const RacingGame: React.FC = () => {
     store.dispatch(action.enterEvent());
   }
 
-  /** 2개의 백그라운드 이미지의 width를 구하는 로직 */
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -300,7 +293,6 @@ const RacingGame: React.FC = () => {
     };
   }, []);
 
-  /** keydown 이벤트 리스너 등록 */
   useEffect(() => {
     if (state.gameStatus === "playing") {
       document.addEventListener("keydown", handleSpacebar);
