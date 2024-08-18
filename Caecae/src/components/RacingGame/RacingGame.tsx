@@ -143,6 +143,32 @@ const RacingGame: React.FC = () => {
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
 
+  const playingSoundRef = useRef<HTMLAudioElement | null>(null);
+  const stopSoundRef = useRef<HTMLAudioElement | null>(null);
+  const stopSoundPlayedRef = useRef<boolean>(false);
+  const endGameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const resetAudio = (audio: HTMLAudioElement | null) => {
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.volume = 1.0;
+      audio.load();
+    }
+  };
+
+  const playAudio = (audio: HTMLAudioElement | null) => {
+    if (audio) {
+      resetAudio(audio);
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error("Audio play error:", error);
+        });
+      }
+    }
+  };
+
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
@@ -152,6 +178,10 @@ const RacingGame: React.FC = () => {
 
   /** 스페이스바를 눌렀을 때 멈추는 로직 */
   const handleSmoothlyStop = () => {
+    if (endGameTimeoutRef.current) {
+      clearTimeout(endGameTimeoutRef.current);
+    }
+
     if (lottieRef.current) {
       lottieRef.current?.pause();
 
@@ -170,6 +200,13 @@ const RacingGame: React.FC = () => {
         x: currentRearX - 500, // 현재 위치에서 500 만큼 더 이동
         transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
       });
+
+      fadeOutSound(playingSoundRef.current, 1000, () => {
+        if (!stopSoundPlayedRef.current) {
+          stopSoundPlayedRef.current = true;
+          playAudio(stopSoundRef.current);
+        }
+      });
     }
   };
 
@@ -185,6 +222,9 @@ const RacingGame: React.FC = () => {
 
   /** 게임 시작 시 작동 로직 */
   const handlePlayGame = () => {
+    stopSoundPlayedRef.current = false;
+    playAudio(playingSoundRef.current);
+
     store.dispatch(action.gameStart());
 
     if (lottieRef.current) {
@@ -196,7 +236,7 @@ const RacingGame: React.FC = () => {
           transition: { duration: 7, repeat: 0 },
         })
         .then(() => {
-          lottieRef.current?.pause();
+          handleSmoothlyStop();
           store.dispatch(action.gameEnd());
         });
 
@@ -204,7 +244,30 @@ const RacingGame: React.FC = () => {
         x: [0, -7000],
         transition: { duration: 7, repeat: 0 },
       });
+
+      endGameTimeoutRef.current = setTimeout(() => {
+        handleSmoothlyStop();
+        store.dispatch(action.gameEnd());
+      }, 6000);
     }
+  };
+
+  const fadeOutSound = (audio: HTMLAudioElement | null, duration: number, callback: () => void) => {
+    if (!audio) return;
+
+    const step = 0.1;
+    const fadeInterval = duration / (audio.volume / step);
+
+    const fade = setInterval(() => {
+      if (audio.volume > step) {
+        audio.volume -= step;
+      } else {
+        clearInterval(fade);
+        audio.volume = 0;
+        audio.pause();
+        callback();
+      }
+    }, fadeInterval);
   };
 
   const enterEvent = () => {
@@ -223,6 +286,17 @@ const RacingGame: React.FC = () => {
     rearBackgroundImg.src = rearBackground;
     rearBackgroundImg.onload = () => {
       setRearBackgroundWidth(rearBackgroundImg.width);
+    };
+
+    playingSoundRef.current = new Audio("/assets/audio/racingGamePlayingSound.wav");
+    stopSoundRef.current = new Audio("/assets/audio/racingGameStopSound.wav");
+
+    return () => {
+      resetAudio(playingSoundRef.current);
+      resetAudio(stopSoundRef.current);
+      if (endGameTimeoutRef.current) {
+        clearTimeout(endGameTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -260,6 +334,7 @@ const RacingGame: React.FC = () => {
 
     fetchData();
   }, [state.distance]);
+  
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       <motion.div
