@@ -11,12 +11,14 @@ import {
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
+import { resetAudio, playAudio, fadeOutAudio } from "../../utils/audioManipulate.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (
   gameStatus: string,
   distance: number,
   topRate: number | null,
+  isButtonDisabled: boolean,
   handlePlayGame: () => void,
   enterEvent: () => void
 ) => {
@@ -67,8 +69,9 @@ const gameContent = (
           </div>
           <div className="flex flex-row items-center justify-center mt-2 space-x-4">
             <button
-              className=""
+              className={`${isButtonDisabled? "opacity-50" : ""}`}
               onClick={enterEvent}
+              disabled={isButtonDisabled}
             >
               <img
                 className="h-[50px]"
@@ -76,7 +79,11 @@ const gameContent = (
                 alt="enterEventBtn"
               />
             </button>
-            <button className="" onClick={handlePlayGame}>
+            <button
+              className={`${isButtonDisabled? "opacity-50" : ""}`}
+              onClick={handlePlayGame}
+              disabled={isButtonDisabled}
+            >
               <img
                 className="h-[50px]"
                 src="/assets/retryBtn.svg"
@@ -113,14 +120,6 @@ const gameMenu = (gameStatus: string) => {
           </Link>
         </div>
       );
-    case "enterEvent":
-      return (
-        <div className="absolute right-[50px] top-[30px] z-40 space-x-4">
-          <Link to="/racecasper">
-            <button>게임 종료</button>
-          </Link>
-        </div>
-      );
     default:
       return null;
   }
@@ -132,9 +131,9 @@ const RacingGame: React.FC = () => {
   const rearRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
-  // const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
   const state = useExistState(initRacingGameState);
   const [topRate, setTopRate] = useState<number | null>(null);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -143,6 +142,11 @@ const RacingGame: React.FC = () => {
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
 
+  const playingSoundRef = useRef<HTMLAudioElement | null>(null);
+  const stopSoundRef = useRef<HTMLAudioElement | null>(null);
+  const stopSoundPlayedRef = useRef<boolean>(false);
+  const endGameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
@@ -150,8 +154,13 @@ const RacingGame: React.FC = () => {
     store.dispatch(action.updateDistance(totalDistance));
   };
 
-  /** 스페이스바를 눌렀을 때 멈추는 로직 */
   const handleSmoothlyStop = () => {
+    const moveMoreDistance = 500;
+
+    if (endGameTimeoutRef.current) {
+      clearTimeout(endGameTimeoutRef.current);
+    }
+
     if (lottieRef.current) {
       lottieRef.current?.pause();
 
@@ -159,21 +168,25 @@ const RacingGame: React.FC = () => {
       const currentFrontX = frontRef.current?.getBoundingClientRect().x || 0;
       const currentRearX = rearRef.current?.getBoundingClientRect().x || 0;
 
-      /** 부드럽게 멈추는 로직 */
       frontAnimationControls.start({
-        x: currentFrontX - 500, // 현재 위치에서 500 만큼 더 이동
-        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
+        x: currentFrontX - moveMoreDistance,
+        transition: { duration: 1, ease: "easeOut" },
       });
 
-      /** 부드럽게 멈추는 로직 */
       rearAnimationControls.start({
-        x: currentRearX - 500, // 현재 위치에서 500 만큼 더 이동
-        transition: { duration: 1, ease: "easeOut" }, // 1초 동안 부드럽게 멈춤
+        x: currentRearX - moveMoreDistance,
+        transition: { duration: 1, ease: "easeOut" },
+      });
+
+      fadeOutAudio(playingSoundRef.current, 1000, () => {
+        if (!stopSoundPlayedRef.current) {
+          stopSoundPlayedRef.current = true;
+          playAudio(stopSoundRef.current);
+        }
       });
     }
   };
 
-  /** 스페이스 바를 눌렀을 때 작동 로직 */
   const handleSpacebar = (event: KeyboardEvent) => {
     if (event.code === "Space") {
       event.preventDefault();
@@ -183,8 +196,12 @@ const RacingGame: React.FC = () => {
     }
   };
 
-  /** 게임 시작 시 작동 로직 */
   const handlePlayGame = () => {
+    setIsButtonDisabled(true);
+
+    stopSoundPlayedRef.current = false;
+    playAudio(playingSoundRef.current);
+
     store.dispatch(action.gameStart());
 
     if (lottieRef.current) {
@@ -196,7 +213,7 @@ const RacingGame: React.FC = () => {
           transition: { duration: 7, repeat: 0 },
         })
         .then(() => {
-          lottieRef.current?.pause();
+          handleSmoothlyStop();
           store.dispatch(action.gameEnd());
         });
 
@@ -204,14 +221,20 @@ const RacingGame: React.FC = () => {
         x: [0, -7000],
         transition: { duration: 7, repeat: 0 },
       });
+
+      endGameTimeoutRef.current = setTimeout(() => {
+        handleSmoothlyStop();
+        store.dispatch(action.gameEnd());
+      }, 6000);
     }
   };
+
+
 
   const enterEvent = () => {
     store.dispatch(action.enterEvent());
   }
 
-  /** 2개의 백그라운드 이미지의 width를 구하는 로직 */
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -224,9 +247,19 @@ const RacingGame: React.FC = () => {
     rearBackgroundImg.onload = () => {
       setRearBackgroundWidth(rearBackgroundImg.width);
     };
+
+    playingSoundRef.current = new Audio("/assets/audio/racingGamePlayingSound.wav");
+    stopSoundRef.current = new Audio("/assets/audio/racingGameStopSound.wav");
+
+    return () => {
+      resetAudio(playingSoundRef.current);
+      resetAudio(stopSoundRef.current);
+      if (endGameTimeoutRef.current) {
+        clearTimeout(endGameTimeoutRef.current);
+      }
+    };
   }, []);
 
-  /** keydown 이벤트 리스너 등록 */
   useEffect(() => {
     if (state.gameStatus === "playing") {
       document.addEventListener("keydown", handleSpacebar);
@@ -260,6 +293,17 @@ const RacingGame: React.FC = () => {
 
     fetchData();
   }, [state.distance]);
+
+  useEffect(() => {
+    if (state.gameStatus === "end") {
+      const timer = setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 2000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [state.gameStatus]);
+
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       <motion.div
@@ -288,7 +332,7 @@ const RacingGame: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent(state.gameStatus, state.distance, topRate, handlePlayGame, enterEvent)}
+      {gameContent(state.gameStatus, state.distance, topRate, isButtonDisabled, handlePlayGame, enterEvent)}
       {gameMenu(state.gameStatus)}
     </div>
   );

@@ -132,5 +132,5 @@ class Hyunxios {
   }
 }
 
-const huynxios = new Hyunxios("http://43.201.185.99:8080");
+const huynxios = new Hyunxios("http://43.201.185.99:80");
 export default huynxios;
