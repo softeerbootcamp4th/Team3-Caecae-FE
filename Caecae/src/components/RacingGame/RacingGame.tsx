@@ -175,6 +175,8 @@ const RacingGame: React.FC = () => {
   };
 
   const handleSmoothlyStop = () => {
+    const moveMoreDistance = 500;
+
     if (endGameTimeoutRef.current) {
       clearTimeout(endGameTimeoutRef.current);
     }
@@ -187,12 +189,12 @@ const RacingGame: React.FC = () => {
       const currentRearX = rearRef.current?.getBoundingClientRect().x || 0;
 
       frontAnimationControls.start({
-        x: currentFrontX - 500,
+        x: currentFrontX - moveMoreDistance,
         transition: { duration: 1, ease: "easeOut" },
       });
 
       rearAnimationControls.start({
-        x: currentRearX - 500,
+        x: currentRearX - moveMoreDistance,
         transition: { duration: 1, ease: "easeOut" },
       });
 
