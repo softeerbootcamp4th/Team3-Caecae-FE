@@ -12,12 +12,13 @@ import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
 import { resetAudio, playAudio, fadeOutAudio } from "../../utils/audioManipulate.tsx";
+import { useDebounce } from "../../hooks/index.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (
   gameStatus: string,
   distance: number,
-  topRate: number | null,
+  topRate: string | null,
   isButtonDisabled: boolean,
   handlePlayGame: () => void,
   enterEvent: () => void
@@ -132,8 +133,9 @@ const RacingGame: React.FC = () => {
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
-  const [topRate, setTopRate] = useState<number | null>(null);
+  const [topRate, setTopRate] = useState<string | null>(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+  const debouncedDistance = useDebounce(state.distance, 50);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -198,6 +200,7 @@ const RacingGame: React.FC = () => {
 
   const handlePlayGame = () => {
     setIsButtonDisabled(true);
+    setTopRate("?");
 
     stopSoundPlayedRef.current = false;
     playAudio(playingSoundRef.current);
@@ -283,16 +286,18 @@ const RacingGame: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getRacingGameTopRate(state.distance);
-        setTopRate(Number(response.data.percent.toFixed(3)));
-      }catch (error) {
-        console.error("레이싱 게임 점수 백분위 api 연결 에러:", error);
+        const response = await getRacingGameTopRate(debouncedDistance);
+        setTopRate(response.data.percent.toFixed(3));
+      } catch (error) {
+        console.error("레이싱 게임 점수 백분위 API 호출 오류:", error);
         setTopRate(null);
       }
     };
 
-    fetchData();
-  }, [state.distance]);
+    if(debouncedDistance > 0 && state.gameStatus === "end"){
+      fetchData();
+    }
+  }, [debouncedDistance]);
 
   useEffect(() => {
     if (state.gameStatus === "end") {
