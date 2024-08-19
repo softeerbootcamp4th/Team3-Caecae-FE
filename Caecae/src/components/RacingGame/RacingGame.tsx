@@ -11,6 +11,7 @@ import {
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
+import { resetAudio, playAudio, fadeOutAudio } from "../../utils/audioManipulate.tsx";
 
 /** 게임 상태에 따라 다르게 보여지는 콘텐츠 */
 const gameContent = (
@@ -146,27 +147,6 @@ const RacingGame: React.FC = () => {
   const stopSoundPlayedRef = useRef<boolean>(false);
   const endGameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const resetAudio = (audio: HTMLAudioElement | null) => {
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-      audio.volume = 1.0;
-      audio.load();
-    }
-  };
-
-  const playAudio = (audio: HTMLAudioElement | null) => {
-    if (audio) {
-      resetAudio(audio);
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.error("Audio play error:", error);
-        });
-      }
-    }
-  };
-
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
@@ -198,7 +178,7 @@ const RacingGame: React.FC = () => {
         transition: { duration: 1, ease: "easeOut" },
       });
 
-      fadeOutSound(playingSoundRef.current, 1000, () => {
+      fadeOutAudio(playingSoundRef.current, 1000, () => {
         if (!stopSoundPlayedRef.current) {
           stopSoundPlayedRef.current = true;
           playAudio(stopSoundRef.current);
@@ -249,23 +229,7 @@ const RacingGame: React.FC = () => {
     }
   };
 
-  const fadeOutSound = (audio: HTMLAudioElement | null, duration: number, callback: () => void) => {
-    if (!audio) return;
 
-    const step = 0.1;
-    const fadeInterval = duration / (audio.volume / step);
-
-    const fade = setInterval(() => {
-      if (audio.volume > step) {
-        audio.volume -= step;
-      } else {
-        clearInterval(fade);
-        audio.volume = 0;
-        audio.pause();
-        callback();
-      }
-    }, fadeInterval);
-  };
 
   const enterEvent = () => {
     store.dispatch(action.enterEvent());
