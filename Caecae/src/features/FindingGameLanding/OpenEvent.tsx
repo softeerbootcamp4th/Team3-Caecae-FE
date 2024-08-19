@@ -29,6 +29,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
           info.startTime,
           info.endTime
         );
+        console.log(tempAnswer);
 
         if (tempAnswer !== "none") {
           answer = tempAnswer;
@@ -70,6 +71,19 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
           />
           <div className="mt-[60px]">
             <SmileBadge width={175} badgeType="yellow_wink" />
+          </div>
+          <div
+            className={`bg-[#CCCCCC] w-[175px] h-[50px] flex items-center justify-center gap-3 mt-[60px]`}
+            onClick={() => alert("현재시간엔 게임을 시작할 수 없습니다.")}
+          >
+            <span className="text-[white] font-semibold">
+              캐스퍼 찾으러가기
+            </span>
+            <img
+              src="/assets/whiteRightShevron.svg"
+              alt="smileBage3D"
+              className="w-[10px]"
+            />
           </div>
         </>
       ),
@@ -136,6 +150,23 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
           <div className="mt-[60px]">
             <SmileBadge width={175} badgeType="yellow_wink" />
           </div>
+          <Link
+            to={leftTime <= 0 ? "/findcaspergame#010643431936" : "/findcasper"}
+            isPathChage={false}
+          >
+            <div
+              className={`bg-[blue] w-[175px] h-[50px] flex items-center justify-center gap-3 mt-[60px]`}
+            >
+              <span className="text-[white] font-semibold">
+                캐스퍼 찾으러가기
+              </span>
+              <img
+                src="/assets/whiteRightShevron.svg"
+                alt="smileBage3D"
+                className="w-[10px]"
+              />
+            </div>
+          </Link>
         </>
       ),
       isButtonOpen: true,
@@ -155,25 +186,6 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
           {data?.title}
         </div>
         {data?.mainContent}
-        <Link
-          to={leftTime <= 0 ? "/findcaspergame#010643431936" : "/findcasper"}
-          isPathChage={false}
-        >
-          <div
-            className={`bg-[${
-              data?.isButtonOpen ? "blue" : "#CCCCCC"
-            }] w-[175px] h-[50px] flex items-center justify-center gap-3 mt-[60px]`}
-          >
-            <span className="text-[white] font-semibold">
-              캐스퍼 찾으러가기
-            </span>
-            <img
-              src="/assets/whiteRightShevron.svg"
-              alt="smileBage3D"
-              className="w-[10px]"
-            />
-          </div>
-        </Link>
       </div>
       <img
         src="/assets/openBackGround.svg"
@@ -187,24 +199,21 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
 function chechCurrentStuts(startTime: number[], endTime: number[]) {
   const eventStartTime = new Date(
     startTime[0],
-    startTime[1],
-    startTime[2] - 1,
+    startTime[1] - 1,
+    startTime[2],
     startTime[3],
     startTime[4]
   );
   const currentTime = new Date();
   const eventEndTime = new Date(
     endTime[0],
-    endTime[1],
-    endTime[2] - 1,
+    endTime[1] - 1,
+    endTime[2],
     endTime[3],
     endTime[4]
   );
   const eventSoonTime = new Date(eventStartTime);
   eventSoonTime.setHours(eventStartTime.getHours() - 1);
-
-  console.log("start", startTime);
-  console.log("end", endTime);
 
   if (
     eventSoonTime.getTime() <= currentTime.getTime() &&
