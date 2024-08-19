@@ -185,29 +185,37 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
 });
 
 function chechCurrentStuts(startTime: number[], endTime: number[]) {
-  const currentDate = new Date();
-  const currentTime = [
-    currentDate.getFullYear(),
-    currentDate.getMonth() + 1,
-    currentDate.getDate(),
-    currentDate.getHours(),
-    currentDate.getMinutes(),
-  ];
-  const soonTime = [...startTime];
-  soonTime[3] = soonTime[3] - 1;
+  const eventStartTime = new Date(
+    startTime[0],
+    startTime[1],
+    startTime[2] - 1,
+    startTime[3],
+    startTime[4]
+  );
+  const currentTime = new Date();
+  const eventEndTime = new Date(
+    endTime[0],
+    endTime[1],
+    endTime[2] - 1,
+    endTime[3],
+    endTime[4]
+  );
+  const eventSoonTime = new Date(eventStartTime);
+  eventSoonTime.setHours(eventStartTime.getHours() - 1);
 
-  function isIn(startTime: number[], targetTime: number[], endTime: number[]) {
-    for (let i = 0; i < startTime.length; i++) {
-      if (startTime[i] === endTime[i] && startTime[i] === targetTime[i])
-        continue;
-      else if (startTime[i] <= targetTime[i] && targetTime[i] <= endTime[i])
-        return true;
-      else return false;
-    }
-    return false;
-  }
-  if (isIn(soonTime, currentTime, startTime)) return "soon";
-  else if (isIn(startTime, currentTime, endTime)) return "opened";
+  console.log("start", startTime);
+  console.log("end", endTime);
+
+  if (
+    eventSoonTime.getTime() <= currentTime.getTime() &&
+    currentTime.getTime() <= eventStartTime.getTime()
+  )
+    return "soon";
+  else if (
+    eventStartTime.getTime() <= currentTime.getTime() &&
+    currentTime.getTime() <= eventEndTime.getTime()
+  )
+    return "opened";
   return "none";
 }
 

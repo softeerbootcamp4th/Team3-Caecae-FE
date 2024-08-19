@@ -99,11 +99,12 @@ const FindingGame = () => {
   });
 
   const showingWrongElement = state.wrongAnswers.map((wrongAnswer) => {
+    console.log(wrongAnswer);
     return (
       <LottieContainer
         key={wrongAnswer.id}
-        x={wrongAnswer.x * pictureWidth.current}
-        y={wrongAnswer.y * pictureHeight.current}
+        x={wrongAnswer.x}
+        y={wrongAnswer.y}
         width={lottieWidth}
         height={lottieHeight}
         jsonFile={wrongLottie}
@@ -117,7 +118,6 @@ const FindingGame = () => {
   // const showingHintElement = state.showingHint.map((hintAnswer) => {
   //   return <HintSpot y={hintAnswer.y} x={hintAnswer.x} />;
   // });
-
   return (
     <div>
       <PictureGameBoard
