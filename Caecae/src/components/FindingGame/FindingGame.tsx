@@ -1,6 +1,7 @@
 import PictureGameBoard from "../common/PictureGameBoard/index.tsx";
 import {
   action,
+  genrateFindGameAnswerCheckBodyParameter,
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGameWork.tsx";
 import { useEffect, useRef } from "react";
@@ -13,6 +14,7 @@ import SmileBadge from "../common/SmileBadge/index.tsx";
 import { createStory } from "../../shared/Hyundux-saga/Story.tsx";
 import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
 import { getFindGameStory } from "../../stories/getFindingGame.tsx";
+import { getFindGameAnswerStory } from "../../stories/getFindGameIsAnswer.tsx";
 
 const FindingGame = () => {
   const state = useExistState(initFindingGameState);
@@ -23,7 +25,7 @@ const FindingGame = () => {
   status;
   useEffect(() => {
     const getFindGameRunStory = createStory(getFindGameStory, {});
-    teller(action.init, [getFindGameRunStory]);
+    teller(action.init, getFindGameRunStory);
     // timerId.current = setTimeout(() => {
     //   store.dispatch(action.showHint());
     // }, 40000);
@@ -49,7 +51,11 @@ const FindingGame = () => {
     pictureWidth.current = width;
     pictureHeight.current = height;
     if (state.gameStatus == "Gaming") {
-      store.dispatch(action.click(y, x, width, heigjht));
+      teller(
+        action.click,
+        getFindGameAnswerStory,
+        genrateFindGameAnswerCheckBodyParameter(state, y, x, width, height)
+      );
     }
   };
 
@@ -99,12 +105,11 @@ const FindingGame = () => {
   });
 
   const showingWrongElement = state.wrongAnswers.map((wrongAnswer) => {
-    console.log(wrongAnswer);
     return (
       <LottieContainer
         key={wrongAnswer.id}
-        x={wrongAnswer.x}
-        y={wrongAnswer.y}
+        x={wrongAnswer.x * pictureWidth.current}
+        y={wrongAnswer.y * pictureHeight.current}
         width={lottieWidth}
         height={lottieHeight}
         jsonFile={wrongLottie}
