@@ -3,6 +3,7 @@ import {
   makePayLoad,
   Action,
   Reducer,
+  State,
 } from "../../shared/Hyundux";
 import {
   _Position,
@@ -14,6 +15,7 @@ import Response from "../../utils/Response";
 
 import { CorrectAnswer } from "../../stories/getFindGameIsAnswer";
 import huynxios from "../../shared/Hyunxios";
+import { SagaActionPayload } from "../../shared/Hyundux-saga/Saga";
 
 const WORK_NAME = "FindingGame";
 
@@ -54,46 +56,33 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
         });
       }
       case "click": {
-        const actionPayLoad = action.payload as {
+        interface Request {
           y: number;
           x: number;
           width: number;
           heght: number;
-        };
+        }
 
-        const parameter = {
-          answerList: [
-            ...payLoad.showingAnswers.map((answer) => {
-              return {
-                positionX: answer.positionX,
-                positionY: answer.positionY,
-              } as _Position;
-            }),
-            {
-              positionX: actionPayLoad.x / actionPayLoad.width,
-              positionY: actionPayLoad.y / actionPayLoad.heght,
-            } as _Position,
-          ],
-        } as GetFindFAmeIsAnswerBodyParameter;
-        const response = await huynxios.post<Response<getFindGameIsAnswerDTO>>(
-          "/api/finding/answer",
-          parameter
-        );
-
+        const actionPayLoad = action.payload as SagaActionPayload;
+        const request =
+          actionPayLoad.request as GetFindFAmeIsAnswerBodyParameter;
+        const response =
+          actionPayLoad.response as Response<getFindGameIsAnswerDTO>;
+        const reponseData = response.data;
         if (
           state.payload.showingAnswers.length !=
-          response.data.correctAnswerList.length
+          reponseData.correctAnswerList.length
         ) {
-          if (response.data.correctAnswerList.length == 2) {
+          if (reponseData.correctAnswerList.length == 2) {
             return makePayLoad(state, {
-              ticketId: response.data.ticketId,
+              ticketId: reponseData.ticketId,
               gameStatus:
-                response.data.ticketId === "-1" ? "DoneFail" : "DoneSuccess",
-              showingAnswers: response.data.correctAnswerList,
+                reponseData.ticketId === "-1" ? "DoneFail" : "DoneSuccess",
+              showingAnswers: reponseData.correctAnswerList,
             });
           }
           return makePayLoad(state, {
-            showingAnswers: response.data.correctAnswerList,
+            showingAnswers: reponseData.correctAnswerList,
           });
         }
 
@@ -102,8 +91,8 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
             ...state.payload.wrongAnswers,
             {
               id: Math.round(Math.random() * 1000),
-              y: actionPayLoad.y,
-              x: actionPayLoad.x,
+              y: request.answerList[request.answerList.length - 1].positionY,
+              x: request.answerList[request.answerList.length - 1].positionX,
             },
           ],
         });
