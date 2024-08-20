@@ -34,7 +34,10 @@ const InfoSection = ({
   };
   return (
     <>
-      <div className="flex flex-col items-center justify-center" style={style}>
+      <div
+        className="flex flex-col items-center justify-center h-full"
+        style={style}
+      >
         {header}
         <div className="border-l-4 border-r-4 border-white relative w-full h-full">
           {children}

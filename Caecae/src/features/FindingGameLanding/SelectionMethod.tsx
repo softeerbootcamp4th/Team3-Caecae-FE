@@ -4,7 +4,7 @@ import SmileBadge from "../../components/common/SmileBadge";
 
 const SelectionMethod = () => {
   return (
-    <div className="h-[115vh] bg-[black]">
+    <div className="h-screen bg-[black] min-h-[950px]">
       <div className="absolute z-10 flex flex-col items-center w-full h-screen">
         <p className="text-[white] font-[900] text-[40px] mt-[60px]">
           참여 혜택 및 선정 방식
