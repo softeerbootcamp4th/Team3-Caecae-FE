@@ -24,12 +24,11 @@ export interface CorrectAnswer {
   content: string;
 }
 
-const getFindGameStory: Story = async (object: object) => {
-  const response = await huynxios.post<
-    Response<GetFindFAmeIsAnswerBodyParameter>
-  >("/api/finding/answer", object);
-  console.log(response);
+const getFindGameAnswerStory: Story = async (request: object) => {
+  const response = await huynxios.post<Response<getFindGameIsAnswerDTO>>(
+    "/api/finding/answer",
+    request
+  );
   return response;
 };
-
-export { getFindGameStory };
+export { getFindGameAnswerStory };
