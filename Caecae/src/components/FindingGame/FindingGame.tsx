@@ -42,12 +42,12 @@ const FindingGame = () => {
 
   const onClickAction = (
     width: number,
-    heigjht: number,
+    height: number,
     y: number,
     x: number
   ) => {
     pictureWidth.current = width;
-    pictureHeight.current = heigjht;
+    pictureHeight.current = height;
     if (state.gameStatus == "Gaming") {
       store.dispatch(action.click(y, x, width, heigjht));
     }
