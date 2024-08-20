@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Action } from "../Hyundux/Actions";
-import { RunStory } from "./Story";
-import saga from "./Saga";
+import { RunStory, Story } from "./Story";
+import saga, { SagaAction } from "./Saga";
 
 type SagaStatus = "isLoading" | "isSuccess" | "isError";
 
@@ -10,10 +10,10 @@ const useSaga = () => {
 
   return [
     sagaStatus,
-    async (action: (object: object) => Action, stories: RunStory[]) => {
+    async (action: SagaAction, story: Story, parameter: object = {}) => {
       setSagaStatus("isLoading");
       try {
-        await saga.run(action, stories);
+        await saga.run(action, story, parameter);
       } catch (e) {
         console.log(`saga Error: ${e}`);
         setSagaStatus("isError");
