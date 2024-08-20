@@ -7,6 +7,7 @@ import { makePayLoad } from "../../Hyundux/Util/StoreUtil";
 import Reducer from "../../Hyundux/Reducer";
 import useWork from "../../Hyundux/Hooks/useWork";
 import { useEffect } from "react";
+import { SagaAction } from "../Saga";
 
 // storyExample
 interface HealthCheckDTO {
@@ -28,7 +29,7 @@ const TestComponent = () => {
   useEffect(() => {
     setTimeout(() => {
       const testStory = createStory(HealthCheckStory, {});
-      teller(action.init, [testStory]);
+      teller(action.init, testStory);
     }, 5000);
   }, []);
 
@@ -72,9 +73,9 @@ const countReducer: Reducer<TestPayLoad> = {
 };
 
 // actions
-const action = {
-  init: (object: object): Action => {
-    const parameter = object as { data: string };
+const action: { init: SagaAction } = {
+  init: (request?: object): Action => {
+    const parameter = request as { data: string };
     return {
       type: WORKFLOW_NAME,
       actionName: "init",
