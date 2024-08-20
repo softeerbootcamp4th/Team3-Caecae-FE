@@ -145,21 +145,15 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
 
 // actions
 const action = {
-  init: (object: object): Action => {
-    const payLoad = object as Response<FindGame>;
+  init: (payLoad: SagaActionPayload): Action => {
+    const reponse = payLoad.response as Response<FindGame>;
     return {
       type: WORK_NAME,
       actionName: "init",
-      payload: payLoad,
+      payload: reponse,
     };
   },
-  click: (y: number, x: number, width: number, height: number): Action => {
-    const payLoad = { y: y, x: x, width: width, heght: height } as {
-      y: number;
-      x: number;
-      width: number;
-      heght: number;
-    };
+  click: (payLoad: SagaActionPayload): Action => {
     return {
       type: WORK_NAME,
       actionName: "click",
