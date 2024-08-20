@@ -193,5 +193,22 @@ const action = {
     };
   },
 };
+export function genrateFindGameAnswerCheckBodyParameter(
+  state: FindingGamePayLoad,
+  y: number,
+  x: number,
+  width: number,
+  height: number
+) {
+  const result = state.showingAnswers.map((answer) => {
+    return {
+      positionY: answer.positionY,
+      positionX: answer.positionX,
+    } as _Position;
+  });
+  return {
+    answerList: [...result, { positionY: y / height, positionX: x / width }],
+  } as GetFindFAmeIsAnswerBodyParameter;
+}
 
 export { action, initFindingGameState, findingGameReducer };
