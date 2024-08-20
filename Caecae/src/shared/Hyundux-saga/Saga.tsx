@@ -14,15 +14,11 @@ class Saga {
   }
   async run(action: SagaAction, story: Story, parameter: object = {}) {
     try {
-      const asyncResult = await Promise.all(
-        stories.map(async (story) => {
-          return await story();
-        })
+      const runStroy = createStory(story, parameter);
+      const asyncResult = await runStroy();
+      this.store?.dispatch(
+        action({ request: parameter, response: asyncResult })
       );
-      const newResult = asyncResult.reduce((originObject, newObject) => {
-        return { ...originObject, ...newObject };
-      }, {});
-      this.store?.dispatch(action(newResult));
     } catch (e) {
       console.log(`Saga error: ${e}`);
       throw "some story is problem";
