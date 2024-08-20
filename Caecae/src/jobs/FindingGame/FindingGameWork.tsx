@@ -3,7 +3,6 @@ import {
   makePayLoad,
   Action,
   Reducer,
-  State,
 } from "../../shared/Hyundux";
 import {
   _Position,
@@ -14,7 +13,6 @@ import { FindGame } from "../../stories/getFindingGame";
 import Response from "../../utils/Response";
 
 import { CorrectAnswer } from "../../stories/getFindGameIsAnswer";
-import huynxios from "../../shared/Hyunxios";
 import { SagaActionPayload } from "../../shared/Hyundux-saga/Saga";
 
 const WORK_NAME = "FindingGame";
@@ -56,13 +54,6 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
         });
       }
       case "click": {
-        interface Request {
-          y: number;
-          x: number;
-          width: number;
-          heght: number;
-        }
-
         const actionPayLoad = action.payload as SagaActionPayload;
         const request =
           actionPayLoad.request as GetFindFAmeIsAnswerBodyParameter;

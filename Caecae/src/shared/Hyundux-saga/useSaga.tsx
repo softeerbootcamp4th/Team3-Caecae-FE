@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Action } from "../Hyundux/Actions";
-import { RunStory, Story } from "./Story";
+import { Story } from "./Story";
 import saga, { SagaAction } from "./Saga";
 
 type SagaStatus = "isLoading" | "isSuccess" | "isError";
