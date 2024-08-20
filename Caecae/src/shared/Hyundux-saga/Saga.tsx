@@ -1,6 +1,10 @@
 import { Action } from "../Hyundux/Actions";
 import store, { Store } from "../Hyundux/Store";
-import { RunStory } from "./Story";
+import { createStory, Story } from "./Story";
+
+export type SagaAction = (payLoad: SagaActionPayload) => Action;
+
+export type SagaActionPayload = { response?: object; request?: object };
 
 class Saga {
   store: Store | null = null;
@@ -8,7 +12,7 @@ class Saga {
   constructor(store: Store) {
     this.store = store;
   }
-  async run(action: (object: object) => Action, stories: RunStory[]) {
+  async run(action: SagaAction, story: Story, parameter: object = {}) {
     try {
       const asyncResult = await Promise.all(
         stories.map(async (story) => {
