@@ -10,9 +10,10 @@ import {
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
-import { getRacingGameTopRateStory } from "../../stories/getRacingGameTopRate.tsx";
+import { getRacingGameTopRateStory } from "../../stories/RacingGame/getRacingGameTopRate.tsx";
 import useRacingGameAudio from "../../hooks/useRacingGameAudio.tsx"
 import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
+import getRacingGameShortUrl, { getRacingGameShortUrlBodyParameter } from "../../stories/RacingGame/getRacingGameShortUrl.tsx";
 
 const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
@@ -126,6 +127,28 @@ const RacingGame: React.FC = () => {
     store.dispatch(action.enterEvent());
   }
 
+  const shareGameScore = () => {
+    const fetchData = async () => {
+      try {
+        const requestData: getRacingGameShortUrlBodyParameter = {
+          distance: Number(state.distance.toFixed(3)),
+          percentage: Number(state.topRate.toFixed(3)),
+        };
+  
+        const response = await getRacingGameShortUrl(requestData);
+        const shortUrl = response.data.shortUrl;
+        const baseShareUrl = "http://www.caecae.kro.kr/a/"
+        const shareUrl = baseShareUrl + shortUrl;
+
+        navigator.clipboard.writeText(shareUrl);
+      }catch(error) {
+        console.error("단축 Url api 호출 실패:", error);
+      }
+    }
+
+    fetchData();
+  }
+
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -204,7 +227,7 @@ const RacingGame: React.FC = () => {
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
       {gameContent(state.gameStatus, state.distance, state.topRate, handlePlayGame, enterEvent)}
-      {gameMenu(state.gameStatus)}
+      {gameMenu(state.gameStatus, shareGameScore)}
     </div>
   );
 };
@@ -286,7 +309,10 @@ const gameContent = (
 };
 
 /** 게임 상태에 따라 다르게 보여지는 우측 상단 메뉴 */
-const gameMenu = (gameStatus: string) => {
+const gameMenu = (
+  gameStatus: string,
+  shareGameScore: () => void,
+) => {
   switch (gameStatus) {
     case "previous":
     case "playing":
@@ -301,7 +327,9 @@ const gameMenu = (gameStatus: string) => {
     case "end":
       return (
         <div className="absolute right-[50px] top-[30px] z-40 space-x-10 font-galmuri text-[#494949] text-xl">
-          <button>기록 자랑하기</button>
+          <button onClick={shareGameScore}>
+            기록 자랑하기
+          </button>
           <Link to="/racecasper">
             <button>게임 종료</button>
           </Link>
