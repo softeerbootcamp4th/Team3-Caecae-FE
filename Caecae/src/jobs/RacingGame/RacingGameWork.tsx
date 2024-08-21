@@ -3,7 +3,7 @@ import { makePayLoad } from "../../shared/Hyundux/Util/StoreUtil";
 import Reducer from "../../shared/Hyundux/Reducer";
 import { Action } from "../../shared/Hyundux/Actions";
 import { SagaActionPayload } from "../../shared/Hyundux-saga/Saga";
-import { RacingGameTopRateDTO } from "../../stories/getRacingGameTopRate";
+import { RacingGameTopRateDTO } from "../../stories/RacingGame/getRacingGameTopRate";
 import Response from "../../utils/Response";
 
 const WORKFLOW_NAME = "RacingGame";

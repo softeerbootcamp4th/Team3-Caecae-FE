@@ -1,6 +1,6 @@
-import { Story } from "../shared/Hyundux-saga";
-import huynxios from "../shared/Hyunxios";
-import Response from "../utils/Response";
+import { Story } from "../../shared/Hyundux-saga";
+import huynxios from "../../shared/Hyunxios";
+import Response from "../../utils/Response";
 
 export interface RacingGameTopRateDTO {
     percent: number;
