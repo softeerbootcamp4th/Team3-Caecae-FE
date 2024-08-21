@@ -22,6 +22,7 @@ const RacingGame: React.FC = () => {
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
   const [status, teller] = useSaga();
+  status;
   const animationCompletedRef = useRef(false);
   const firstCompleteBlockRef = useRef(false);
 
