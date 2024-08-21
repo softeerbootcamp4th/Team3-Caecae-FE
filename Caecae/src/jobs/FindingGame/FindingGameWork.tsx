@@ -8,12 +8,13 @@ import {
   _Position,
   GetFindFAmeIsAnswerBodyParameter,
   getFindGameIsAnswerDTO,
-} from "../../stories/getFindGameIsAnswer";
-import { FindGame } from "../../stories/getFindingGame";
+} from "../../stories/FindGame/getFindGameIsAnswer";
+import { FindGame } from "../../stories/FindGame/getFindingGame";
 import Response from "../../utils/Response";
 
-import { CorrectAnswer } from "../../stories/getFindGameIsAnswer";
+import { CorrectAnswer } from "../../stories/FindGame/getFindGameIsAnswer";
 import { SagaActionPayload } from "../../shared/Hyundux-saga/Saga";
+import { GetFindGameHintDTO } from "../../stories/FindGame/getFindGameHint";
 
 const WORK_NAME = "FindingGame";
 
@@ -66,6 +67,7 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
         ) {
           if (reponseData.correctAnswerList.length == 2) {
             return makePayLoad(state, {
+              showingHint: [],
               ticketId: reponseData.ticketId,
               gameStatus:
                 reponseData.ticketId === "-1" ? "DoneFail" : "DoneSuccess",
@@ -73,6 +75,7 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
             });
           }
           return makePayLoad(state, {
+            showingHint: [],
             showingAnswers: reponseData.correctAnswerList,
           });
         }
@@ -97,19 +100,20 @@ const findingGameReducer: Reducer<FindingGamePayLoad> = {
         );
         return makePayLoad(state, { wrongAnswers: _wrongAnswers });
       }
-      // case "showHint": {
-      //   if (state.payload.showingAnswers.length < 2) {
-      //     const idsInAnswers = new Set(
-      //       state.payload.showingAnswers.map((item) => item.id)
-      //     );
-      //     const newHints = state.payload.answers.filter(
-      //       (item) => !idsInAnswers.has(item.id)
-      //     );
-      //     const newShowingHints = [newHints[0]];
-      //     return makePayLoad(state, { showingHint: newShowingHints });
-      //   }
-      //   return state;
-      // }
+      case "showHint": {
+        const payLoad = action.payload as {
+          response: Response<GetFindGameHintDTO>;
+        };
+        const response = payLoad.response.data;
+        const hint = {
+          positionX: response.hintPosition.positionX,
+          positionY: response.hintPosition.positionY,
+          descriptionImageUrl: "",
+          title: "",
+          content: "",
+        } as CorrectAnswer;
+        return makePayLoad(state, { showingHint: [hint] });
+      }
       case "changeShowingAnswer": {
         const actionPayLoad = (action.payload || {}) as {
           answerIndex: number;
@@ -157,10 +161,11 @@ const action = {
       },
     };
   },
-  showHint: (): Action => {
+  showHint: (payLoad: SagaActionPayload): Action => {
     return {
       type: WORK_NAME,
       actionName: "showHint",
+      payload: payLoad,
     };
   },
   changeShowingAnswer: (index: number): Action => {
