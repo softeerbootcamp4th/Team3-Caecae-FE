@@ -106,7 +106,7 @@ const SelectCustom = ({ phoneNumber }: SelectCustomProps) => {
         <div
           onClick={() => {
             setRacingGameOption(phoneNumber, selectedOptionId);
-            store.dispatch(action.toggleOverlay());
+            store.dispatch(action.nextPage());
           }}
           className="bg-[#002C5F] h-[12%] flex items-center justify-center hover:cursor-pointer"
         >
