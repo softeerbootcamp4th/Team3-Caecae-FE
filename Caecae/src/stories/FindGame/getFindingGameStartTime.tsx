@@ -1,5 +1,5 @@
-import huynxios from "../shared/Hyunxios";
-import Response from "../utils/Response";
+import huynxios from "../../shared/Hyunxios";
+import Response from "../../utils/Response";
 
 interface Data {
   findingGameInfos: FindingGameInfo[];
