@@ -10,9 +10,9 @@ import {
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
-import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
-import { useDebounce } from "../../hooks/index.tsx";
-import useRacingGameAudio from "../../hooks/useRacingGameAudio.tsx";
+import { getRacingGameTopRateStory } from "../../stories/getRacingGameTopRate.tsx";
+import useRacingGameAudio from "../../hooks/useRacingGameAudio.tsx"
+import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
 
 const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
@@ -21,9 +21,9 @@ const RacingGame: React.FC = () => {
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
-  const [topRate, setTopRate] = useState<string | null>(null);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-  const debouncedDistance = useDebounce(state.distance, 50);
+  const [status, teller] = useSaga();
+  const animationCompletedRef = useRef(false);
+  const firstCompleteBlockRef = useRef(false);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -78,25 +78,28 @@ const RacingGame: React.FC = () => {
 
       fadeOutPlayingAudio(1000, startStoppingAudio);
     }
+
+    animationCompletedRef.current = true;
   };
 
   const handleSpacebar = (event: KeyboardEvent) => {
-    if (event.code === "Space") {
+    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
+      // animationCompletedRef.current = true
       event.preventDefault();
+      document.removeEventListener("keydown", handleSpacebar);
 
       handleSmoothlyStop();
-      store.dispatch(action.gameEnd());
     }
   };
 
   const handlePlayGame = () => {
-    setIsButtonDisabled(true);
-    setTopRate("?");
-
-    stoppingAudioRunRef.current = false;
+    stoppingAudioRunRef.current = false
     startPlayingAudio();
 
     store.dispatch(action.gameStart());
+
+    animationCompletedRef.current = false;
+    firstCompleteBlockRef.current = false;
 
     if (lottieRef.current) {
       lottieRef.current?.play();
@@ -105,10 +108,6 @@ const RacingGame: React.FC = () => {
         .start({
           x: [0, -14000],
           transition: { duration: 7, repeat: 0 },
-        })
-        .then(() => {
-          handleSmoothlyStop();
-          store.dispatch(action.gameEnd());
         });
 
       rearAnimationControls.start({
@@ -118,7 +117,6 @@ const RacingGame: React.FC = () => {
 
       endGameTimeoutRef.current = setTimeout(() => {
         handleSmoothlyStop();
-        store.dispatch(action.gameEnd());
       }, 6000);
     }
   };
@@ -149,11 +147,12 @@ const RacingGame: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (state.gameStatus === "playing") {
+    if (state.gameStatus === "playing" && !animationCompletedRef.current) {
       document.addEventListener("keydown", handleSpacebar);
     } else {
       document.removeEventListener("keydown", handleSpacebar);
-    }
+    } 
+    
     return () => {
       document.removeEventListener("keydown", handleSpacebar);
     };
@@ -167,32 +166,6 @@ const RacingGame: React.FC = () => {
 
     return () => unsubscribeFrontX();
   }, [frontX]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getRacingGameTopRate(debouncedDistance);
-        setTopRate(response.data.percent.toFixed(3));
-      } catch (error) {
-        console.error("레이싱 게임 점수 백분위 API 호출 오류:", error);
-        setTopRate(null);
-      }
-    };
-
-    if(debouncedDistance > 0 && state.gameStatus === "end"){
-      fetchData();
-    }
-  }, [debouncedDistance]);
-
-  useEffect(() => {
-    if (state.gameStatus === "end") {
-      const timer = setTimeout(() => {
-        setIsButtonDisabled(false);
-      }, 2000);
-  
-      return () => clearTimeout(timer);
-    }
-  }, [state.gameStatus]);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
@@ -214,6 +187,13 @@ const RacingGame: React.FC = () => {
           x: frontX,
         }}
         animate={frontAnimationControls}
+        onAnimationComplete={() => {
+          if (firstCompleteBlockRef.current) {
+            teller(action.gameEnd, getRacingGameTopRateStory, { distance: state.distance });
+          }else {
+            firstCompleteBlockRef.current = true
+          }
+        }}
       />
       <Lottie
         lottieRef={lottieRef}
@@ -222,7 +202,7 @@ const RacingGame: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent(state.gameStatus, state.distance, topRate, isButtonDisabled, handlePlayGame, enterEvent)}
+      {gameContent(state.gameStatus, state.distance, state.topRate, handlePlayGame, enterEvent)}
       {gameMenu(state.gameStatus)}
     </div>
   );
@@ -232,8 +212,7 @@ const RacingGame: React.FC = () => {
 const gameContent = (
   gameStatus: string,
   distance: number,
-  topRate: string | null,
-  isButtonDisabled: boolean,
+  topRate: number,
   handlePlayGame: () => void,
   enterEvent: () => void
 ) => {
@@ -278,27 +257,19 @@ const gameContent = (
                 {distance.toFixed(3)} KM
               </div>
               <div className="font-bold text-2xl text-[#3D3D3D] flex items-end pb-5 pl-1">
-                {`상위 ${topRate}%`}
+                {`상위 ${topRate.toFixed(3)}%`}
               </div>
             </div>
           </div>
           <div className="flex flex-row items-center justify-center mt-2 space-x-4">
-            <button
-              className={`${isButtonDisabled? "opacity-50" : ""}`}
-              onClick={enterEvent}
-              disabled={isButtonDisabled}
-            >
+            <button onClick={enterEvent}>
               <img
                 className="h-[50px]"
                 src="/assets/enterEventBtn.svg"
                 alt="enterEventBtn"
               />
             </button>
-            <button
-              className={`${isButtonDisabled? "opacity-50" : ""}`}
-              onClick={handlePlayGame}
-              disabled={isButtonDisabled}
-            >
+            <button onClick={handlePlayGame}>
               <img
                 className="h-[50px]"
                 src="/assets/retryBtn.svg"
