@@ -1,15 +1,18 @@
 import { ChangeEventHandler, useEffect, useState } from "react";
 import { action } from "../../jobs/Overlay/OverlayWork";
-import { store } from "../../shared/Hyundux";
+import { Action, store } from "../../shared/Hyundux";
 
 interface PhoneNumberOverlayProps {
   type: "findCasper" | "raceCasper";
-  onClick?: (phoneNumber: string) => void;
+  submitNumber?: (
+    phoneNumber: string,
+    action: (amount: number) => Action
+  ) => void;
 }
 
 const PhoneNumberOverlay = ({
   type,
-  onClick = () => {},
+  submitNumber = () => {},
 }: PhoneNumberOverlayProps) => {
   const [timeLeft, setTimeLeft] = useState(3 * 60); // 3분을 초 단위로 변환
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -159,8 +162,7 @@ const PhoneNumberOverlay = ({
         <div
           onClick={() => {
             const parameter = phoneNumber.replace(/-/g, "");
-            onClick(parameter);
-            store.dispatch(action.nextPage());
+            submitNumber(parameter, action.nextPage);
           }}
           className="bg-[#002C5F] h-[12%] flex items-center justify-center hover:cursor-pointer"
         >
