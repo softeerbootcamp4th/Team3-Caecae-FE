@@ -14,7 +14,8 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
     setIsAnimating(true);
     const url: string = window.location.href;
 
-    navigator.clipboard.writeText(url)
+    navigator.clipboard
+      .writeText(url)
       .then(() => {
         setShowMessage(true);
 
@@ -28,21 +29,19 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
               setShowMessage(false);
               setIsAnimating(false);
             }, 500);
-
           }, 3000);
-          
-        }, 10);  
+        }, 10);
       })
       .catch((err: Error) => {
-        console.error('URL 복사에 실패했습니다.', err);
+        console.error("URL 복사에 실패했습니다.", err);
         setIsAnimating(false);
       });
   };
   return (
     <>
-      <div className="flex w-full h-[93vh] justify-center items-center relative">
-        <div className="absolute z-20 flex flex-col items-center">
-          <p className="text-[#CCCCCC] text-[20px] mt-[100px]">
+      <div className="flex w-screen h-screen justify-center items-center relative overflow-hidden min-h-[950px]">
+        <div className="absolute z-20 flex flex-col items-center h-screen justify-center min-h-[950px]">
+          <p className="text-[#CCCCCC] text-[20px]">
             <span className="font-bold text-[white]">CASPER Electric</span> 신차
             출시 선착순 이벤트
           </p>
@@ -58,26 +57,25 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
           </div>
           <p className="text-center text-[white] text-[24px]">
             캐스퍼 일렉트릭에 숨겨진 로봇 뱃지
-            <br /> 찾고 <span className="text-[#00AAD2]">1만 원 커피 쿠폰 </span>
+            <br /> 찾고{" "}
+            <span className="text-[#00AAD2]">1만 원 커피 쿠폰 </span>
             받아가자!
           </p>
           <img
             src="/assets/smileBage3D.svg"
             alt="smileBage3D"
-            className="h-[300px] mt-[50px]"
+            className="h-1/3 mt-[50px] min-h-[200px]"
           />
-          <div className="flex gap-[30px]">
-            <div 
-              className="bg-[#0609CD] flex items-center justify-center w-[300px] h-[80px] hover:cursor-pointer"
+          <div className="flex gap-[30px] h-[80px]">
+            <div
+              className="bg-[#0609CD] flex items-center justify-center w-[300px] h-full hover:cursor-pointer"
               onClick={shareEvent}
             >
               <img src="/assets/sharedButton.svg" alt="sharedButton" />
-              <p className="text-[white] text-[22px] ml-[10px]">
-                  공유하기
-              </p>
+              <p className="text-[white] text-[22px] ml-[10px]">공유하기</p>
             </div>
             <div
-              className="bg-[white] flex items-center justify-center gap-[15px] w-[300px] h-[80px]"
+              className="bg-[white] flex items-center justify-center gap-[15px] w-[300px] h-full"
               onClick={() => onClick()}
             >
               <p className="text-[22px]">바로 캐스퍼 찾으러가기</p>
@@ -89,7 +87,7 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
           <img
             src="/assets/findGameTitleBackground.svg"
             alt="findGameLeftBlocks"
-            className="absolute top-0 left-0 w-full h-[93vh] object-cover bg-[black] object-bottom-center"
+            className="absolute top-0 left-0 w-full h-screen object-cover bg-[black] object-bottom-center min-h-[950px]"
           />
           <img
             src="/assets/findGameLeftBlocks.svg"
@@ -103,7 +101,11 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
           />
         </div>
         {showMessage && (
-          <div className={`absolute left-1/2 bottom-[170px] z-50 transform -translate-x-1/2 text-white bg-[#1C1A1B] border-blue-700 border-4 px-6 py-3 rounded-2xl transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+          <div
+            className={`absolute left-1/2 bottom-[170px] z-50 transform -translate-x-1/2 text-white bg-[#1C1A1B] border-blue-700 border-4 px-6 py-3 rounded-2xl transition-opacity duration-1000 ${
+              animate ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <div className="flex justify-center items-center text-[24px]">
               URL이 복사되었습니다!
             </div>

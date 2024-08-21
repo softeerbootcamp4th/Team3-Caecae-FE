@@ -4,7 +4,7 @@ import SmileBadge from "../../components/common/SmileBadge/index";
 
 const EventPeriod = () => {
   return (
-    <div className="h-[115vh] bg-[black]">
+    <div className="h-[100vh] bg-[black] min-h-[950px]">
       <div className="absolute z-10 flex flex-col items-center w-full h-screen">
         <p className="text-[white] font-[900] text-[40px] mt-[60px]">
           이벤트 기간

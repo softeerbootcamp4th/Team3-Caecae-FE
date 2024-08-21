@@ -1,18 +1,24 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import useComponentPosition from "../../../hooks/useComponentRect";
 
 interface PictureGameBoardProps {
   imageURL: string;
   showingElements: ReactElement[];
   onClickAction: (width: number, height: number, y: number, x: number) => void;
+  setRect?: (width: number, height: number) => void;
 }
 
 const PictureGameBoard = ({
   imageURL,
   showingElements = [],
   onClickAction,
+  setRect = () => {},
 }: PictureGameBoardProps) => {
   const [ref, position] = useComponentPosition();
+
+  useEffect(() => {
+    setRect(position.width, position.height);
+  }, [position]);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const { y, x } = {
