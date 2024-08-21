@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { action } from "../../../jobs/Overlay/OverlayWork";
-import { store } from "../../../shared/Hyundux";
+import { useSaga } from "../../../shared/Hyundux-saga";
+import { getRacingGameOption } from "../../../stories/getRacingGameOption";
 
 interface Option {
     id: number;
@@ -9,9 +10,20 @@ interface Option {
     description: string;
 }
 
-const SelectCustom = () => {
+interface SelectCustomProps {
+    onClick: (
+        phone: string,
+        selectedOption: number | null
+    ) => void;
+}
+
+const SelectCustom = ({
+   onClick = () => {},
+}:SelectCustomProps) => {
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [enterable, setEnterable] = useState(false);
+    const [status, teller] = useSaga();
+    status;
     const options: Option[] = [
         { id: 0, imgSrc: "/assets/racingGameCase1Image.svg", title: "Case 1. 공간활용의 기술", description: "캐스퍼 일렉트릭의 구석구석을\n활용해 많은 물건도 알차게 실을래요." },
         { id: 1, imgSrc: "/assets/racingGameCase2Image.svg", title: "Case 2. 레저의 정석", description: "캐스퍼 일렉트릭과 함께 방방곡곡\n누빌 레저 라이프가 기대되어요." },
@@ -96,7 +108,9 @@ const SelectCustom = () => {
             {enterable === true ? (
                     <div 
                         onClick={() => {
-                            store.dispatch(action.nextPage());
+                            // onClick("01022222222", selectedOption)
+                            teller(action.nextPage, getRacingGameOption, { phone: "01044444444", selection: selectedOption })
+                            // store.dispatch(action.nextPage());
                         }}
                         className="bg-[#002C5F] h-[12%] flex items-center justify-center hover:cursor-pointer"
                     >
