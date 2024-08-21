@@ -2,6 +2,9 @@ import { createState } from "../../shared/Hyundux/State";
 import { makePayLoad } from "../../shared/Hyundux/Util/StoreUtil";
 import Reducer from "../../shared/Hyundux/Reducer";
 import { Action } from "../../shared/Hyundux/Actions";
+import { SagaActionPayload } from "../../shared/Hyundux-saga/Saga";
+import { RacingGameTopRateDTO } from "../../stories/getRacingGameTopRate";
+import Response from "../../utils/Response";
 
 const WORKFLOW_NAME = "RacingGame";
 
@@ -9,13 +12,15 @@ const km315 = 315;
 const aniMovingDistance = 11990;
 
 // state type
-interface RacingGamePayLoad {
+export interface RacingGamePayLoad {
   gameStatus: "previous" | "playing" | "end" | "enterEvent";
+  topRate: number;
   distance: number;
 }
 
 const initRacingGameState = createState<RacingGamePayLoad>(WORKFLOW_NAME, {
   gameStatus: "previous",
+  topRate: 0,
   distance: 0,
 });
 
@@ -26,8 +31,11 @@ const racingGameReducer: Reducer<RacingGamePayLoad> = {
     switch (action.actionName) {
       case "gameStart":
         return makePayLoad(state, { gameStatus: "playing" });
-      case "gameEnd":
-        return makePayLoad(state, { gameStatus: "end" });
+      case "gameEnd": {
+        const payload = action.payload as { response: Response<RacingGameTopRateDTO> }
+        const topRate = payload.response.data.percent
+        return makePayLoad(state, { gameStatus: "end", topRate: topRate });
+      };
       case "updateDistance": {
         const actionPayLoad = action.payload as { distance: number };
         // frontBackground 이미지가 애니메이션을 통해 이동한 거리를 실제 Km 단위로 변환해서 계산
@@ -51,10 +59,13 @@ const action = {
       actionName: "gameStart",
     };
   },
-  gameEnd: (): Action => {
+  gameEnd: (payload: SagaActionPayload): Action => {
     return {
       type: WORKFLOW_NAME,
       actionName: "gameEnd",
+      payload: {
+        response: payload.response
+      }
     };
   },
   updateDistance: (distance: number): Action => {
