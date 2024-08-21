@@ -26,6 +26,9 @@ const RacingGame: React.FC = () => {
   status;
   const animationCompletedRef = useRef(false);
   const firstCompleteBlockRef = useRef(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const [animate, setAnimate] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -128,6 +131,11 @@ const RacingGame: React.FC = () => {
   }
 
   const shareGameScore = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    console.log(shareGameScore);
+
     const fetchData = async () => {
       try {
         const requestData: getRacingGameShortUrlBodyParameter = {
@@ -140,7 +148,25 @@ const RacingGame: React.FC = () => {
         const baseShareUrl = "http://www.caecae.kro.kr/a/"
         const shareUrl = baseShareUrl + shortUrl;
 
-        navigator.clipboard.writeText(shareUrl);
+        navigator.clipboard.writeText(shareUrl)
+          .then(() => {
+            setShowMessage(true);
+    
+            setTimeout(() => {
+              setAnimate(true);
+    
+              setTimeout(() => {
+                setAnimate(false);
+    
+                setTimeout(() => {
+                  setShowMessage(false);
+                  setIsAnimating(false);
+                }, 500);
+    
+              }, 3000);
+              
+            }, 10);  
+          });
       }catch(error) {
         console.error("단축 Url api 호출 실패:", error);
       }
@@ -228,6 +254,15 @@ const RacingGame: React.FC = () => {
       />
       {gameContent(state.gameStatus, state.distance, state.topRate, handlePlayGame, enterEvent)}
       {gameMenu(state.gameStatus, shareGameScore)}
+      {showMessage && (
+          <div className={`absolute left-1/2 top-1/2 z-50 transform -translate-x-1/2 text-white bg-[#1C1A1B] border-gray-600 border-4 px-6 py-3 rounded-2xl transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="flex justify-center items-center text-[24px] text-center font-galmuri font-bold">
+              URL이 복사되었습니다!
+              <br/>
+              당신의 기록을 공유해보세요!
+            </div>
+          </div>
+        )}
     </div>
   );
 };
