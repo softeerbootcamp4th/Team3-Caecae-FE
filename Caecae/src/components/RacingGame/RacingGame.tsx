@@ -12,7 +12,6 @@ import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
 import { useDebounce } from "../../hooks/index.tsx";
-import useRacingGameAudio from "../../hooks/useRacingGameAudio.tsx";
 import useAudio from "../../hooks/useAudio.tsx";
 
 const RacingGame: React.FC = () => {
@@ -30,11 +29,8 @@ const RacingGame: React.FC = () => {
     playAudio: playingMusicPlay,
     resetAudio: playingMusicReset,
   } = useAudio("/assets/audio/racingGamePlayingSound.wav");
-  const {
-    audio: stopingMusic,
-    playAudio: stopingMusicPlay,
-    resetAudio: stopingMusicReset,
-  } = useAudio("/assets/audio/racingGameStopSound.wav");
+  const { playAudio: stopingMusicPlay, resetAudio: stopingMusicReset } =
+    useAudio("/assets/audio/racingGameStopSound.wav");
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
