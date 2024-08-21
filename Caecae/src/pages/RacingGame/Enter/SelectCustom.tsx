@@ -39,7 +39,7 @@ const SelectCustom = ({ phoneNumber }: SelectCustomProps) => {
               className="flex flex-col cursor-pointer"
               onClick={() => handleOptionSelect(option.id)}
             >
-              <div className="mt-2">
+              <div className="mt-2 min-w-[150px] min-h-[200px] h-auto">
                 <img src={option.imgSrc} alt={`option${option.id}`} />
               </div>
               <div className="relative mt-2">
@@ -145,7 +145,7 @@ const options: Option[] = [
     imgSrc: "/assets/racingGameCase3Image.svg",
     title: (
       <span>
-        Case 3. 여행의 정석 <span className="teCxt-[10px]">Camping</span>
+        Case 3. 여행의 정석 <span className="text-[10px]">Camping</span>
       </span>
     ),
     description:
