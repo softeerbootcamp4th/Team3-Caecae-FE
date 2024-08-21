@@ -2,6 +2,8 @@ import { ChangeEvent, useState } from "react";
 import PictureGameBoard from "../../components/common/PictureGameBoard";
 import huynxios from "../../shared/Hyunxios";
 import findMeToDTO from "./FindMeToDTO";
+import Response from "../../utils/Response";
+import { WinnerDTO } from "./WinnerDTO";
 
 export interface FindMe {
   day: number;
@@ -60,6 +62,7 @@ const AdminPage = () => {
   const [day, setDay] = useState(0);
   const [answer, setAnswer] = useState<FindMeAnswer>(defaultFindMeAnswer);
   const [mode, setMode] = useState("findme");
+  const [winnders, setWinnders] = useState<WinnerDTO[]>([]);
 
   function changeQuestionURL(url: string) {
     const newFindme = [...findmes];
@@ -75,6 +78,24 @@ const AdminPage = () => {
     setAnswer(() => {
       return { ...answer };
     });
+  }
+
+  const winnerData = winnders.map((winner) => {
+    return (
+      <tr>
+        <td>{winner.ranking}</td>
+        <td>{winner.phone}</td>
+        <td>{winner.distance}</td>
+        <td>{winner.selection}</td>
+      </tr>
+    );
+  });
+  async function getWinners() {
+    const response = await huynxios.post<Response<WinnerDTO[]>>(
+      "/api/admin/racing/winners",
+      {}
+    );
+    setWinnders(response.data);
   }
 
   const tableData = findmes[day].answers.map((eachAnswer) => {
@@ -297,12 +318,25 @@ const AdminPage = () => {
             placeholder="Enter text here"
           />
           <div className="w-[30px]"></div>
-          <div className="bg-slate-300 flex justify-center items-center w-[200px] h-[40px]">
+          <div
+            className="bg-slate-300 flex justify-center items-center w-[200px] h-[40px]"
+            onClick={() => getWinners()}
+          >
             <p>let's 당첨</p>
           </div>
         </div>
+        <table className="w-full mt-[30px]">
+          <thead className="bg-slate-200">
+            <td className="border border-gray-600">랭킹</td>
+            <td className="border border-gray-600">전화번호</td>
+            <td className="border border-gray-600">거리</td>
+            <td className="border border-gray-600">옵션</td>
+          </thead>
+          <tbody>{winnerData}</tbody>
+        </table>
       </div>
     );
+
   <div className="flex items-center">
     <p className="text-[14px]">당첨 인원</p>
     <div className="w-[30px]"></div>
@@ -313,6 +347,7 @@ const AdminPage = () => {
     />
     <p className="text-[14px]">명</p>
   </div>;
+
   return (
     <div className="flex flex-col p-[24px]">
       <div className="flex justify-between justify-center items-center">
