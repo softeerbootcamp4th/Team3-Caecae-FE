@@ -1,16 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { action as overlayAction } from "../../jobs/Overlay/OverlayWork";
 import { OverLay, OverLayContent } from "../../components/common/Overlay/index";
 import { store, useWork } from "../../shared/Hyundux";
 import RacingGame from "../../components/RacingGame/index";
-import { initRacingGameState, racingGameReducer } from "../../jobs/RacingGame/RacingGameWork";
+import {
+  initRacingGameState,
+  racingGameReducer,
+} from "../../jobs/RacingGame/RacingGameWork";
 import SelectCustom from "./Enter/SelectCustom";
 import EnterComplete from "./Enter/EnterComplete";
 import PhoneNumberOverlay from "../../components/PhoneNumberOverlay";
 import huynxios from "../../shared/Hyunxios";
+import Response from "../../utils/Response";
 
 const RacingGamePage = () => {
   const [state, dispatch] = useWork(initRacingGameState, racingGameReducer);
+  const [phoneNumber, setPhoneNumber] = useState("");
   dispatch;
 
   useEffect(() => {
@@ -25,36 +30,27 @@ const RacingGamePage = () => {
         <OverLayContent
           index={0}
           element={
-            <PhoneNumberOverlay 
+            <PhoneNumberOverlay
               type="raceCasper"
-              onClick={async (phoneNumber) => {
-                await huynxios.post("/api/racing/result", {
+              submitNumber={async (phoneNumber, action) => {
+                const response = await huynxios.post<
+                  Response<{ isOptionSelected: boolean; distance: number }>
+                >("/api/racing/result", {
                   phone: phoneNumber,
                   distance: state.distance,
                 });
+                console.log(response);
+                setPhoneNumber(phoneNumber);
+                store.dispatch(action(response.data.isOptionSelected ? 2 : 1));
               }}
             />
           }
         />
         <OverLayContent
           index={1}
-          element={
-            <SelectCustom 
-              onClick={async (phoneNumber, selectOption) => {
-                await huynxios.post("/api/racing/option", {
-                  phone: phoneNumber,
-                  option: selectOption
-                });
-              }}
-            />
-          }
+          element={<SelectCustom phoneNumber={phoneNumber} />}
         />
-        <OverLayContent
-          index={2}
-          element={
-            <EnterComplete />
-          }
-        />
+        <OverLayContent index={2} element={<EnterComplete />} />
       </OverLay>
       <RacingGame />
     </div>
