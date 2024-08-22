@@ -11,7 +11,7 @@ import {
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 import { getRacingGameTopRateStory } from "../../stories/RacingGame/getRacingGameTopRate.tsx";
-import useRacingGameAudio from "../../hooks/useRacingGameAudio.tsx"
+import { useAudio } from "../../hooks/index.tsx";
 import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
 import getRacingGameShortUrl, { getRacingGameShortUrlBodyParameter } from "../../stories/RacingGame/getRacingGameShortUrl.tsx";
 
@@ -22,8 +22,7 @@ const RacingGame: React.FC = () => {
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
-  const [status, teller] = useSaga();
-  status;
+  const [, teller] = useSaga();
   const animationCompletedRef = useRef(false);
   const firstCompleteBlockRef = useRef(false);
   const [showMessage, setShowMessage] = useState(false);
@@ -40,15 +39,12 @@ const RacingGame: React.FC = () => {
   const endGameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
-    startPlayingAudio,
-    startStoppingAudio,
-    fadeOutPlayingAudio,
-    resetAllAudio,
-    stoppingAudioRunRef,
-  } = useRacingGameAudio(
-    "/assets/audio/racingGamePlayingSound.wav",
-    "/assets/audio/racingGameStopSound.wav"
-  );
+    audio: playingMusic,
+    playAudio: playingMusicPlay,
+    resetAudio: playingMusicReset,
+  } = useAudio("/assets/audio/racingGamePlayingSound.wav");
+  const { playAudio: stopingMusicPlay, resetAudio: stopingMusicReset } =
+    useAudio("/assets/audio/racingGameStopSound.wav");
 
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
@@ -81,10 +77,26 @@ const RacingGame: React.FC = () => {
         transition: { duration: 1, ease: "easeOut" },
       });
 
-      fadeOutPlayingAudio(1000, startStoppingAudio);
+      fadeOutStopingMusic();
     }
 
     animationCompletedRef.current = true;
+  };
+
+  const fadeOutStopingMusic = () => {
+    const step = 0.1;
+    const duration = 1000;
+    const fadeInterval = duration / (playingMusic.volume / step);
+
+    const fade = setInterval(() => {
+      if (playingMusic.volume > step) {
+        playingMusic.volume -= step;
+      } else {
+        clearInterval(fade);
+        playingMusicReset();
+        stopingMusicPlay();
+      }
+    }, fadeInterval);
   };
 
   const handleSpacebar = (event: KeyboardEvent) => {
@@ -98,8 +110,8 @@ const RacingGame: React.FC = () => {
   };
 
   const handlePlayGame = () => {
-    stoppingAudioRunRef.current = false
-    startPlayingAudio();
+    stopingMusicReset();
+    playingMusicPlay();
 
     store.dispatch(action.gameStart());
 
@@ -189,7 +201,8 @@ const RacingGame: React.FC = () => {
     };
 
     return () => {
-      resetAllAudio();
+      playingMusicReset()
+      stopingMusicReset()
       if(endGameTimeoutRef.current) {
         clearTimeout(endGameTimeoutRef.current);
       }
