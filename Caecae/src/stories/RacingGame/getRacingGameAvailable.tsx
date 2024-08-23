@@ -1,4 +1,4 @@
-import huynxios from "../shared/Hyunxios";
+import huynxios from "../../shared/Hyunxios"
 
 interface Response {
     responseCode: string;
