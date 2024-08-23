@@ -6,13 +6,13 @@ import frontBackground from "@assets/frontBackground.svg";
 import rearBackground from "@assets/rearBackground.svg";
 import {
   action,
-  initRacingGameState
+  initRacingGameState,
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
 import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
 import { useDebounce } from "../../hooks/index.tsx";
-import useRacingGameAudio from "../../hooks/useRacingGameAudio.tsx";
+import useAudio from "../../hooks/useAudio.tsx";
 
 const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
@@ -24,6 +24,13 @@ const RacingGame: React.FC = () => {
   const [topRate, setTopRate] = useState<string | null>(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const debouncedDistance = useDebounce(state.distance, 50);
+  const {
+    audio: playingMusic,
+    playAudio: playingMusicPlay,
+    resetAudio: playingMusicReset,
+  } = useAudio("/assets/audio/racingGamePlayingSound.wav");
+  const { playAudio: stopingMusicPlay, resetAudio: stopingMusicReset } =
+    useAudio("/assets/audio/racingGameStopSound.wav");
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -76,7 +83,7 @@ const RacingGame: React.FC = () => {
         transition: { duration: 1, ease: "easeOut" },
       });
 
-      fadeOutPlayingAudio(1000, startStoppingAudio);
+      fadeOutStopingMusic();
     }
   };
 
@@ -89,12 +96,28 @@ const RacingGame: React.FC = () => {
     }
   };
 
+  const fadeOutStopingMusic = () => {
+    const step = 0.1;
+    const duration = 1000;
+    const fadeInterval = duration / (playingMusic.volume / step);
+
+    const fade = setInterval(() => {
+      if (playingMusic.volume > step) {
+        playingMusic.volume -= step;
+      } else {
+        clearInterval(fade);
+        playingMusicReset();
+        stopingMusicPlay();
+      }
+    }, fadeInterval);
+  };
+
   const handlePlayGame = () => {
     setIsButtonDisabled(true);
     setTopRate("?");
 
-    stoppingAudioRunRef.current = false;
-    startPlayingAudio();
+    stopingMusicReset();
+    playingMusicPlay();
 
     store.dispatch(action.gameStart());
 
@@ -125,7 +148,7 @@ const RacingGame: React.FC = () => {
 
   const enterEvent = () => {
     store.dispatch(action.enterEvent());
-  }
+  };
 
   useEffect(() => {
     const frontBackgroundImg = new Image();
@@ -141,8 +164,9 @@ const RacingGame: React.FC = () => {
     };
 
     return () => {
-      resetAllAudio();
-      if(endGameTimeoutRef.current) {
+      stopingMusicReset();
+      playingMusicReset();
+      if (endGameTimeoutRef.current) {
         clearTimeout(endGameTimeoutRef.current);
       }
     };
@@ -179,7 +203,7 @@ const RacingGame: React.FC = () => {
       }
     };
 
-    if(debouncedDistance > 0 && state.gameStatus === "end"){
+    if (debouncedDistance > 0 && state.gameStatus === "end") {
       fetchData();
     }
   }, [debouncedDistance]);
@@ -189,7 +213,7 @@ const RacingGame: React.FC = () => {
       const timer = setTimeout(() => {
         setIsButtonDisabled(false);
       }, 2000);
-  
+
       return () => clearTimeout(timer);
     }
   }, [state.gameStatus]);
@@ -222,7 +246,14 @@ const RacingGame: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent(state.gameStatus, state.distance, topRate, isButtonDisabled, handlePlayGame, enterEvent)}
+      {gameContent(
+        state.gameStatus,
+        state.distance,
+        topRate,
+        isButtonDisabled,
+        handlePlayGame,
+        enterEvent
+      )}
       {gameMenu(state.gameStatus)}
     </div>
   );
@@ -242,7 +273,9 @@ const gameContent = (
     case "enterEvent":
       return (
         <div className="absolute left-[35%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
-          <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">CASPER ELECTRIC</div>
+          <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">
+            CASPER ELECTRIC
+          </div>
           <div className=" text-[44px] mb-2 text-[#666666]">전력으로...!</div>
           <div className="mt-5">
             <button className="w-[500px]" onClick={handlePlayGame}>
@@ -258,10 +291,16 @@ const gameContent = (
     case "playing":
       return (
         <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
-          <div className="font-bold text-xl mb-2 text-[#A8A8A8]">Game Score</div>
-          <div className="font-bold mb-2 text-[52px]">{distance.toFixed(3)} KM</div>
+          <div className="font-bold text-xl mb-2 text-[#A8A8A8]">
+            Game Score
+          </div>
+          <div className="font-bold mb-2 text-[52px]">
+            {distance.toFixed(3)} KM
+          </div>
           <div className="flex flex-row items-center justify-center mt-2">
-            <div className="font-bold text-[28px] mr-2 text-[#666666]">stop :</div>
+            <div className="font-bold text-[28px] mr-2 text-[#666666]">
+              stop :
+            </div>
             <div className="ml-2">
               <img src="/assets/spacebarBtn.svg" alt="spacebarBtn" />
             </div>
@@ -272,7 +311,9 @@ const gameContent = (
       return (
         <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
           <div className="flex flex-col items-center justify-center">
-            <div className="font-bold text-xl mb-1 text-[#A8A8A8]">Game Score</div>
+            <div className="font-bold text-xl mb-1 text-[#A8A8A8]">
+              Game Score
+            </div>
             <div className="flex flex-row space-x-2">
               <div className="font-bold text-[52px] mb-2">
                 {distance.toFixed(3)} KM
@@ -284,7 +325,7 @@ const gameContent = (
           </div>
           <div className="flex flex-row items-center justify-center mt-2 space-x-4">
             <button
-              className={`${isButtonDisabled? "opacity-50" : ""}`}
+              className={`${isButtonDisabled ? "opacity-50" : ""}`}
               onClick={enterEvent}
               disabled={isButtonDisabled}
             >
@@ -295,7 +336,7 @@ const gameContent = (
               />
             </button>
             <button
-              className={`${isButtonDisabled? "opacity-50" : ""}`}
+              className={`${isButtonDisabled ? "opacity-50" : ""}`}
               onClick={handlePlayGame}
               disabled={isButtonDisabled}
             >
@@ -322,7 +363,7 @@ const gameMenu = (gameStatus: string) => {
       return (
         <div className="absolute right-[50px] top-[30px] z-40 font-galmuri text-[#494949] text-xl">
           <Link to="/racecasper">
-            <button>게임 종료</button>  
+            <button>게임 종료</button>
           </Link>
         </div>
       );

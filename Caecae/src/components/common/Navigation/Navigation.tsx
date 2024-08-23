@@ -30,7 +30,7 @@ const Navigation: React.FC = () => {
     <nav
       className={`${
         showNav ? "" : "hideNav"
-      } relative bg-navigation flex justify-center items-center h-16 border-b-4 border-navigationUnderline header`}
+      } relative bg-navigation flex justify-center items-center h-16 border-b-4 border-navigationUnderline header h-[8%] min-h-[60px]`}
     >
       <div className="absolute left-0 ml-10 logo">
         <Link to="/">

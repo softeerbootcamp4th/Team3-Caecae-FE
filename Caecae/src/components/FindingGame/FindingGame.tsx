@@ -1,6 +1,7 @@
 import PictureGameBoard from "../common/PictureGameBoard/index.tsx";
 import {
   action,
+  genrateFindGameAnswerCheckBodyParameter,
   initFindingGameState,
 } from "../../jobs/FindingGame/FindingGameWork.tsx";
 import { useEffect, useRef } from "react";
@@ -8,48 +9,76 @@ import LottieContainer from "../common/LottieContainer/index.tsx";
 import correctLottie from "@assets/animationCorrect.json";
 import wrongLottie from "@assets/animationIncorrect.json";
 import { store, useExistState } from "../../shared/Hyundux";
-//import HintSpot from "./Hint/HintSpot.tsx";
+import HintSpot from "./Hint/HintSpot.tsx";
 import SmileBadge from "../common/SmileBadge/index.tsx";
 import { createStory } from "../../shared/Hyundux-saga/Story.tsx";
 import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
-import { getFindGameStory } from "../../stories/getFindingGame.tsx";
+import { getFindGameStory } from "../../stories/FindGame/getFindingGame.tsx";
+import { getFindGameAnswerStory } from "../../stories/FindGame/getFindGameIsAnswer.tsx";
+import { getFindGameHintStory } from "../../stories/FindGame/getFindGameHint.tsx";
 
 const FindingGame = () => {
   const state = useExistState(initFindingGameState);
-  // const timerId = useRef<NodeJS.Timeout | null>(null);
+  const timerId = useRef<NodeJS.Timeout | null>(null);
   const [status, teller] = useSaga();
   const pictureWidth = useRef(0);
   const pictureHeight = useRef(0);
+  const hintTime = 40 * 1000; // 1000ms는 1초
   status;
   useEffect(() => {
     const getFindGameRunStory = createStory(getFindGameStory, {});
-    teller(action.init, [getFindGameRunStory]);
-    // timerId.current = setTimeout(() => {
-    //   store.dispatch(action.showHint());
-    // }, 40000);
+    teller(action.init, getFindGameRunStory);
+    timerId.current = setTimeout(() => {
+      teller(action.showHint, getFindGameHintStory, {
+        answerList: state.showingAnswers.map((answer) => {
+          return { positionX: answer.positionX, positionY: answer.positionY };
+        }),
+      });
+    }, hintTime);
   }, []);
 
-  // useEffect(() => {
-  //   if (state.showingHint.length == 0) {
-  //     if (timerId.current != null) {
-  //       clearInterval(timerId.current);
-  //     }
-  //     timerId.current = setTimeout(() => {
-  //       store.dispatch(action.showHint());
-  //     }, 40000);
-  //   }
-  // }, [state.showingHint]);
+  useEffect(() => {
+    if (timerId.current != null) {
+      clearInterval(timerId.current);
+    }
+    timerId.current = setTimeout(() => {
+      teller(action.showHint, getFindGameHintStory, {
+        answerList: state.showingAnswers.map((answer) => {
+          return { positionX: answer.positionX, positionY: answer.positionY };
+        }),
+      });
+    }, hintTime);
+  }, [state.showingAnswers]);
+
+  useEffect(() => {
+    if (state.showingHint.length == 0) {
+      if (timerId.current != null) {
+        clearInterval(timerId.current);
+      }
+      timerId.current = setTimeout(() => {
+        teller(action.showHint, getFindGameHintStory, {
+          answerList: state.showingAnswers.map((answer) => {
+            return { positionX: answer.positionX, positionY: answer.positionY };
+          }),
+        });
+      }, hintTime);
+    }
+  }, [state.showingHint]);
 
   const onClickAction = (
     width: number,
-    heigjht: number,
+    height: number,
     y: number,
     x: number
   ) => {
     pictureWidth.current = width;
-    pictureHeight.current = heigjht;
+    pictureHeight.current = height;
     if (state.gameStatus == "Gaming") {
-      store.dispatch(action.click(y, x, width, heigjht));
+      teller(
+        action.click,
+        getFindGameAnswerStory,
+        genrateFindGameAnswerCheckBodyParameter(state, y, x, width, height)
+      );
     }
   };
 
@@ -99,12 +128,11 @@ const FindingGame = () => {
   });
 
   const showingWrongElement = state.wrongAnswers.map((wrongAnswer) => {
-    console.log(wrongAnswer);
     return (
       <LottieContainer
         key={wrongAnswer.id}
-        x={wrongAnswer.x}
-        y={wrongAnswer.y}
+        x={wrongAnswer.x * pictureWidth.current}
+        y={wrongAnswer.y * pictureHeight.current}
         width={lottieWidth}
         height={lottieHeight}
         jsonFile={wrongLottie}
@@ -115,17 +143,26 @@ const FindingGame = () => {
     );
   });
 
-  // const showingHintElement = state.showingHint.map((hintAnswer) => {
-  //   return <HintSpot y={hintAnswer.y} x={hintAnswer.x} />;
-  // });
+  const showingHintElement = state.showingHint.map((hintAnswer) => {
+    return (
+      <HintSpot
+        y={hintAnswer.positionY * pictureHeight.current}
+        x={hintAnswer.positionX * pictureWidth.current}
+      />
+    );
+  });
   return (
     <div>
       <PictureGameBoard
         imageURL={state.imageURL}
+        setRect={(width, height) => {
+          pictureWidth.current = width;
+          pictureHeight.current = height;
+        }}
         showingElements={[
           ...showingCorrectElements,
           ...showingWrongElement,
-          //...showingHintElement,
+          ...showingHintElement,
           ...answerElement,
         ]}
         onClickAction={onClickAction}

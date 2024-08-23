@@ -1,7 +1,7 @@
 import { forwardRef, ReactElement, useEffect, useState } from "react";
 import SmileBadge from "../../components/common/SmileBadge/index";
 import { Link } from "../../shared/Hyunouter";
-import getFindingGameStartTime from "../../stories/getFindingGameStartTime";
+import getFindingGameStartTime from "../../stories/FindGame/getFindingGameStartTime";
 
 // props 타입 정의
 interface OpenEventProps {}
@@ -176,9 +176,9 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col justify-center items-center w-full bg-[black] relative h-screen"
+      className="flex flex-col justify-center items-center w-full bg-[black] relative h-screen min-h-[950px]"
     >
-      <div className="z-10 flex flex-col justify-center items-center ">
+      <div className="z-10 flex flex-col justify-center items-center">
         <div className="text-[white] text-[18px] font-bold rounded-[80px] border-2 border-solid border-[rgba(0,0,255,0.60)] bg-[rgba(0,0,255,0.5)] px-[12px] py-[6px] inline">
           {data?.badgeTitle}
         </div>
@@ -190,7 +190,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
       <img
         src="/assets/openBackGround.svg"
         alt="smileBage3D"
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px]"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[80%]"
       />
     </div>
   );

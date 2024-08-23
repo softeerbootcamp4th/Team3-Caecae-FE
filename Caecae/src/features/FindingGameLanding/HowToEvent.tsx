@@ -2,12 +2,12 @@ import InfoSection from "../../components/common/InfoSection/index";
 
 const HowToEvent = () => {
   return (
-    <div className="h-[115vh] bg-[black]">
-      <div className="absolute z-10 flex flex-col items-center w-full h-screen">
+    <div className="h-screen bg-[black] min-h-[950px] flex flex-col items-center justify-center">
+      <div className="absolute z-10 flex flex-col items-center justify-center">
         <p className="text-[white] font-[900] text-[40px] mt-[60px]">
           이벤트 참여 방법
         </p>
-        <div className="mt-[50px] flex justify-center">
+        <div className="mt-[50px] flex justify-center items-center">
           <InfoSection title="나를 찾아봐" width={90}>
             <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
               <p className="text-[white] text-center text-[22px] line-[140%]">
