@@ -495,7 +495,7 @@ async function imageToURL(data: Blob, isQuestion = false) {
   };
 
   const response = await await fetch(
-    "http://43.201.185.99:8080/api/admin/s3",
+    "http://43.201.185.99:80/api/admin/s3",
     requestOptions
   );
   const result = (await response.json()) as {
