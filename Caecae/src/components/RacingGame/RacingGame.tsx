@@ -196,6 +196,15 @@ const RacingGame: React.FC = () => {
     fetchData();
   }
 
+  const handleSpacebar = (event: KeyboardEvent) => {
+    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
+      event.preventDefault();
+      document.removeEventListener("keydown", handleSpacebar);
+
+      handleSmoothlyStop();
+    }
+  };
+
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -218,31 +227,15 @@ const RacingGame: React.FC = () => {
     };
   }, []);
 
-  const handleSpacebar = (event: KeyboardEvent) => {
-    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
-      event.preventDefault();
-      document.removeEventListener("keydown", handleSpacebar);
-
-      handleSmoothlyStop();
-    }
-  };
-
   useEffect(() => {
-    const handleSpacebar = (event: KeyboardEvent) => {
-      if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
-        event.preventDefault();
-        handleSmoothlyStop();
-      }
-    };
-
-    if (state.gameStatus === "playing" && frontRef.current) {
-      frontRef.current.addEventListener("keydown", handleSpacebar);
-    }
+    if (state.gameStatus === "playing" && !animationCompletedRef.current) {
+      document.addEventListener("keydown", handleSpacebar);
+    } else {
+      document.removeEventListener("keydown", handleSpacebar);
+    } 
     
     return () => {
-      if (frontRef.current) {
-        frontRef.current.removeEventListener("keydown", handleSpacebar);
-      }
+      document.removeEventListener("keydown", handleSpacebar);
     };
   }, [state.gameStatus]);
 
