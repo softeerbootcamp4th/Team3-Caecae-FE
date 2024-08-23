@@ -24,42 +24,7 @@ test("결과보여지는 것들의 인덱스변경_입력값:2 -> 결과값 1 (�
   tester.given(givenData).when(whenData).then(thenData, false);
 });
 
-test("클릭 이벤트:입력값 [{x: 0.5 y: 0.5}, 틀린답 {x: 0.7, y: 0.1}] -> 결과값 answers.length == 1, answers = [answer{ x: 0.5. y: 0.5 }] (옳은 테스트)", () => {
-  const givenData = initFindingGameState.payload;
-  const whenData: Action = action.click({ request: {
-    answerList: [
-      { positionX: 0.5, positionY: 0.5 }
-    ]
-  }, response: {
-      responseCode: 1000,
-      message: "success",
-      data: {
-        ticketIryd: "1212",
-        startTime: "asdsad",
-        correctAnswerList: [
-          {
-            positionX: 0.5,
-            positionY: 0.5,
-            descriptionImageUrl: "",
-            title: "",
-            content: ""
-          }
-        ]
-      }
-  }})
-  
-  const thenData = tester.makeThenPayload({ showingAnswers: [{
-    positionX: 0.5,
-    positionY: 0.5,
-    descriptionImageUrl: "",
-    title: "",
-    content: ""
-  }] })
-  
-  tester.given(givenData).when(whenData).then(thenData, true);
-});
-
-test("클릭 이벤트:입력값 [{x: 0.5 y: 0.5}] -> 결과값 answers.length == 2, answers = [answer{ x: 0.5. y: 0.5 }] (옳은 테스트)", () => {
+test("클릭 이벤트:입력값 [{x: 0.5 y: 0.5}] -> 결과값 answers.length == 1, answers = [answer{ x: 0.5. y: 0.5 }] (옳은 테스트)", () => {
   const givenData = initFindingGameState.payload;
   const whenData: Action = action.click({ request: {
     answerList: [
@@ -90,6 +55,42 @@ test("클릭 이벤트:입력값 [{x: 0.5 y: 0.5}] -> 결과값 answers.length =
     title: "",
     content: ""
   }]})
+  
+  tester.given(givenData).when(whenData).then(thenData, true);
+});
+
+test("클릭 이벤트:입력값 [{x: 0.5 y: 0.5}, 틀린답 {x: 0.7, y: 0.1}] -> 결과값 answers.length == 1, answers = [answer{ x: 0.5. y: 0.5 }] (옳은 테스트)", () => {
+  const givenData = initFindingGameState.payload;
+  const whenData: Action = action.click({ request: {
+    answerList: [
+      { positionX: 0.5, positionY: 0.5 },
+      { positionX: 0.7, positionY: 0.1 }
+    ]
+  }, response: {
+      responseCode: 1000,
+      message: "success",
+      data: {
+        ticketIryd: "1212",
+        startTime: "asdsad",
+        correctAnswerList: [
+          {
+            positionX: 0.5,
+            positionY: 0.5,
+            descriptionImageUrl: "",
+            title: "",
+            content: ""
+          }
+        ]
+      }
+  }})
+  
+  const thenData = tester.makeThenPayload({ showingAnswers: [{
+    positionX: 0.5,
+    positionY: 0.5,
+    descriptionImageUrl: "",
+    title: "",
+    content: ""
+  }] })
   
   tester.given(givenData).when(whenData).then(thenData, true);
 });
@@ -131,13 +132,6 @@ test("클릭 이벤트:입력값 [{x: 0.5 y: 0.5}, 맞은답 {x: 0.7, y: 0.1}] -
   const thenData = tester.makeThenPayload({ showingAnswers: [{
     positionX: 0.5,
     positionY: 0.5,
-    descriptionImageUrl: "",
-    title: "",
-    content: ""
-  },
-  {
-    positionX: 0.7,
-    positionY: 0.1,
     descriptionImageUrl: "",
     title: "",
     content: ""
