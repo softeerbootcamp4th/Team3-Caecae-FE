@@ -19,7 +19,7 @@ import { GetFindGameHintDTO } from "../../stories/FindGame/getFindGameHint";
 const WORK_NAME = "FindingGame";
 
 // state type
-interface FindingGamePayLoad {
+export interface FindingGamePayLoad {
   imageURL: "";
   gameType: "PIXEL" | "BADGE";
   gameStatus: "Gaming" | "DoneSuccess" | "DoneFail";
