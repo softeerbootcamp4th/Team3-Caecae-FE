@@ -52,33 +52,10 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
       console.error('URL 복사에 실패했습니다.', err);
       setIsAnimating(false);
     });
-
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        setShowMessage(true);
-
-        setTimeout(() => {
-          setAnimate(true);
-
-          setTimeout(() => {
-            setAnimate(false);
-
-            setTimeout(() => {
-              setShowMessage(false);
-              setIsAnimating(false);
-            }, 500);
-          }, 3000);
-        }, 10);
-      })
-      .catch((err: Error) => {
-        console.error("URL 복사에 실패했습니다.", err);
-        setIsAnimating(false);
-      });
   };
   return (
     <>
-      <div className="flex w-screen h-screen justify-center items-center relative overflow-hidden min-h-[950px]">
+      <div className="flex w-full h-screen justify-center items-center relative overflow-hidden min-h-[950px]">
         <div className="absolute z-20 flex flex-col items-center h-screen justify-center min-h-[950px]">
           <p className="text-[#CCCCCC] text-[20px]">
             <span className="font-bold text-[white]">CASPER Electric</span> 신차
