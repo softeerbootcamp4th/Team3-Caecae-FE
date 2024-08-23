@@ -2,9 +2,9 @@ import { Action } from "../Hyundux/Actions";
 import store, { Store } from "../Hyundux/Store";
 import { createStory, Story } from "./Story";
 
-export type SagaAction = (payLoad: SagaActionPayload) => Action;
+type SagaAction = (payLoad: SagaActionPayload) => Action;
 
-export type SagaActionPayload = { response?: object; request?: object };
+type SagaActionPayload = { response?: object; request?: object };
 
 class Saga {
   store: Store | null = null;
@@ -28,4 +28,5 @@ class Saga {
 
 const saga = new Saga(store);
 
-export default saga;
+export type { SagaAction, SagaActionPayload };
+export { saga, Saga };

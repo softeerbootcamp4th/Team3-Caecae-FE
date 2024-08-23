@@ -3,7 +3,7 @@ import Reducer from "../Hyundux/Reducer";
 import { createStore, Store } from "../Hyundux/Store";
 import { Action } from "../Hyundux/Actions";
 
-class HyunduxTest<T> {
+export class HyunduxTest<T> {
   store: Store | null = null;
   currentState: State<T> | null = null;
   currentAction: Action | null = null;
@@ -24,6 +24,7 @@ class HyunduxTest<T> {
   }
 
   given(givenPayload: T) {
+    this.store.states = [createState(this.currentState.type, givenPayload)];
     if (this.store !== null && this.currentState !== null) {
       this.currentState = createState(this.currentState.type, givenPayload);
     }
