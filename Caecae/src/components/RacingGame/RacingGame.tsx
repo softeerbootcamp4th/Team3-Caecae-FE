@@ -19,6 +19,7 @@ const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
@@ -196,15 +197,6 @@ const RacingGame: React.FC = () => {
     fetchData();
   }
 
-  const handleSpacebar = (event: KeyboardEvent) => {
-    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
-      event.preventDefault();
-      document.removeEventListener("keydown", handleSpacebar);
-
-      handleSmoothlyStop();
-    }
-  };
-
   useEffect(() => {
     const frontBackgroundImg = new Image();
     frontBackgroundImg.src = frontBackground;
@@ -228,14 +220,22 @@ const RacingGame: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (state.gameStatus === "playing" && !animationCompletedRef.current) {
-      document.addEventListener("keydown", handleSpacebar);
-    } else {
-      document.removeEventListener("keydown", handleSpacebar);
-    } 
-    
+    const handleSpacebar = (event: KeyboardEvent) => {
+      if(event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
+        event.preventDefault();
+        handleSmoothlyStop();
+      }
+    };
+
+    if(containerRef.current) {
+      containerRef.current.focus();
+      if(state.gameStatus === "playing") {
+        containerRef.current.addEventListener("keydown", handleSpacebar);
+      }
+    }
+  
     return () => {
-      document.removeEventListener("keydown", handleSpacebar);
+      containerRef.current?.removeEventListener("keydown", handleSpacebar);
     };
   }, [state.gameStatus]);
 
@@ -249,7 +249,7 @@ const RacingGame: React.FC = () => {
   }, [frontX]);
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
+    <div ref={containerRef} className="relative w-screen h-screen overflow-hidden" tabIndex={-1}>
       <motion.div
         ref={rearRef}
         className="absolute top-0 left-0 h-[700px] bg-[auto_100%] z-[1]"
