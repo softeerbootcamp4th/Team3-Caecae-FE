@@ -23,10 +23,13 @@ const overlayReducer: Reducer<OverlayPayLoad> = {
     const payLoad = state.payload;
     switch (action.actionName) {
       case "toggleOverlay": {
-        return makePayLoad(state, { isShowing: !payLoad.isShowing });
+        return makePayLoad(state, { isShowing: !payLoad.isShowing, index: 0 });
       }
       case "nextPage": {
-        return makePayLoad(state, { index: payLoad.index + 1 });
+        const actionPayload = action.payload as { amount: number };
+        return makePayLoad(state, {
+          index: payLoad.index + actionPayload.amount,
+        });
       }
       default:
         return state;
@@ -41,10 +44,13 @@ const action = {
       actionName: "toggleOverlay",
     };
   },
-  nextPage: (): Action => {
+  nextPage: (amount: number = 1): Action => {
     return {
       type: WORK_NAME,
       actionName: "nextPage",
+      payload: {
+        amount: amount,
+      },
     };
   },
 };

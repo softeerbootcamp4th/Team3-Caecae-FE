@@ -6,13 +6,14 @@ import frontBackground from "@assets/frontBackground.svg";
 import rearBackground from "@assets/rearBackground.svg";
 import {
   action,
-  initRacingGameState,
+  initRacingGameState
 } from "../../jobs/RacingGame/RacingGameWork.tsx";
 import { store, useExistState } from "../../shared/Hyundux/index.tsx";
 import Link from "../../shared/Hyunouter/Link.tsx";
-import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
-import { useDebounce } from "../../hooks/index.tsx";
-import useAudio from "../../hooks/useAudio.tsx";
+import { getRacingGameTopRateStory } from "../../stories/RacingGame/getRacingGameTopRate.tsx";
+import { useAudio } from "../../hooks/index.tsx";
+import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
+import getRacingGameShortUrl, { getRacingGameShortUrlBodyParameter } from "../../stories/RacingGame/getRacingGameShortUrl.tsx";
 
 const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
@@ -21,16 +22,12 @@ const RacingGame: React.FC = () => {
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
-  const [topRate, setTopRate] = useState<string | null>(null);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-  const debouncedDistance = useDebounce(state.distance, 50);
-  const {
-    audio: playingMusic,
-    playAudio: playingMusicPlay,
-    resetAudio: playingMusicReset,
-  } = useAudio("/assets/audio/racingGamePlayingSound.wav");
-  const { playAudio: stopingMusicPlay, resetAudio: stopingMusicReset } =
-    useAudio("/assets/audio/racingGameStopSound.wav");
+  const [, teller] = useSaga();
+  const animationCompletedRef = useRef(false);
+  const firstCompleteBlockRef = useRef(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const [animate, setAnimate] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   /** 모션 값을 사용하여 frontBackground의 x 위치 추적 */
   const frontX = useMotionValue(0);
@@ -42,15 +39,12 @@ const RacingGame: React.FC = () => {
   const endGameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
-    startPlayingAudio,
-    startStoppingAudio,
-    fadeOutPlayingAudio,
-    resetAllAudio,
-    stoppingAudioRunRef,
-  } = useRacingGameAudio(
-    "/assets/audio/racingGamePlayingSound.wav",
-    "/assets/audio/racingGameStopSound.wav"
-  );
+    audio: playingMusic,
+    playAudio: playingMusicPlay,
+    resetAudio: playingMusicReset,
+  } = useAudio("/assets/audio/racingGamePlayingSound.wav");
+  const { playAudio: stopingMusicPlay, resetAudio: stopingMusicReset } =
+    useAudio("/assets/audio/racingGameStopSound.wav");
 
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
@@ -85,15 +79,8 @@ const RacingGame: React.FC = () => {
 
       fadeOutStopingMusic();
     }
-  };
 
-  const handleSpacebar = (event: KeyboardEvent) => {
-    if (event.code === "Space") {
-      event.preventDefault();
-
-      handleSmoothlyStop();
-      store.dispatch(action.gameEnd());
-    }
+    animationCompletedRef.current = true;
   };
 
   const fadeOutStopingMusic = () => {
@@ -112,14 +99,24 @@ const RacingGame: React.FC = () => {
     }, fadeInterval);
   };
 
-  const handlePlayGame = () => {
-    setIsButtonDisabled(true);
-    setTopRate("?");
+  const handleSpacebar = (event: KeyboardEvent) => {
+    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
+      // animationCompletedRef.current = true
+      event.preventDefault();
+      document.removeEventListener("keydown", handleSpacebar);
 
+      handleSmoothlyStop();
+    }
+  };
+
+  const handlePlayGame = () => {
     stopingMusicReset();
     playingMusicPlay();
 
     store.dispatch(action.gameStart());
+
+    animationCompletedRef.current = false;
+    firstCompleteBlockRef.current = false;
 
     if (lottieRef.current) {
       lottieRef.current?.play();
@@ -128,10 +125,6 @@ const RacingGame: React.FC = () => {
         .start({
           x: [0, -14000],
           transition: { duration: 7, repeat: 0 },
-        })
-        .then(() => {
-          handleSmoothlyStop();
-          store.dispatch(action.gameEnd());
         });
 
       rearAnimationControls.start({
@@ -141,14 +134,58 @@ const RacingGame: React.FC = () => {
 
       endGameTimeoutRef.current = setTimeout(() => {
         handleSmoothlyStop();
-        store.dispatch(action.gameEnd());
       }, 6000);
     }
   };
 
   const enterEvent = () => {
     store.dispatch(action.enterEvent());
-  };
+  }
+
+  const shareGameScore = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    console.log(shareGameScore);
+
+    const fetchData = async () => {
+      try {
+        const requestData: getRacingGameShortUrlBodyParameter = {
+          distance: Number(state.distance.toFixed(3)),
+          percentage: Number(state.topRate.toFixed(3)),
+        };
+  
+        const response = await getRacingGameShortUrl(requestData);
+        const shortUrl = response.data.shortUrl;
+        const baseShareUrl = "http://www.caecae.kro.kr/a/"
+        const shareUrl = baseShareUrl + shortUrl;
+
+        navigator.clipboard.writeText(shareUrl)
+          .then(() => {
+            setShowMessage(true);
+    
+            setTimeout(() => {
+              setAnimate(true);
+    
+              setTimeout(() => {
+                setAnimate(false);
+    
+                setTimeout(() => {
+                  setShowMessage(false);
+                  setIsAnimating(false);
+                }, 500);
+    
+              }, 3000);
+              
+            }, 10);  
+          });
+      }catch(error) {
+        console.error("단축 Url api 호출 실패:", error);
+      }
+    }
+
+    fetchData();
+  }
 
   useEffect(() => {
     const frontBackgroundImg = new Image();
@@ -164,20 +201,21 @@ const RacingGame: React.FC = () => {
     };
 
     return () => {
-      stopingMusicReset();
-      playingMusicReset();
-      if (endGameTimeoutRef.current) {
+      playingMusicReset()
+      stopingMusicReset()
+      if(endGameTimeoutRef.current) {
         clearTimeout(endGameTimeoutRef.current);
       }
     };
   }, []);
 
   useEffect(() => {
-    if (state.gameStatus === "playing") {
+    if (state.gameStatus === "playing" && !animationCompletedRef.current) {
       document.addEventListener("keydown", handleSpacebar);
     } else {
       document.removeEventListener("keydown", handleSpacebar);
-    }
+    } 
+    
     return () => {
       document.removeEventListener("keydown", handleSpacebar);
     };
@@ -191,32 +229,6 @@ const RacingGame: React.FC = () => {
 
     return () => unsubscribeFrontX();
   }, [frontX]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getRacingGameTopRate(debouncedDistance);
-        setTopRate(response.data.percent.toFixed(3));
-      } catch (error) {
-        console.error("레이싱 게임 점수 백분위 API 호출 오류:", error);
-        setTopRate(null);
-      }
-    };
-
-    if (debouncedDistance > 0 && state.gameStatus === "end") {
-      fetchData();
-    }
-  }, [debouncedDistance]);
-
-  useEffect(() => {
-    if (state.gameStatus === "end") {
-      const timer = setTimeout(() => {
-        setIsButtonDisabled(false);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [state.gameStatus]);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
@@ -238,6 +250,13 @@ const RacingGame: React.FC = () => {
           x: frontX,
         }}
         animate={frontAnimationControls}
+        onAnimationComplete={() => {
+          if (firstCompleteBlockRef.current) {
+            teller(action.gameEnd, getRacingGameTopRateStory, { distance: state.distance });
+          }else {
+            firstCompleteBlockRef.current = true
+          }
+        }}
       />
       <Lottie
         lottieRef={lottieRef}
@@ -246,15 +265,17 @@ const RacingGame: React.FC = () => {
         autoplay={false}
         className="absolute top-[485px] left-[250px] w-[350px] h-auto z-[3]"
       />
-      {gameContent(
-        state.gameStatus,
-        state.distance,
-        topRate,
-        isButtonDisabled,
-        handlePlayGame,
-        enterEvent
-      )}
-      {gameMenu(state.gameStatus)}
+      {gameContent(state.gameStatus, state.distance, state.topRate, handlePlayGame, enterEvent)}
+      {gameMenu(state.gameStatus, shareGameScore)}
+      {showMessage && (
+          <div className={`absolute left-1/2 top-1/2 z-50 transform -translate-x-1/2 text-white bg-[#1C1A1B] border-gray-600 border-4 px-6 py-3 rounded-2xl transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="flex justify-center items-center text-[24px] text-center font-galmuri font-bold">
+              URL이 복사되었습니다!
+              <br/>
+              당신의 기록을 공유해보세요!
+            </div>
+          </div>
+        )}
     </div>
   );
 };
@@ -263,8 +284,7 @@ const RacingGame: React.FC = () => {
 const gameContent = (
   gameStatus: string,
   distance: number,
-  topRate: string | null,
-  isButtonDisabled: boolean,
+  topRate: number,
   handlePlayGame: () => void,
   enterEvent: () => void
 ) => {
@@ -273,9 +293,7 @@ const gameContent = (
     case "enterEvent":
       return (
         <div className="absolute left-[35%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
-          <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">
-            CASPER ELECTRIC
-          </div>
+          <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">CASPER ELECTRIC</div>
           <div className=" text-[44px] mb-2 text-[#666666]">전력으로...!</div>
           <div className="mt-5">
             <button className="w-[500px]" onClick={handlePlayGame}>
@@ -291,16 +309,10 @@ const gameContent = (
     case "playing":
       return (
         <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
-          <div className="font-bold text-xl mb-2 text-[#A8A8A8]">
-            Game Score
-          </div>
-          <div className="font-bold mb-2 text-[52px]">
-            {distance.toFixed(3)} KM
-          </div>
+          <div className="font-bold text-xl mb-2 text-[#A8A8A8]">Game Score</div>
+          <div className="font-bold mb-2 text-[52px]">{distance.toFixed(3)} KM</div>
           <div className="flex flex-row items-center justify-center mt-2">
-            <div className="font-bold text-[28px] mr-2 text-[#666666]">
-              stop :
-            </div>
+            <div className="font-bold text-[28px] mr-2 text-[#666666]">stop :</div>
             <div className="ml-2">
               <img src="/assets/spacebarBtn.svg" alt="spacebarBtn" />
             </div>
@@ -311,35 +323,25 @@ const gameContent = (
       return (
         <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
           <div className="flex flex-col items-center justify-center">
-            <div className="font-bold text-xl mb-1 text-[#A8A8A8]">
-              Game Score
-            </div>
+            <div className="font-bold text-xl mb-1 text-[#A8A8A8]">Game Score</div>
             <div className="flex flex-row space-x-2">
               <div className="font-bold text-[52px] mb-2">
                 {distance.toFixed(3)} KM
               </div>
               <div className="font-bold text-2xl text-[#3D3D3D] flex items-end pb-5 pl-1">
-                {`상위 ${topRate}%`}
+                {`상위 ${topRate.toFixed(3)}%`}
               </div>
             </div>
           </div>
           <div className="flex flex-row items-center justify-center mt-2 space-x-4">
-            <button
-              className={`${isButtonDisabled ? "opacity-50" : ""}`}
-              onClick={enterEvent}
-              disabled={isButtonDisabled}
-            >
+            <button onClick={enterEvent}>
               <img
                 className="h-[50px]"
                 src="/assets/enterEventBtn.svg"
                 alt="enterEventBtn"
               />
             </button>
-            <button
-              className={`${isButtonDisabled ? "opacity-50" : ""}`}
-              onClick={handlePlayGame}
-              disabled={isButtonDisabled}
-            >
+            <button onClick={handlePlayGame}>
               <img
                 className="h-[50px]"
                 src="/assets/retryBtn.svg"
@@ -355,7 +357,10 @@ const gameContent = (
 };
 
 /** 게임 상태에 따라 다르게 보여지는 우측 상단 메뉴 */
-const gameMenu = (gameStatus: string) => {
+const gameMenu = (
+  gameStatus: string,
+  shareGameScore: () => void,
+) => {
   switch (gameStatus) {
     case "previous":
     case "playing":
@@ -363,14 +368,16 @@ const gameMenu = (gameStatus: string) => {
       return (
         <div className="absolute right-[50px] top-[30px] z-40 font-galmuri text-[#494949] text-xl">
           <Link to="/racecasper">
-            <button>게임 종료</button>
+            <button>게임 종료</button>  
           </Link>
         </div>
       );
     case "end":
       return (
         <div className="absolute right-[50px] top-[30px] z-40 space-x-10 font-galmuri text-[#494949] text-xl">
-          <button>기록 자랑하기</button>
+          <button onClick={shareGameScore}>
+            기록 자랑하기
+          </button>
           <Link to="/racecasper">
             <button>게임 종료</button>
           </Link>

@@ -39,11 +39,12 @@ const FindingGamePage = () => {
           element={
             <PhoneNumberOverlay
               type="findCasper"
-              onClick={async (phoneNumber) => {
+              submitNumber={async (phoneNumber, action) => {
                 await huynxios.post("/api/finding/register", {
                   ticketId: gameState.ticketId,
                   phone: phoneNumber,
                 });
+                store.dispatch(action(1));
               }}
             />
           }

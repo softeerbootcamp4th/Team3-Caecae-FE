@@ -2,12 +2,12 @@ import useChangeDependency from "./useChangeDependency";
 import useComponentPosition from "./useComponentRect";
 import useForceRendering from "./useForceRendering";
 import useSpecificTimeEffect from "./useSpecificTimeEffect";
-import useDebounce from "./useDebounce";
+import useAudio from "./useAudio";
 
 export {
   useChangeDependency,
   useComponentPosition,
   useForceRendering,
   useSpecificTimeEffect,
-  useDebounce,
+  useAudio,
 };
