@@ -99,16 +99,6 @@ const RacingGame: React.FC = () => {
     }, fadeInterval);
   };
 
-  const handleSpacebar = (event: KeyboardEvent) => {
-    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
-      // animationCompletedRef.current = true
-      event.preventDefault();
-      document.removeEventListener("keydown", handleSpacebar);
-
-      handleSmoothlyStop();
-    }
-  };
-
   const handlePlayGame = () => {
     stopingMusicReset();
     playingMusicPlay();
@@ -160,25 +150,44 @@ const RacingGame: React.FC = () => {
         const baseShareUrl = "http://www.caecae.kro.kr/a/"
         const shareUrl = baseShareUrl + shortUrl;
 
-        navigator.clipboard.writeText(shareUrl)
-          .then(() => {
-            setShowMessage(true);
-    
+        let textArea = document.createElement("textarea");
+        textArea.value = shareUrl;
+
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "-9999px";
+
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        return new Promise((res, rej) => {
+            if (document.execCommand('copy')) {
+                res(shareUrl)
+            }else {
+                rej();
+            }
+            textArea.remove();
+        }).then(() => {
+          setShowMessage(true);
+  
+          setTimeout(() => {
+            setAnimate(true);
+  
             setTimeout(() => {
-              setAnimate(true);
-    
+              setAnimate(false);
+  
               setTimeout(() => {
-                setAnimate(false);
-    
-                setTimeout(() => {
-                  setShowMessage(false);
-                  setIsAnimating(false);
-                }, 500);
-    
-              }, 3000);
-              
-            }, 10);  
-          });
+                setShowMessage(false);
+                setIsAnimating(false);
+              }, 500);
+  
+            }, 3000);
+            
+          }, 10);  
+        }).catch((error) => {
+          console.error("클립보드 복사 실패:", error);
+          setIsAnimating(false);
+        });
       }catch(error) {
         console.error("단축 Url api 호출 실패:", error);
       }
@@ -186,6 +195,15 @@ const RacingGame: React.FC = () => {
 
     fetchData();
   }
+
+  const handleSpacebar = (event: KeyboardEvent) => {
+    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
+      event.preventDefault();
+      document.removeEventListener("keydown", handleSpacebar);
+
+      handleSmoothlyStop();
+    }
+  };
 
   useEffect(() => {
     const frontBackgroundImg = new Image();

@@ -15,29 +15,44 @@ const EventIntro: React.FC<EventIntroProps> = ({isEventOpen}) => {
     setIsAnimating(true);
     const url: string = window.location.href;
 
-    navigator.clipboard.writeText(url)
-      .then(() => {
-        setShowMessage(true);
+    let textArea = document.createElement("textarea");
+    textArea.value = url;
+
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    textArea.style.top = "-9999px";
+
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    return new Promise((res, rej) => {
+        if (document.execCommand('copy')) {
+            res(url)
+        }else {
+            rej();
+        }
+        textArea.remove();
+    }).then(() => {
+      setShowMessage(true);
+
+      setTimeout(() => {
+        setAnimate(true);
 
         setTimeout(() => {
-          setAnimate(true);
+          setAnimate(false);
 
           setTimeout(() => {
-            setAnimate(false);
+            setShowMessage(false);
+            setIsAnimating(false);
+          }, 500);
 
-            setTimeout(() => {
-              setShowMessage(false);
-              setIsAnimating(false);
-            }, 500);
-
-          }, 3000);
-          
-        }, 10);  
-      })
-      .catch((err: Error) => {
-        console.error('URL 복사에 실패했습니다.', err);
-        setIsAnimating(false);
-      });
+        }, 3000);
+        
+      }, 10);  
+    }).catch((err: Error) => {
+      console.error('URL 복사에 실패했습니다.', err);
+      setIsAnimating(false);
+    });
   };
 
   const checkEventOpen = () => {
