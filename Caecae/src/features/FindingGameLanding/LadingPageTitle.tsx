@@ -55,7 +55,7 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
   };
   return (
     <>
-      <div className="flex w-screen h-screen justify-center items-center relative overflow-hidden min-h-[950px]">
+      <div className="flex w-full h-screen justify-center items-center relative overflow-hidden min-h-[950px]">
         <div className="absolute z-20 flex flex-col items-center h-screen justify-center min-h-[950px]">
           <p className="text-[#CCCCCC] text-[20px]">
             <span className="font-bold text-[white]">CASPER Electric</span> 신차
