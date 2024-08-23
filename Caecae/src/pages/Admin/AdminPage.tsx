@@ -63,6 +63,9 @@ const AdminPage = () => {
   const [answer, setAnswer] = useState<FindMeAnswer>(defaultFindMeAnswer);
   const [mode, setMode] = useState("findme");
   const [winnders, setWinnders] = useState<WinnerDTO[]>([]);
+  const [eventStartDay, setEventStartDay] = useState("");
+  const [eventEndtDay, setEventEndtDay] = useState("");
+  const [eventWinnderCount, setEventWinnerCount] = useState(0);
 
   function changeQuestionURL(url: string) {
     const newFindme = [...findmes];
@@ -378,16 +381,55 @@ const AdminPage = () => {
         <p className="text-[14px]">이벤트 기간</p>
         <div className="w-[30px]"></div>
         <input
-          type="text"
+          type="datetime-local"
           className="border border-black p-1"
+          value={eventStartDay}
+          onChange={(date) => {
+            console.log(date.target.value);
+            setEventStartDay(date.target.value);
+          }}
           placeholder="Enter text here"
         />
         <div className="w-[30px]"></div>
         <input
-          type="text"
+          type="datetime-local"
           className="border border-black p-1"
+          value={eventEndtDay}
+          onChange={(date) => {
+            setEventEndtDay(date.target.value);
+          }}
           placeholder="Enter text here"
         />
+        <input
+          type="number"
+          className="border border-black mx-[20px]"
+          value={eventWinnderCount}
+          onChange={(date) => {
+            setEventWinnerCount(Number(date.target.value));
+          }}
+          placeholder="Enter text here"
+        />
+        <div
+          className="w-[100px] h-[50px] bg-slate-200 flex justify-center items-center"
+          onClick={async () => {
+            if (mode == "findme") {
+              const dateOnly = eventStartDay.split("T")[0];
+              await huynxios.post("/api/admin/finding/period", {
+                startDate: dateOnly,
+              });
+            } else {
+              const start = eventStartDay + ":00";
+              const end = eventEndtDay + ":00";
+              await huynxios.post("/api/admin/racing/period", {
+                startTime: start,
+                endTime: end,
+                numberOfWinners: eventWinnderCount,
+              });
+            }
+          }}
+        >
+          <p>저장하기</p>
+        </div>
       </div>
       <p className="text-[20px] font-semibold">상세 이벤트 설정</p>
       <div className="flex">
@@ -403,7 +445,7 @@ const AdminPage = () => {
         <p
           className="text-[14px]"
           onClick={() => {
-            changeMode("");
+            changeMode("racinggame");
           }}
         >
           전력으로 513km

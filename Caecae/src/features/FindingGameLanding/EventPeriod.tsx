@@ -16,16 +16,16 @@ const EventPeriod = () => {
                 <SmileBadge width={150} badgeType="blue" />
               </div>
               <p className="text-[white] text-center text-[22px] line-[140%]">
-                참여 기간: 7.15 (월) - 7.21 (일){" "}
+                참여 기간: 8.26 (월) - 9.1 (일){" "}
                 <span className="text-[#00AAD2]">오후 3시 15분</span>
                 <br />
-                지급 날짜: 7.29 (월)부터 주말・공휴일 제외 순차적으로 발송
+                지급 날짜: 9.9 (월)부터 주말・공휴일 제외 순차적으로 발송
               </p>
               <div className="flex flex-col justify-center items-center gap-[80px] mt-[60px]">
                 <div className="flex">
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.15
+                      8.26
                     </div>
                     <p className="text-[white] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 ">
                       315명
@@ -35,7 +35,7 @@ const EventPeriod = () => {
                   <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.16
+                      8.27
                     </div>
                     <p className="text-[white] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 ">
                       315명
@@ -45,7 +45,7 @@ const EventPeriod = () => {
                   <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.17
+                      8.28
                     </div>
                     <p className="text-[white] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 ">
                       315명
@@ -55,7 +55,7 @@ const EventPeriod = () => {
                   <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.18
+                      8,29
                     </div>
                     <p className="text-[white] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 ">
                       315명
@@ -66,7 +66,7 @@ const EventPeriod = () => {
                 <div className="flex">
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.19
+                      8.30
                     </div>
                     <p className="text-[white] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 ">
                       315명
@@ -76,7 +76,7 @@ const EventPeriod = () => {
                   <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.20
+                      8.31
                     </div>
                     <p className="text-[white] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 ">
                       315명
@@ -86,7 +86,7 @@ const EventPeriod = () => {
                   <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.21
+                      9.1
                     </div>
                     <p className="text-[white] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 ">
                       315명
@@ -96,7 +96,7 @@ const EventPeriod = () => {
                   <img src="/assets/arrow.svg" alt="arrow" />
                   <div className="relative">
                     <div className="text-[white] text-[18px] font-bold absolute left-[60px] transform -translate-x-1/2 -translate-y-1/2 bg-[blue] px-[8px] py-[2px] rounded-2xl">
-                      7.29
+                      9.9
                     </div>
                     <p className="text-[black] text-[18px] font-bold absolute left-[60px] top-[60px] transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">
                       쿠폰 지급
