@@ -99,16 +99,6 @@ const RacingGame: React.FC = () => {
     }, fadeInterval);
   };
 
-  const handleSpacebar = (event: KeyboardEvent) => {
-    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
-      // animationCompletedRef.current = true
-      event.preventDefault();
-      document.removeEventListener("keydown", handleSpacebar);
-
-      handleSmoothlyStop();
-    }
-  };
-
   const handlePlayGame = () => {
     stopingMusicReset();
     playingMusicPlay();
@@ -228,15 +218,31 @@ const RacingGame: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (state.gameStatus === "playing" && !animationCompletedRef.current) {
-      document.addEventListener("keydown", handleSpacebar);
-    } else {
+  const handleSpacebar = (event: KeyboardEvent) => {
+    if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
+      event.preventDefault();
       document.removeEventListener("keydown", handleSpacebar);
-    } 
+
+      handleSmoothlyStop();
+    }
+  };
+
+  useEffect(() => {
+    const handleSpacebar = (event: KeyboardEvent) => {
+      if (event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
+        event.preventDefault();
+        handleSmoothlyStop();
+      }
+    };
+
+    if (state.gameStatus === "playing" && frontRef.current) {
+      frontRef.current.addEventListener("keydown", handleSpacebar);
+    }
     
     return () => {
-      document.removeEventListener("keydown", handleSpacebar);
+      if (frontRef.current) {
+        frontRef.current.removeEventListener("keydown", handleSpacebar);
+      }
     };
   }, [state.gameStatus]);
 
