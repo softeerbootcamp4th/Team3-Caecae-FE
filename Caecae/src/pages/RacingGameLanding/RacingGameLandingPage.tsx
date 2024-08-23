@@ -8,7 +8,7 @@ import {
   EventPrecaution,
  } from "../../features/RacingGameLanding";
 import Footer from "../../components/common/Footer";
-import getRacingGameAvailable from "../../stories/getRacingGameAvailable";
+import getRacingGameAvailable from "../../stories/RacingGame/getRacingGameAvailable";
 
 const RacingGameLandingPage = () => {
   const [isEventOpen, setIsEventOpen] = useState(false);
