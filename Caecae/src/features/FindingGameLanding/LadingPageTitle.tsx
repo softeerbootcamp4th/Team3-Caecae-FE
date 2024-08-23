@@ -52,29 +52,6 @@ const LadingPageTitle = ({ onClick }: LadingPageTitleProps) => {
       console.error('URL 복사에 실패했습니다.', err);
       setIsAnimating(false);
     });
-
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        setShowMessage(true);
-
-        setTimeout(() => {
-          setAnimate(true);
-
-          setTimeout(() => {
-            setAnimate(false);
-
-            setTimeout(() => {
-              setShowMessage(false);
-              setIsAnimating(false);
-            }, 500);
-          }, 3000);
-        }, 10);
-      })
-      .catch((err: Error) => {
-        console.error("URL 복사에 실패했습니다.", err);
-        setIsAnimating(false);
-      });
   };
   return (
     <>
