@@ -16,14 +16,12 @@ export interface RacingGamePayLoad {
   gameStatus: "previous" | "playing" | "end" | "enterEvent";
   topRate: number;
   distance: number;
-  // phoneNumber: string;
 }
 
 const initRacingGameState = createState<RacingGamePayLoad>(WORKFLOW_NAME, {
   gameStatus: "previous",
   topRate: 0,
   distance: 0,
-  // phoneNumber: "",
 });
 
 // define reducer
@@ -83,9 +81,6 @@ const action = {
     return {
       type: WORKFLOW_NAME,
       actionName: "enterEvent",
-      payload: {
-        // phoneNumber: phoneNumber,
-      }
     };
   },
 };
