@@ -305,7 +305,7 @@ const gameContent = (
     case "previous":
     case "enterEvent":
       return (
-        <div className="absolute left-[35%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
+        <div className="absolute left-[35%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri select-none">
           <div className="font-bold text-xl mb-2 pr-5 text-[#A8A8A8]">CASPER ELECTRIC</div>
           <div className=" text-[44px] mb-2 text-[#666666]">전력으로...!</div>
           <div className="mt-5">
@@ -321,7 +321,7 @@ const gameContent = (
       );
     case "playing":
       return (
-        <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
+        <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri select-none">
           <div className="font-bold text-xl mb-2 text-[#A8A8A8]">Game Score</div>
           <div className="font-bold mb-2 text-[52px]">{distance.toFixed(3)} KM</div>
           <div className="flex flex-row items-center justify-center mt-2">
@@ -334,7 +334,7 @@ const gameContent = (
       );
     case "end":
       return (
-        <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri">
+        <div className="absolute left-[37%] top-[70px] z-40 flex flex-col items-center justify-center font-galmuri select-none">
           <div className="flex flex-col items-center justify-center">
             <div className="font-bold text-xl mb-1 text-[#A8A8A8]">Game Score</div>
             <div className="flex flex-row space-x-2">
@@ -379,7 +379,7 @@ const gameMenu = (
     case "playing":
     case "enterEvent":
       return (
-        <div className="absolute right-[50px] top-[30px] z-40 font-galmuri text-[#494949] text-xl">
+        <div className="absolute right-[50px] top-[30px] z-40 font-galmuri text-[#494949] text-xl select-none">
           <Link to="/racecasper">
             <button>게임 종료</button>  
           </Link>
@@ -387,7 +387,7 @@ const gameMenu = (
       );
     case "end":
       return (
-        <div className="absolute right-[50px] top-[30px] z-40 space-x-10 font-galmuri text-[#494949] text-xl">
+        <div className="absolute right-[50px] top-[30px] z-40 space-x-10 font-galmuri text-[#494949] text-xl select-none">
           <button onClick={shareGameScore}>
             기록 자랑하기
           </button>
