@@ -16,8 +16,7 @@ const EventInfoTitle = () => {
             </span>
           </p>
           <p className="text-[36px] text-white">
-            {/* 추후에 날짜는 어드민에서 지정한 날로 동적 출력해야 함 */}
-            07.18.&nbsp;&nbsp;⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯&nbsp;&nbsp;07.25.
+            08.26&nbsp;&nbsp;⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯&nbsp;&nbsp;09.01
           </p>
           <h1 className="text-[96px] text-white mt-10 font-bold">
             "너의 능력을 보여줘"

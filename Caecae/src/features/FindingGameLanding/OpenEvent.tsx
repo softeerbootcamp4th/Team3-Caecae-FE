@@ -61,7 +61,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
   if (eventStatus == "none") {
     data = {
       badgeTitle: "이벤트 오픈 예정",
-      title: "7월 15일 오후 3시 15분",
+      title: "9월 1일 오후 3시 15분",
       mainContent: (
         <>
           <img
