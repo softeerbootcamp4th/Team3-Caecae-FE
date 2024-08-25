@@ -14,12 +14,13 @@ import { getRacingGameTopRateStory } from "../../stories/RacingGame/getRacingGam
 import { useAudio } from "../../hooks/index.tsx";
 import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
 import getRacingGameShortUrl, { getRacingGameShortUrlBodyParameter } from "../../stories/RacingGame/getRacingGameShortUrl.tsx";
+import useKeyBoardControl from "../../hooks/useKeyBoardControl.tsx";
 
 const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const frontRef = useRef<HTMLDivElement>(null);
   const rearRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const durationRef = useRef<number>(7);
   const [frontBackgroundWidth, setFrontImageWidth] = useState<number>(0);
   const [rearBackgroundWidth, setRearBackgroundWidth] = useState<number>(0);
   const state = useExistState(initRacingGameState);
@@ -47,6 +48,11 @@ const RacingGame: React.FC = () => {
   const { playAudio: stopingMusicPlay, resetAudio: stopingMusicReset } =
     useAudio("/assets/audio/racingGameStopSound.wav");
 
+  /* 5~10초 중 랜덤 */
+  const getRandomDuration = () => {
+    return Math.floor(Math.random() * (10 - 5 + 1)) + 5;
+  };
+
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
     const totalDistance = Math.abs(x);
@@ -54,8 +60,8 @@ const RacingGame: React.FC = () => {
     store.dispatch(action.updateDistance(totalDistance));
   };
 
-  const handleSmoothlyStop = () => {
-    const moveMoreDistance = 500;
+  const handleSmoothlyStop = (duration: number) => {
+    const moveMoreDistance = [700, 600, 500, 400, 300, 200]
 
     if (endGameTimeoutRef.current) {
       clearTimeout(endGameTimeoutRef.current);
@@ -69,12 +75,12 @@ const RacingGame: React.FC = () => {
       const currentRearX = rearRef.current?.getBoundingClientRect().x || 0;
 
       frontAnimationControls.start({
-        x: currentFrontX - moveMoreDistance,
+        x: currentFrontX - moveMoreDistance[duration - 5],
         transition: { duration: 1, ease: "easeOut" },
       });
 
       rearAnimationControls.start({
-        x: currentRearX - moveMoreDistance,
+        x: currentRearX - moveMoreDistance[duration - 5],
         transition: { duration: 1, ease: "easeOut" },
       });
 
@@ -101,6 +107,8 @@ const RacingGame: React.FC = () => {
   };
 
   const handlePlayGame = () => {
+    durationRef.current = getRandomDuration();
+
     stopingMusicReset();
     playingMusicPlay();
 
@@ -115,17 +123,17 @@ const RacingGame: React.FC = () => {
       frontAnimationControls
         .start({
           x: [0, -14000],
-          transition: { duration: 7, repeat: 0 },
+          transition: { duration: durationRef.current, repeat: 0 },
         });
 
       rearAnimationControls.start({
         x: [0, -7000],
-        transition: { duration: 7, repeat: 0 },
+        transition: { duration: durationRef.current, repeat: 0 },
       });
 
       endGameTimeoutRef.current = setTimeout(() => {
-        handleSmoothlyStop();
-      }, 6000);
+        handleSmoothlyStop(durationRef.current);
+      }, durationRef.current * 1000 - 1000);
     }
   };
 
@@ -219,25 +227,12 @@ const RacingGame: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleSpacebar = (event: KeyboardEvent) => {
-      if(event.code === "Space" && state.gameStatus === "playing" && !animationCompletedRef.current) {
-        event.preventDefault();
-        handleSmoothlyStop();
-      }
-    };
-
-    if(containerRef.current) {
-      containerRef.current.focus();
-      if(state.gameStatus === "playing") {
-        containerRef.current.addEventListener("keydown", handleSpacebar);
-      }
+  const containerRef = useKeyBoardControl("Space", (event: KeyboardEvent) => {
+    if (state.gameStatus === "playing" && !animationCompletedRef.current) {
+      event.preventDefault();
+      handleSmoothlyStop(durationRef.current);
     }
-  
-    return () => {
-      containerRef.current?.removeEventListener("keydown", handleSpacebar);
-    };
-  }, [state.gameStatus]);
+  });
 
   /** 애니메이션의 움직인 거리(x좌표값)가 바뀔 때 마다 km를 계산 */
   useEffect(() => {
@@ -249,7 +244,7 @@ const RacingGame: React.FC = () => {
   }, [frontX]);
 
   return (
-    <div ref={containerRef} className="relative w-screen h-screen overflow-hidden" tabIndex={-1}>
+    <div ref={containerRef} className="relative w-screen h-screen overflow-hidden focus:outline-none" tabIndex={-1}>
       <motion.div
         ref={rearRef}
         className="absolute top-0 left-0 h-[700px] bg-[auto_100%] z-[1]"
