@@ -1,7 +1,7 @@
 import { forwardRef, ReactElement, useEffect, useState } from "react";
 import SmileBadge from "../../components/common/SmileBadge/index";
 import { Link } from "../../shared/Hyunouter";
-import getFindingGameStartTime from "../../stories/FindGame/getFindingGameStartTime";
+import getFindingGameStartTime from "../../stories/FindingGame/getFindingGameStartTime";
 
 // props 타입 정의
 interface OpenEventProps {}
@@ -61,7 +61,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
   if (eventStatus == "none") {
     data = {
       badgeTitle: "이벤트 오픈 예정",
-      title: "7월 15일 오후 3시 15분",
+      title: "9월 1일 오후 3시 15분",
       mainContent: (
         <>
           <img

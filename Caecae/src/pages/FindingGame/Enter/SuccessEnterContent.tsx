@@ -8,7 +8,7 @@ const SuccessEnterContent = () => {
       <div className="flex flex-col justify-center items-center pt-20 pb-20">
         <p className="text-4xl font-black mb-3">응모 완료!</p>
         <span className="text-center">
-          쿠폰은 7월 29일에 순차적으로 지급될 예정입니다.
+          쿠폰은 9월 9일에 순차적으로 지급될 예정입니다.
           <br />
           참여해주셔서 감사합니다.
         </span>
