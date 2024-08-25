@@ -1,25 +1,25 @@
-import PictureGameBoard from "../common/PictureGameBoard/index.tsx";
+import PictureGameBoard from "../common/PictureGameBoard/index";
 import {
   action,
   genrateFindGameAnswerCheckBodyParameter,
   initFindingGameState,
-} from "../../jobs/FindingGame/FindingGameWork.tsx";
+} from "../../jobs/FindingGame/FindingGameWork";
 import { useEffect, useRef } from "react";
-import LottieContainer from "../common/LottieContainer/index.tsx";
+import LottieContainer from "../common/LottieContainer/index";
 import correctLottie from "@assets/animationCorrect.json";
 import wrongLottie from "@assets/animationIncorrect.json";
 import { store, useExistState } from "../../shared/Hyundux";
-import HintSpot from "./Hint/HintSpot.tsx";
-import SmileBadge from "../common/SmileBadge/index.tsx";
-import { createStory } from "../../shared/Hyundux-saga/Story.tsx";
-import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
-import { getFindGameStory } from "../../stories/FindGame/getFindingGame.tsx";
-import { getFindGameAnswerStory } from "../../stories/FindGame/getFindGameIsAnswer.tsx";
-import { getFindGameHintStory } from "../../stories/FindGame/getFindGameHint.tsx";
+import HintSpot from "./Hint/HintSpot";
+import SmileBadge from "../common/SmileBadge/index";
+import { createStory } from "../../shared/Hyundux-saga/Story";
+import useSaga from "../../shared/Hyundux-saga/useSaga";
+import { getFindGameStory } from "../../stories/FindingGame/getFindingGame";
+import { getFindGameAnswerStory } from "../../stories/FindingGame/getFindGameIsAnswer";
+import { getFindGameHintStory } from "../../stories/FindingGame/getFindGameHint";
 
 const FindingGame = () => {
   const state = useExistState(initFindingGameState);
-  const timerId = useRef<NodeJS.Timeout | null>(null);
+  const timerId = useRef<number | null>(null);
   const [status, teller] = useSaga();
   const pictureWidth = useRef(0);
   const pictureHeight = useRef(0);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Story } from "./Story";
-import saga, { SagaAction } from "./Saga";
+import { saga, SagaAction } from "./Saga";
 
 type SagaStatus = "isLoading" | "isSuccess" | "isError";
 

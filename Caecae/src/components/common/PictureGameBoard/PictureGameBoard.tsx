@@ -37,7 +37,7 @@ const PictureGameBoard = ({
         <img
           src={imageURL}
           alt="Finding Picture"
-          className="absolute inset-0 h-full object-cover z-10 object-left"
+          className="absolute inset-0 w-full object-fit z-10 object-left"
         />
       </div>
     </div>

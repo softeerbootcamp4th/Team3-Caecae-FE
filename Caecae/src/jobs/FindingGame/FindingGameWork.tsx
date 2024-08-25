@@ -8,18 +8,18 @@ import {
   _Position,
   GetFindFAmeIsAnswerBodyParameter,
   getFindGameIsAnswerDTO,
-} from "../../stories/FindGame/getFindGameIsAnswer";
-import { FindGame } from "../../stories/FindGame/getFindingGame";
+} from "../../stories/FindingGame/getFindGameIsAnswer";
+import { FindGame } from "../../stories/FindingGame/getFindingGame";
 import Response from "../../utils/Response";
 
-import { CorrectAnswer } from "../../stories/FindGame/getFindGameIsAnswer";
+import { CorrectAnswer } from "../../stories/FindingGame/getFindGameIsAnswer";
 import { SagaActionPayload } from "../../shared/Hyundux-saga/Saga";
-import { GetFindGameHintDTO } from "../../stories/FindGame/getFindGameHint";
+import { GetFindGameHintDTO } from "../../stories/FindingGame/getFindGameHint";
 
 const WORK_NAME = "FindingGame";
 
 // state type
-interface FindingGamePayLoad {
+export interface FindingGamePayLoad {
   imageURL: "";
   gameType: "PIXEL" | "BADGE";
   gameStatus: "Gaming" | "DoneSuccess" | "DoneFail";
