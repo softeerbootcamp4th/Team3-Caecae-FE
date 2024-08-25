@@ -1,7 +1,7 @@
 import { forwardRef, ReactElement, useEffect, useState } from "react";
 import SmileBadge from "../../components/common/SmileBadge/index";
 import { Link } from "../../shared/Hyunouter";
-import getFindingGameStartTime from "../../stories/FindGame/getFindingGameStartTime";
+import getFindingGameStartTime from "../../stories/FindingGame/getFindingGameStartTime";
 
 // props 타입 정의
 interface OpenEventProps {}

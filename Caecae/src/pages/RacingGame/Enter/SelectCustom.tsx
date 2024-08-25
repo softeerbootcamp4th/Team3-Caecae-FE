@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { action } from "../../../jobs/Overlay/OverlayWork";
-import { setRacingGameOption } from "../../../stories/getRacingGameOption";
+import { setRacingGameOption } from "../../../stories/RacingGame/getRacingGameOption";
 import { store } from "../../../shared/Hyundux";
 
 interface Option {

@@ -13,9 +13,9 @@ import HintSpot from "./Hint/HintSpot.tsx";
 import SmileBadge from "../common/SmileBadge/index.tsx";
 import { createStory } from "../../shared/Hyundux-saga/Story.tsx";
 import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
-import { getFindGameStory } from "../../stories/FindGame/getFindingGame.tsx";
-import { getFindGameAnswerStory } from "../../stories/FindGame/getFindGameIsAnswer.tsx";
-import { getFindGameHintStory } from "../../stories/FindGame/getFindGameHint.tsx";
+import { getFindGameStory } from "../../stories/FindingGame/getFindingGame.tsx";
+import { getFindGameAnswerStory } from "../../stories/FindingGame/getFindGameIsAnswer.tsx";
+import { getFindGameHintStory } from "../../stories/FindingGame/getFindGameHint.tsx";
 
 const FindingGame = () => {
   const state = useExistState(initFindingGameState);
