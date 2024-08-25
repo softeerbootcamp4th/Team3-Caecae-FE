@@ -1,7 +1,7 @@
 import Reducer from "./Reducer";
 import State, { createState } from "./State";
 import store from "./Store";
-import { Action, DoAction } from "./Actions";
+import { Action } from "./Actions";
 import useDo from "./Hooks/useDo";
 import useExistState from "./Hooks/useExistState";
 import useWork from "./Hooks/useWork";
@@ -19,4 +19,4 @@ export {
   replaceFirst,
   makePayLoad,
 };
-export type { Reducer, State, Action, DoAction };
+export type { Reducer, State, Action };

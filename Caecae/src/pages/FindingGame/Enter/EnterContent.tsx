@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import SmileBadge from "../../../components/common/SmileBadge/SmileBadge.tsx";
+import SmileBadge from "../../../components/common/SmileBadge/SmileBadge";
 import { store } from "../../../shared/Hyundux";
-import { action } from "../../../jobs/Overlay/OverlayWork.tsx";
+import { action } from "../../../jobs/Overlay/OverlayWork";
 
 const EnterContent = () => {
   const [timeLeft, setTimeLeft] = useState(3 * 60); // 3분을 초 단위로 변환

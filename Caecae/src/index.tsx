@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Router, Routes, Route } from "./shared/Hyunouter/index.tsx";
-import EventInfoLandingPage from "./pages/EventInfoLanding/EventInfoLandingPage.tsx";
-import FindingGameLandingPage from "./pages/FindingGameLanding/FindingGameLandingPage.tsx";
-import RacingGameLandingPage from "./pages/RacingGameLanding/RacingGameLandingPage.tsx";
-import FindingGamePage from "./pages/FindingGame/FindingGamePage.tsx";
-import RacingGamePage from "./pages/RacingGame/RacingGamePage.tsx";
-import AdminPage from "./pages/Admin/AdminPage.tsx";
+import { Router, Routes, Route } from "./shared/Hyunouter/index";
+import EventInfoLandingPage from "./pages/EventInfoLanding/EventInfoLandingPage";
+import FindingGameLandingPage from "./pages/FindingGameLanding/FindingGameLandingPage";
+import RacingGameLandingPage from "./pages/RacingGameLanding/RacingGameLandingPage";
+import FindingGamePage from "./pages/FindingGame/FindingGamePage";
+import RacingGamePage from "./pages/RacingGame/RacingGamePage";
+import AdminPage from "./pages/Admin/AdminPage";
 
 // 임시 React component
 const App = () => {

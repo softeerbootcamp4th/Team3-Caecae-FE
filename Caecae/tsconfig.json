@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
+    "target": "ES2020", // ECMAScript 타겟을 ES2020으로 설정 (ES6 이상으로 설정)
+    "lib": ["ES2020", "DOM"], // ES2020 기능과 브라우저 DOM API 포함
+    "esModuleInterop": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["./public/assets/*"]
     },
     "jsx": "react-jsx",
+    "types": ["jest"] // Jest의 타입 정의를 명시적으로 포함
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "include": ["src", "__tests__"]
 }

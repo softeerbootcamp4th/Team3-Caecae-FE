@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "public/assets"]
+  "include": ["src", "public/assets", "__test__"]
 }

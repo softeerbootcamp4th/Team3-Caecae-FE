@@ -7,14 +7,14 @@ import rearBackground from "@assets/rearBackground.svg";
 import {
   action,
   initRacingGameState
-} from "../../jobs/RacingGame/RacingGameWork.tsx";
-import { store, useExistState } from "../../shared/Hyundux/index.tsx";
-import Link from "../../shared/Hyunouter/Link.tsx";
-import { getRacingGameTopRateStory } from "../../stories/RacingGame/getRacingGameTopRate.tsx";
-import { useAudio } from "../../hooks/index.tsx";
-import useSaga from "../../shared/Hyundux-saga/useSaga.tsx";
-import getRacingGameShortUrl, { getRacingGameShortUrlBodyParameter } from "../../stories/RacingGame/getRacingGameShortUrl.tsx";
-import useKeyBoardControl from "../../hooks/useKeyBoardControl.tsx";
+} from "../../jobs/RacingGame/RacingGameWork";
+import { store, useExistState } from "../../shared/Hyundux/index";
+import Link from "../../shared/Hyunouter/Link";
+import { getRacingGameTopRateStory } from "../../stories/RacingGame/getRacingGameTopRate";
+import { useAudio } from "../../hooks/index";
+import useSaga from "../../shared/Hyundux-saga/useSaga";
+import getRacingGameShortUrl, { getRacingGameShortUrlBodyParameter } from "../../stories/RacingGame/getRacingGameShortUrl";
+import useKeyBoardControl from "../../hooks/useKeyBoardControl";
 
 const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
@@ -38,7 +38,7 @@ const RacingGame: React.FC = () => {
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
 
-  const endGameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const endGameTimeoutRef = useRef<number | null>(null);
 
   const {
     audio: playingMusic,
