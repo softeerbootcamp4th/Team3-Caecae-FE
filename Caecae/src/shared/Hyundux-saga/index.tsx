@@ -1,4 +1,4 @@
-import saga from "./Saga";
+import { saga } from "./Saga";
 import { Story, RunStory, createStory } from "./Story";
 import useSaga from "./useSaga";
 

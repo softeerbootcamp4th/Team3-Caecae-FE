@@ -1,6 +1,6 @@
-import useWork from "../Hooks/useWork.tsx";
-import { action, initCountState, countReducer } from "./CountWork.tsx";
-import store from "../Store.tsx";
+import useWork from "../Hooks/useWork";
+import { action, initCountState, countReducer } from "./CountWork";
+import store from "../Store";
 
 const Counter = () => {
   const [state, dispatch] = useWork(initCountState, countReducer);

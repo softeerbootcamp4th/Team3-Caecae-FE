@@ -7,12 +7,12 @@ import rearBackground from "@assets/rearBackground.svg";
 import {
   action,
   initRacingGameState,
-} from "../../jobs/RacingGame/RacingGameWork.tsx";
-import { store, useExistState } from "../../shared/Hyundux/index.tsx";
-import Link from "../../shared/Hyunouter/Link.tsx";
-import getRacingGameTopRate from "../../stories/getRacingGameTopRate.tsx";
-import { useDebounce } from "../../hooks/index.tsx";
-import useAudio from "../../hooks/useAudio.tsx";
+} from "../../jobs/RacingGame/RacingGameWork";
+import { store, useExistState } from "../../shared/Hyundux/index";
+import Link from "../../shared/Hyunouter/Link";
+import getRacingGameTopRate from "../../stories/getRacingGameTopRate";
+import { useDebounce } from "../../hooks/index";
+import useAudio from "../../hooks/useAudio";
 
 const RacingGame: React.FC = () => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
@@ -39,7 +39,7 @@ const RacingGame: React.FC = () => {
   const frontAnimationControls = useAnimation();
   const rearAnimationControls = useAnimation();
 
-  const endGameTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const endGameTimeoutRef = useRef<number | null>(null);
 
   /** 이동한 km를 구하는 함수 */
   const calculateDistance = (x: number) => {
