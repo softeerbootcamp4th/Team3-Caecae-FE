@@ -114,7 +114,7 @@ const OpenEvent = forwardRef<HTMLDivElement, OpenEventProps>((props, ref) => {
             <img
               src="/assets/colon.svg"
               alt="smileBage3D"
-              className="w-[15px] mx-[20px]"
+              className="w-[15px] mx-[20px] pb-12"
             />
             <div className="flex flex-col items-center">
               <div className="flex gap-[10px]">
