@@ -2,6 +2,8 @@ import { ChangeEvent, useState } from "react";
 import PictureGameBoard from "../../components/common/PictureGameBoard";
 import huynxios from "../../shared/Hyunxios";
 import findMeToDTO from "./FindMeToDTO";
+import Response from "../../utils/Response";
+import { WinnerDTO } from "./WinnerDTO";
 
 export interface FindMe {
   day: number;
@@ -60,6 +62,10 @@ const AdminPage = () => {
   const [day, setDay] = useState(0);
   const [answer, setAnswer] = useState<FindMeAnswer>(defaultFindMeAnswer);
   const [mode, setMode] = useState("findme");
+  const [winnders, setWinnders] = useState<WinnerDTO[]>([]);
+  const [eventStartDay, setEventStartDay] = useState("");
+  const [eventEndtDay, setEventEndtDay] = useState("");
+  const [eventWinnderCount, setEventWinnerCount] = useState(0);
 
   function changeQuestionURL(url: string) {
     const newFindme = [...findmes];
@@ -75,6 +81,24 @@ const AdminPage = () => {
     setAnswer(() => {
       return { ...answer };
     });
+  }
+
+  const winnerData = winnders.map((winner) => {
+    return (
+      <tr>
+        <td>{winner.ranking}</td>
+        <td>{winner.phone}</td>
+        <td>{winner.distance}</td>
+        <td>{winner.selection}</td>
+      </tr>
+    );
+  });
+  async function getWinners() {
+    const response = await huynxios.post<Response<WinnerDTO[]>>(
+      "/api/admin/racing/winners",
+      {}
+    );
+    setWinnders(response.data);
   }
 
   const tableData = findmes[day].answers.map((eachAnswer) => {
@@ -297,12 +321,25 @@ const AdminPage = () => {
             placeholder="Enter text here"
           />
           <div className="w-[30px]"></div>
-          <div className="bg-slate-300 flex justify-center items-center w-[200px] h-[40px]">
+          <div
+            className="bg-slate-300 flex justify-center items-center w-[200px] h-[40px]"
+            onClick={() => getWinners()}
+          >
             <p>let's 당첨</p>
           </div>
         </div>
+        <table className="w-full mt-[30px]">
+          <thead className="bg-slate-200">
+            <td className="border border-gray-600">랭킹</td>
+            <td className="border border-gray-600">전화번호</td>
+            <td className="border border-gray-600">거리</td>
+            <td className="border border-gray-600">옵션</td>
+          </thead>
+          <tbody>{winnerData}</tbody>
+        </table>
       </div>
     );
+
   <div className="flex items-center">
     <p className="text-[14px]">당첨 인원</p>
     <div className="w-[30px]"></div>
@@ -313,6 +350,7 @@ const AdminPage = () => {
     />
     <p className="text-[14px]">명</p>
   </div>;
+
   return (
     <div className="flex flex-col p-[24px]">
       <div className="flex justify-between justify-center items-center">
@@ -343,16 +381,55 @@ const AdminPage = () => {
         <p className="text-[14px]">이벤트 기간</p>
         <div className="w-[30px]"></div>
         <input
-          type="text"
+          type="datetime-local"
           className="border border-black p-1"
+          value={eventStartDay}
+          onChange={(date) => {
+            console.log(date.target.value);
+            setEventStartDay(date.target.value);
+          }}
           placeholder="Enter text here"
         />
         <div className="w-[30px]"></div>
         <input
-          type="text"
+          type="datetime-local"
           className="border border-black p-1"
+          value={eventEndtDay}
+          onChange={(date) => {
+            setEventEndtDay(date.target.value);
+          }}
           placeholder="Enter text here"
         />
+        <input
+          type="number"
+          className="border border-black mx-[20px]"
+          value={eventWinnderCount}
+          onChange={(date) => {
+            setEventWinnerCount(Number(date.target.value));
+          }}
+          placeholder="Enter text here"
+        />
+        <div
+          className="w-[100px] h-[50px] bg-slate-200 flex justify-center items-center"
+          onClick={async () => {
+            if (mode == "findme") {
+              const dateOnly = eventStartDay.split("T")[0];
+              await huynxios.post("/api/admin/finding/period", {
+                startDate: dateOnly,
+              });
+            } else {
+              const start = eventStartDay + ":00";
+              const end = eventEndtDay + ":00";
+              await huynxios.post("/api/admin/racing/period", {
+                startTime: start,
+                endTime: end,
+                numberOfWinners: eventWinnderCount,
+              });
+            }
+          }}
+        >
+          <p>저장하기</p>
+        </div>
       </div>
       <p className="text-[20px] font-semibold">상세 이벤트 설정</p>
       <div className="flex">
@@ -368,7 +445,7 @@ const AdminPage = () => {
         <p
           className="text-[14px]"
           onClick={() => {
-            changeMode("");
+            changeMode("racinggame");
           }}
         >
           전력으로 513km

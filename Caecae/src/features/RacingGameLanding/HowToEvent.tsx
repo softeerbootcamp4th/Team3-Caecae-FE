@@ -20,6 +20,8 @@ const HowToEvent = () => {
                   에게 추첨하여 경품 증정!
                 </p>
                 <p className="text-white text-[16px] mt-5">
+                  * 레이싱 속도는 게임을 플레이할 때 마다 <span className="text-[#00AAD2]">랜덤</span>으로 달라져요!
+                  <br />
                   * 중복 응모 시 가장 높은 점수 1건만 추첨에 반영됩니다.
                 </p>
                 <div className="flex flex-row justify-center items-center gap-10 mt-14">

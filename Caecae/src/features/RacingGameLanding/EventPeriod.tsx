@@ -24,10 +24,9 @@ const EventPeriod:React.FC<EventPeriodProps> = ({isEventOpen}) => {
             <InfoSection title="7일간 매일매일">
               <div className="flex flex-col justify-center items-center py-[60px] px-[60px]">
                 <p className="text-white text-center text-[22px] line-[140%]">
-                  참여 기간: 7.15 (월) - 7.21 (일)
+                  참여 기간: 8.26 (월) - 9.1 (일)
                   <br />
-                  당첨자 발표 날짜: 7.29 (월)부터 주말ㆍ공휴일 제외 순차적으로
-                  발송
+                  당첨자 발표 날짜: 9.2 (화)부터 주말ㆍ공휴일 제외 순차적으로 발송
                 </p>
                 <div className="my-16">
                   <img
