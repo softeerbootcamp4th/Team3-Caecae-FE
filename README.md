@@ -22,6 +22,7 @@
 - 최고점수만 기록되며, 커스텀 옵션을 선택하면 당첨 확률이 올라갑니다.
 
 <img width="1711" alt="image" src="https://github.com/user-attachments/assets/30d4ff09-cad8-4b87-adc8-10b3d8714917">
+
 ## 👥 팀원 소개
 
 | 서창교                      | 조민환                      | 오익준                      | 박진우                      |
@@ -62,6 +63,7 @@
 
 ## 📁 아카이빙
 - [스프린트 및 회고](https://drive.google.com/drive/folders/1s0Vez7YbkkyGPteh-5q0r0Y_vre_QfZq?usp=sharing)
+- [노션 개발문서](https://www.notion.so/bside/a9af53f019da43c5bd0e0db378d1ab8a?v=392b2231f6c540c7af9981df0ab85d61&pvs=4)
 
 ## 💻 Tech - Frontend 개발 목표
 
@@ -182,8 +184,3 @@ Caecae
 │    ├── types
 │    └── utils
 ```
-
-
-## 📁 정리문서
-- [개발문서 정리](https://www.notion.so/bside/a9af53f019da43c5bd0e0db378d1ab8a?v=392b2231f6c540c7af9981df0ab85d61&pvs=4)
-- [스프린트 관리](https://pccommen.atlassian.net/jira/software/projects/CC/boards/1)
