@@ -7,6 +7,8 @@
 > **캐스퍼 일렉트릭 출시 이벤트 페이지 :  Caecae**
 
 🔗 http://www.caecae.kro.kr/
+<br/>
+🎬 https://youtu.be/_dWo_DU6BhY
 
 ### 🔎 이벤트 소개 : 나를 찾아봐 (숨은 캐스퍼 찾기 게임)
 - 매일 오후 3시15분 오픈되는 선착순 이벤트입니다.
