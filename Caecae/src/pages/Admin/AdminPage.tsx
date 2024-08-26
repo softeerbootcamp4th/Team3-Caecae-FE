@@ -23,6 +23,10 @@ interface FindMeAnswer {
   x: number;
   y: number;
 }
+interface FindMeWinner {
+  day: number;
+  phone: string;
+}
 
 const defaultFindMe: FindMe = {
   day: 0,
@@ -66,6 +70,7 @@ const AdminPage = () => {
   const [eventStartDay, setEventStartDay] = useState("");
   const [eventEndtDay, setEventEndtDay] = useState("");
   const [eventWinnderCount, setEventWinnerCount] = useState(0);
+  const [findMeWinners, setFindMeWinnesr] = useState<FindMeWinner[]>([]);
 
   function changeQuestionURL(url: string) {
     const newFindme = [...findmes];
@@ -138,9 +143,18 @@ const AdminPage = () => {
     }
   };
 
+  const findMeTableContent = findMeWinners.map((winner) => {
+    return (
+      <tr>
+        <td>{winner.day}</td>
+        <td>{winner.phone}</td>
+      </tr>
+    );
+  });
+
   const content =
     mode === "findme" ? (
-      <div className="flex flex-col gap-[20px]">
+      <div className="flex flex-col gap-[20px] overflow-scroll">
         <div className="flex flex-col">
           <div className="flex gap-[30px]">
             {days.map((_day, index) => (
@@ -309,6 +323,25 @@ const AdminPage = () => {
             <p>저장하기</p>
           </div>
         </div>
+        <div
+          className="bg-slate-200 flex justify-center items-center w-[200px] h-[100px]"
+          onClick={async () => {
+            const response = await huynxios.get("/api/admin/finding/winner");
+            const winners = response as Response<{ winner: FindMeWinner[] }>;
+            setFindMeWinnesr(winners.data.winner);
+          }}
+        >
+          <p>let's 당첨</p>
+        </div>
+        <table className="w-1/2">
+          <thead className="bg-slate-200">
+            <tr>
+              <th className="w-1/3 border border-[black]">gameIndex</th>
+              <th className="w-2/3 border border-[black]">phone number</th>
+            </tr>
+            <tbody>{findMeTableContent}</tbody>
+          </thead>
+        </table>
       </div>
     ) : (
       <div className="flex flex-col">
